@@ -42,10 +42,9 @@ streamlit run app.py
 
 ## Streamlit Community Cloud에 배포하기
 
-1. 이 저장소를 GitHub에 올립니다.
-2. [share.streamlit.io](https://share.streamlit.io) 에 GitHub 계정으로 로그인합니다.
-3. **New app** → 저장소 선택 → Branch `main` → Main file path `app.py` → **Deploy**.
-4. 몇 분 뒤 `https://<앱이름>.streamlit.app` 주소가 생성됩니다. 학생들에게 이 주소를 안내하면 됩니다.
+1. [share.streamlit.io](https://share.streamlit.io) 에 GitHub 계정으로 로그인합니다.
+2. **New app** → Repository `richee-pc/ds_cs` → Branch `main` → Main file path `app.py` → **Deploy**.
+3. 몇 분 뒤 `https://<앱이름>.streamlit.app` 주소가 생성됩니다. 학생들에게 이 주소를 안내하면 됩니다.
 
 이후 `page.html` 을 수정해 GitHub에 push하면 배포된 페이지에 자동 반영됩니다.
 
