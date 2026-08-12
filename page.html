@@ -1754,6 +1754,73 @@
 
   .track-sim i { display: block; height: 100%; width: 0; background: var(--edge); border-radius: 99px; transition: width .15s linear; }
 
+  /* ---- 기수정렬: 줄기와 잎 ---- */
+
+  .stem { display: none; margin-top: 12px; }
+  .stem.show { display: block; }
+
+  .stem-h {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin: 0 0 8px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .stem-h b { color: var(--edge); }
+
+  .srow {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 9px;
+    align-items: stretch;
+    margin-bottom: 4px;
+  }
+
+  .srow .stemk {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .srow .leaf {
+    min-height: 34px;
+    border: 1px dashed var(--line-2);
+    border-radius: 6px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px;
+    flex-wrap: wrap;
+  }
+
+  .srow.hot .stemk { background: var(--c-key); color: #fff; border-color: var(--c-key); }
+  .srow.hot .leaf { border-style: solid; border-color: var(--c-key); background: var(--edge-soft); }
+
+  .srow .lf {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: #17224a;
+    background: var(--c-cmp);
+    border-radius: 5px;
+    padding: 4px 10px;
+  }
+
+  .srow .lf.new { background: var(--c-key); color: #fff; }
+  .srow .lf u { text-decoration: none; opacity: .5; }
+
   /* ---- 알고리즘 카드 ---- */
 
   .algo {
@@ -2426,12 +2493,14 @@
               <button type="button" data-set="7,4,9,6,3,8,7,5" class="on">학습지 ①</button>
               <button type="button" data-set="71,49,92,55,38,82,72,53">학습지 ②</button>
               <button type="button" data-set="4,5,9,3,6,8,7,1">학습지 ③</button>
-              <button type="button" data-set="28,93,39,81,62,72,38,26">기수정렬 예제</button>
+              <button type="button" data-set="8,2,7,3,5">기수 ① 한 자리</button>
+              <button type="button" data-set="28,93,39,81,62,72,38,26">기수 ② 두 자리</button>
               <button type="button" data-set="random">무작위</button>
             </div>
           </div>
 
           <div class="stage" id="ls-stage"></div>
+          <div class="stem" id="ls-stem"></div>
 
           <div class="legend">
             <span><i style="background:var(--c-idle)"></i>대기</span>
@@ -2472,6 +2541,15 @@
             <div><dt>자료 개수</dt><dd id="ls-n">0</dd></div>
           </dl>
         </div>
+
+        <h3>직접 돌려 보고 싶다면</h3>
+        <p>수업 슬라이드의 C 코드를 그대로 파이썬으로 옮긴 <strong>실습 노트북</strong>이 있습니다.
+          학습지 배열이 들어 있어서, <strong>손으로 푼 답과 실행 결과를 맞춰 볼 수 있습니다.</strong>
+          설치할 것 없이 바로 열립니다.</p>
+        <a class="cta" href="https://colab.research.google.com/github/richee-pc/ds_cs/blob/main/ds_sort_practice.ipynb"
+           target="_blank" rel="noopener noreferrer">
+          정렬 실습 노트북 열기 <span>→</span>
+        </a>
 
         <h3>이렇게 보세요</h3>
         <ul class="plain">
@@ -2747,19 +2825,10 @@
    } <b>while</b>(low&lt;high);  </pre>
             <div class="cut-note"><b>슬라이드가 여기서 끝납니다</b>
               수업 자료의 코드는 <span style="font-family:var(--mono)">} while(low&lt;high);</span> 까지만 실려 있습니다.
-              실제로는 아래 두 줄이 더 있어야 완성됩니다. 시험 대비용으로 꼭 기억해 두세요.</div>
-            <p class="code-src">이어지는 부분</p>
-            <pre>   SWAP(list[left], list[high], temp);   <u>// 피벗을 제자리로</u>
-   <b>return</b> high;                          <u>// 피벗의 최종 위치를 돌려줌</u>
-}
-
-<b>void</b> quick_sort(<b>int</b> list[], <b>int</b> left, <b>int</b> right) {
-   <b>if</b>(left&lt;right) {
-      <b>int</b> q = partition(list, left, right);
-      quick_sort(list, left, q-1);          <u>// 피벗 왼쪽</u>
-      quick_sort(list, q+1, right);         <u>// 피벗 오른쪽</u>
-   }
-}</pre>
+              가르기가 끝난 뒤에는 <strong>피벗을 오른손이 멈춘 자리로 옮기고</strong>,
+              <strong>그 위치를 돌려주는</strong> 마무리가 더 필요합니다.
+              그리고 그 위치를 기준으로 <strong>왼쪽 구간과 오른쪽 구간을 각각 다시 퀵 정렬</strong>합니다.
+              시뮬레이터의 마지막 두 단계가 정확히 그 부분입니다.</div>
             <div class="line-by-line">
               <div class="lbl-row"><code>pivot = list[left];</code>
                 <span>“<strong>맨 왼쪽 애를 기준(피벗)으로</strong> 삼는다.”</span></div>
@@ -2809,40 +2878,10 @@
               <li><strong>결합</strong> — 정렬된 부분 배열을 하나의 배열로 통합한다.</li>
             </ul>
 
-            <p class="code-src">교재 표준 코드 · C <span style="color:var(--sort)">(수업 슬라이드에는 그림만 있음)</span></p>
-            <pre><b>int</b> sorted[MAX_SIZE];   <u>// 합칠 때 쓸 여분의 배열</u>
-
-<b>void</b> merge(<b>int</b> list[], <b>int</b> left, <b>int</b> mid, <b>int</b> right) {
-    <b>int</b> i=left, j=mid+1, k=left, l;
-    <b>while</b>(i&lt;=mid &amp;&amp; j&lt;=right) {        <u>// 두 줄이 모두 남아 있는 동안</u>
-        <b>if</b>(list[i]&lt;=list[j]) sorted[k++] = list[i++];   <u>// 왼쪽 줄 앞이 작으면</u>
-        <b>else</b>                 sorted[k++] = list[j++];   <u>// 오른쪽 줄 앞이 작으면</u>
-    }
-    <b>if</b>(i&gt;mid) <b>for</b>(l=j; l&lt;=right; l++) sorted[k++] = list[l];  <u>// 남은 건 그대로</u>
-    <b>else</b>      <b>for</b>(l=i; l&lt;=mid;   l++) sorted[k++] = list[l];
-    <b>for</b>(l=left; l&lt;=right; l++) list[l] = sorted[l];        <u>// 원래 배열로 되돌리기</u>
-}
-
-<b>void</b> merge_sort(<b>int</b> list[], <b>int</b> left, <b>int</b> right) {
-    <b>int</b> mid;
-    <b>if</b>(left&lt;right) {
-        mid = (left+right)/2;              <u>// 가운데에서 반으로</u>
-        merge_sort(list, left, mid);       <u>// 왼쪽 절반 정렬</u>
-        merge_sort(list, mid+1, right);    <u>// 오른쪽 절반 정렬</u>
-        merge(list, left, mid, right);     <u>// 정렬된 둘을 합치기</u>
-    }
-}</pre>
-
-            <div class="line-by-line">
-              <div class="lbl-row"><code>mid = (left+right)/2;</code>
-                <span>“<strong>딱 가운데</strong>에서 자른다.” — 퀵 정렬처럼 기준값을 고르지 않습니다. 무조건 반반.</span></div>
-              <div class="lbl-row"><code>list[i] &lt;= list[j]</code>
-                <span>“<strong>두 줄의 맨 앞사람만</strong> 비교해서 작은 쪽을 데려온다.”</span></div>
-              <div class="lbl-row"><code>sorted[k++]</code>
-                <span>데려온 사람을 <strong>새 줄(여분 배열)</strong> 에 차례로 세웁니다. 이래서 메모리가 더 필요합니다.</span></div>
-              <div class="lbl-row"><code>list[l] = sorted[l];</code>
-                <span>다 합쳤으면 <strong>원래 배열에 옮겨 담습니다.</strong></span></div>
-            </div>
+            <div class="cut-note"><b>수업 자료에는 코드가 없습니다</b>
+              합병 정렬은 슬라이드에 <strong>그림(분할·합병 과정)만</strong> 실려 있습니다.
+              시뮬레이터에서 합병 정렬을 골라 <strong>쪼개는 단계</strong>와 <strong>합치는 단계</strong>를 직접 넘겨 보세요.
+              배열 A와 배열 B의 맨 앞만 비교해서 배열 C로 옮겨 담는 그 과정입니다.</div>
 
             <div class="cut-note"><b>퀵 정렬과 뭐가 다른가</b>
               퀵 정렬은 <strong>피벗 기준으로 비균등</strong> 하게 자르고, 합병 정렬은 <strong>무조건 가운데</strong>에서 자릅니다.
@@ -2885,34 +2924,10 @@
                 <span style="font-family:var(--mono);color:var(--c-done);font-weight:700">26 &nbsp;28 &nbsp;38 &nbsp;39 &nbsp;62 &nbsp;72 &nbsp;81 &nbsp;93</span></div>
             </div>
 
-            <p class="code-src">교재 표준 코드 · C <span style="color:var(--sort)">(수업 슬라이드에는 그림만 있음)</span></p>
-            <pre>#define BUCKETS 10
-
-<b>void</b> radix_sort(<b>int</b> list[], <b>int</b> n) {
-    <b>int</b> i, b, d, factor = 1;
-    Queue queues[BUCKETS];               <u>// 0~9번 바구니</u>
-    <b>for</b>(b=0; b&lt;BUCKETS; b++) init(&amp;queues[b]);
-
-    <b>for</b>(d=0; d&lt;DIGITS; d++) {            <u>// 1의 자리 → 10의 자리 → …</u>
-        <b>for</b>(i=0; i&lt;n; i++)               <u>// 자릿수를 보고 바구니에 넣고</u>
-            enqueue(&amp;queues[(list[i]/factor)%10], list[i]);
-        <b>for</b>(b=0, i=0; b&lt;BUCKETS; b++)    <u>// 0번 바구니부터 순서대로 꺼낸다</u>
-            <b>while</b>(!is_empty(&amp;queues[b]))
-                list[i++] = dequeue(&amp;queues[b]);
-        factor *= 10;                    <u>// 다음 자릿수로</u>
-    }
-}</pre>
-
-            <div class="line-by-line">
-              <div class="lbl-row"><code>(list[i]/factor)%10</code>
-                <span>“<strong>몇 번 바구니에 넣을까?</strong>” — factor가 1이면 1의 자리, 10이면 10의 자리를 뽑아냅니다.
-                  예: 93/10%10 = 9 → 9번 바구니.</span></div>
-              <div class="lbl-row"><code>enqueue / dequeue</code>
-                <span>바구니는 <strong>큐(Queue)</strong> 입니다. 먼저 넣은 게 먼저 나와야
-                  <strong>앞 자릿수의 순서가 깨지지 않기</strong> 때문입니다.</span></div>
-              <div class="lbl-row"><code>factor *= 10;</code>
-                <span>“다음엔 <strong>한 자리 위</strong>를 보자.” 1 → 10 → 100 …</span></div>
-            </div>
+            <div class="cut-note"><b>수업 자료에는 코드가 없습니다</b>
+              기수 정렬도 슬라이드에 <strong>줄기와 잎 그래프 그림만</strong> 실려 있습니다.
+              시뮬레이터에서 <strong>기수 ①</strong>(한 자리, 슬라이드 p28 예제) 또는
+              <strong>기수 ②</strong>(두 자리, p29 예제)를 고르면 같은 그림이 단계별로 재현됩니다.</div>
 
             <div class="cut-note"><b>왜 O(n log n) 보다 빠른가</b>
               비교를 아예 안 하기 때문입니다. 자릿수 d가 고정이면 <strong>자료 개수 n에 정비례</strong>합니다.
@@ -3227,6 +3242,32 @@
               <div class="lbl-row"><code>return -1;</code>
                 <span>끝까지 갔는데 없으면 <strong>-1(없음)</strong> 을 돌려줍니다. 배열 번호는 0 이상이라 -1을 &lsquo;없음&rsquo;으로 씁니다.</span></div>
             </div>
+
+            <h3 style="margin-top:26px">개선된 순차 탐색 &mdash; 리스트 끝에 탐색키 저장</h3>
+            <p>순차 탐색의 for문은 매번 두 가지를 확인합니다.
+              <strong>&ldquo;끝까지 왔나?&rdquo;</strong> 와 <strong>&ldquo;찾는 값인가?&rdquo;</strong>.
+              이 중 하나를 없애는 방법이 있습니다.</p>
+
+            <div class="easy">
+              <h5>찾는 값을 미리 맨 뒤에 놓아 둔다</h5>
+              <p>줄 맨 끝에 <strong>찾는 값을 하나 몰래 세워 둡니다.</strong> 그러면 무슨 일이 생길까요?
+                <strong>반드시 찾게 됩니다.</strong> 진짜로 있으면 중간에서 만나고,
+                없으면 맨 끝에 세워 둔 그 가짜를 만나죠.</p>
+              <p>덕분에 <strong>&ldquo;끝까지 왔나?&rdquo; 를 매번 확인할 필요가 없어집니다.</strong>
+                멈춘 자리가 맨 끝이면 &lsquo;없음&rsquo;, 중간이면 &lsquo;찾음&rsquo;. 비교 조건이 하나 줄어드니 조금 더 빨라집니다.</p>
+            </div>
+
+            <p class="code-src">슬라이드 예제 &mdash; 9 5 8 3 7 에서 찾기</p>
+            <div class="line-by-line">
+              <div class="lbl-row"><code>8을 찾는 경우</code>
+                <span>(1) 9&ne;8 계속 &rarr; (2) 5&ne;8 계속 &rarr; (3) <strong>8=8 탐색 성공</strong></span></div>
+              <div class="lbl-row"><code>2를 찾는 경우</code>
+                <span>(1)~(5) 9, 5, 8, 3, 7 모두 다름 &rarr;
+                  (6) <strong>2=2 이지만 마지막 항목이므로 탐색 실패</strong></span></div>
+            </div>
+            <div class="cut-note"><b>핵심</b>
+              맨 끝에서 만난 값은 <strong>내가 심어 둔 가짜</strong>입니다.
+              그래서 &lsquo;찾았다&rsquo;가 아니라 <strong>&lsquo;없다&rsquo;</strong> 로 판정합니다.</div>
           </div>
         </div>
 
@@ -3314,6 +3355,34 @@
             </div>
           </div>
         </div>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">5</span>
+            <h4>균형 이진 탐색 트리<em>AVL TREE</em></h4><span class="big-o">O(log n)</span></div>
+          <div class="algo-b">
+            <p>이진 탐색 트리는 자료를 어떤 순서로 넣느냐에 따라 <strong>한쪽으로 쭉 늘어질 수</strong> 있습니다.
+              그러면 사실상 연결 리스트가 되어 탐색이 O(n)으로 느려집니다.
+              <strong>균형 이진 탐색 트리(AVL 트리)</strong> 는 이런 일이 없도록 스스로 모양을 잡습니다.</p>
+
+            <div class="easy">
+              <h5>모빌이 한쪽으로 기울지 않게</h5>
+              <p>천장에 매단 모빌을 떠올려 보세요. 한쪽에만 장식을 잔뜩 달면 <strong>기울어집니다.</strong>
+                AVL 트리는 <strong>모든 노드에서 왼쪽과 오른쪽 높이 차이가 1을 넘지 않도록</strong> 유지합니다.</p>
+              <p>이 &lsquo;높이 차이&rsquo;를 <strong>균형 인수</strong>라고 합니다.
+                모든 노드의 균형 인수가 <strong>0, +1, &minus;1</strong> 이면 AVL 트리이고,
+                하나라도 <strong>+2 나 &minus;2</strong> 가 나오면 AVL 트리가 아닙니다.</p>
+            </div>
+
+            <div class="split">
+              <div class="sp"><h5>(a) AVL 트리</h5>
+                모든 노드의 균형 인수가 <span class="yes">0, +1, &minus;1</span> 안에 들어옵니다.
+                어느 쪽으로도 심하게 치우치지 않아 탐색이 항상 <strong>O(log n)</strong>.</div>
+              <div class="sp"><h5>(b) 비 AVL 트리</h5>
+                균형 인수 <span class="no">+2</span> 인 노드가 있습니다.
+                한쪽으로 기울어져 있어 <strong>탐색이 느려질 수</strong> 있습니다.</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="se-hash">
@@ -3354,6 +3423,25 @@
           <li>해시 함수 값이 <strong>해시 테이블 주소 영역 내에 고르게 분포</strong>되어야 한다.</li>
           <li>계산이 빨라야 한다.</li>
         </ul>
+
+        <h3>해시 함수의 종류</h3>
+        <div class="split">
+          <div class="sp"><h5>제산 함수</h5>
+            <span style="font-family:var(--mono)">h(k) = k mod M</span> &mdash; 나머지를 주소로 씁니다.
+            테이블 크기 <strong>M은 소수(prime number)</strong> 로 고릅니다.
+            가장 많이 쓰는 방식이고, 시뮬레이터도 이 방식입니다.</div>
+          <div class="sp"><h5>폴딩 함수</h5>
+            키를 <strong>여러 조각으로 잘라 더하는</strong> 방식입니다.
+            조각을 그대로 옮겨 더하는 <strong>이동 폴딩</strong>과,
+            접듯이 뒤집어 더하는 <strong>경계 폴딩</strong>이 있습니다.
+            자릿수가 긴 키(주민번호, 계좌번호 등)에 씁니다.</div>
+        </div>
+
+        <div class="cut-note" style="margin-top:14px"><b>슬라이드의 입력 데이터 예시</b>
+          수업 자료에서는 숫자 대신 <strong>단어</strong>를 넣는 예도 보여 줍니다 &mdash;
+          <span style="font-family:var(--mono)">array, binary, bubble, file, digit, direct, zero, bucket</span>.
+          선형 조사법 예시에서는 <span style="font-family:var(--mono)">&ldquo;do&rdquo;, &ldquo;for&rdquo;, &ldquo;if&rdquo;, &ldquo;case&rdquo;, &ldquo;else&rdquo;, &ldquo;return&rdquo;, &ldquo;function&rdquo;</span> 을 씁니다.
+          <strong>문자열도 숫자로 바꾸면(예: 글자 코드의 합) 똑같이 해싱할 수 있습니다.</strong></div>
 
         <h3>충돌 해결 시뮬레이터</h3>
         <p>수업 슬라이드의 예제 그대로입니다. <strong>테이블 크기 M = 7</strong>, 넣을 키는
@@ -3434,6 +3522,8 @@
                 <td>색인으로 구간을 좁힌 뒤 순차 탐색</td></tr>
               <tr><td class="el">보간 탐색</td><td class="mk">O(log n)</td><td><strong>반드시 정렬</strong></td>
                 <td>값의 크기로 위치를 예측해 불균등 분할</td></tr>
+              <tr><td class="el">균형 이진 탐색 트리</td><td class="mk">O(log n)</td><td>트리로 구성</td>
+                <td>한쪽으로 기울지 않게 모양을 유지</td></tr>
               <tr class="top"><td class="el">해싱</td><td class="mk">평균 O(1)</td><td>필요 없음</td>
                 <td>키를 계산해 주소를 직접 구함</td></tr>
             </tbody>
@@ -4991,41 +5081,52 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         return out;
       }
 
-      /* 기수 정렬 — 1의 자리, 10의 자리… 순서로 바구니에 나눠 담았다 꺼냅니다. */
+      /* 기수 정렬 — 수업 자료의 '줄기와 잎 그래프' 방식.
+         줄기(0~9 바구니)에 잎(값)을 매달았다가 위에서부터 훑어 내립니다. */
       function radix(src) {
         var a = src.slice(), out = [], cmp = 0, mv = 0, done = [];
-        out.push(F(a, cmp, mv, {}, done,
-          '시작 — 값끼리 비교하지 않습니다. 자릿수만 보고 바구니에 나눠 담습니다.', true));
         var max = Math.max.apply(null, a);
         var digits = String(max).length;
+
+        function empty() { return [[], [], [], [], [], [], [], [], [], []]; }
+
+        function snap(marks, msg, lm, bucket, hot, note) {
+          var f = F(a, cmp, mv, marks, done, msg, lm);
+          f.buckets = bucket ? bucket.map(function (v) { return v.slice(); }) : null;
+          f.hot = (hot === undefined ? -1 : hot);
+          f.note = note || '';
+          out.push(f);
+        }
+
+        snap({}, '시작 — 값끼리 비교하지 않습니다. 자릿수만 보고 줄기에 매답니다.', true,
+             empty(), -1, '줄기 = 자릿수 0~9   ·   잎 = 그 줄기에 매달린 값');
 
         for (var d = 0; d < digits; d++) {
           var unit = Math.pow(10, d);
           var name = (d === 0 ? '1의 자리' : (unit + '의 자리'));
-          out.push(F(a, cmp, mv, {}, done, name + '로 분류합니다. (바구니 0~9)', true));
+          var bucket = empty();
+          snap({}, (d + 1) + '단계 — ' + name + '를 보고 줄기에 매답니다.', true,
+               bucket, -1, name + '로 분류');
 
-          var bucket = [[], [], [], [], [], [], [], [], [], []];
           for (var i = 0; i < a.length; i++) {
             var dg = Math.floor(a[i] / unit) % 10;
             bucket[dg].push(a[i]);
             var m = {}; m[i] = 'key';
-            out.push(F(a, cmp, mv, m, done,
-              a[i] + ' → ' + name + '가 ' + dg + ' → ' + dg + '번 바구니'));
+            snap(m, a[i] + ' 의 ' + name + '는 ' + dg + ' → ' + dg + '번 줄기에 매답니다.',
+                 false, bucket, dg, name + '로 분류');
           }
 
           var flat = [];
-          for (var b = 0; b < 10; b++) for (var q = 0; q < bucket[b].length; q++) flat.push(bucket[b][q]);
+          for (var b = 0; b < 10; b++)
+            for (var q = 0; q < bucket[b].length; q++) flat.push(bucket[b][q]);
           for (var k = 0; k < flat.length; k++) { a[k] = flat[k]; mv++; }
-
-          var full = bucket.map(function (v, idx) { return v.length ? idx + ':[' + v.join(' ') + ']' : null; })
-                           .filter(Boolean).join('  ');
-          out.push(F(a, cmp, mv, {}, done, full, true));
-          out.push(F(a, cmp, mv, {}, done,
-            '바구니 0번부터 순서대로 꺼내면 → ' + a.join(' '), true));
+          snap({}, '0번 줄기부터 차례로 훑어 내리면 → ' + a.join(' '), true,
+               bucket, -1, name + ' 분류 결과');
         }
+
         for (var z = 0; z < a.length; z++) done.push(z);
-        out.push(F(a, cmp, mv, {}, done,
-          '정렬 완료! 비교는 0번, 이동 ' + mv + '번 — 값을 한 번도 비교하지 않았습니다.', true));
+        snap({}, '정렬 완료! 비교는 0번, 이동 ' + mv + '번 — 값을 한 번도 비교하지 않았습니다.',
+             true, null, -1, '');
         return out;
       }
 
@@ -5214,6 +5315,28 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           html += '<div class="' + cls + '" style="height:' + h + '%"><span>' + f.a[i] + '</span></div>';
         }
         stage.innerHTML = html;
+
+        var stem = document.getElementById('ls-stem');
+        if (f.buckets) {
+          var sh = '<p class="stem-h"><b>줄기와 잎 그래프</b><span>' +
+                   (f.note || '') + '</span></p>';
+          for (var b = 0; b < 10; b++) {
+            var leaves = '';
+            for (var q = 0; q < f.buckets[b].length; q++) {
+              var last = (b === f.hot && q === f.buckets[b].length - 1);
+              leaves += '<span class="lf' + (last ? ' new' : '') + '">' + f.buckets[b][q] + '</span>';
+            }
+            sh += '<div class="srow' + (b === f.hot ? ' hot' : '') + '">' +
+                  '<span class="stemk">' + b + '</span>' +
+                  '<span class="leaf">' + leaves + '</span></div>';
+          }
+          stem.innerHTML = sh;
+          stem.classList.add('show');
+        } else {
+          stem.classList.remove('show');
+          stem.innerHTML = '';
+        }
+
         say.textContent = f.msg;
         elCmp.textContent = f.cmp;
         elSwp.textContent = f.swp;
