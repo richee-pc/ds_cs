@@ -2152,12 +2152,12 @@
     <div class="hero-in">
       <div>
         <p class="kicker"><i>2026학년도 2학기</i><i>3학년 자료구조</i><i>수행평가 2 · 탐색 알고리즘 설계</i></p>
-        <h1>빠르게 찾는 방법을<span class="b">설계하기</span></h1>
+        <h1>탐색 알고리즘<span class="b">직접 돌려보고 확인하기</span></h1>
         <p class="lede">
           자료가 100건일 때는 아무 방법이나 써도 됩니다. 100만 건이 되면 달라집니다.
-          같은 데이터라도 <strong>어떤 구조에 담고 어떻게 찾느냐</strong>에 따라 비용이
-          <strong>O(n)에서 O(log n), O(1)</strong>까지 벌어집니다.
-          그 차이를 근거로 설명하는 것이 이번 과제입니다.
+          이번에는 그 차이를 <strong>말로 설명하는 대신 코드를 실제로 실행해서</strong> 확인합니다.
+          <strong>코드는 전부 제공하니</strong> 자기 데이터를 넣고 실행 버튼만 누르면 됩니다.
+          프로그래밍을 잘 못해도 괜찮습니다.
         </p>
         <dl class="facts">
           <div class="fact"><dt>평가 시기</dt><dd>8월 4주 <em>9/21~9/23</em></dd></div>
@@ -2215,23 +2215,34 @@
           <div class="goal">
             <span class="g-k">목적 1</span>
             <h4>자료의 특성이 탐색 전략을 결정한다</h4>
-            <p>자료가 정렬되어 있는지, 몇 건인지, 어떤 구조에 담겨 있는지에 따라
-               쓸 수 있는 탐색 방법이 달라집니다. 자료를 먼저 분석하고 그에 맞는 방법을
-               고르는 순서를 익힙니다.</p>
+            <p>자료가 정렬되어 있는지, 몇 건인지에 따라 쓸 수 있는 탐색 방법이 달라집니다.
+               자료를 먼저 분석하고 그에 맞는 방법을 고르는 순서를 익힙니다.</p>
           </div>
           <div class="goal">
             <span class="g-k">목적 2</span>
-            <h4>감이 아니라 비용으로 판단한다</h4>
-            <p>“빠를 것 같다”가 아니라 시간 복잡도라는 공통 언어로 비교합니다.
-               최선·평균·최악을 구분하고, 자료가 커질 때 무엇이 무너지는지 설명합니다.</p>
+            <h4>배운 이론을 코드로 직접 확인한다</h4>
+            <p>“이진 탐색이 O(log n)이다”를 외우는 것과 100만 건에서 실제로 20번 만에
+               찾아내는 걸 눈으로 보는 것은 다릅니다. 코드를 돌려 <strong>이론과 실제가 맞는지</strong>
+               직접 확인합니다.</p>
           </div>
         </div>
 
         <h3>수행평가 1과 다른 점</h3>
-        <p>수행평가 1에서는 <strong>구조를 설계</strong>하는 것이 핵심이었습니다.
-          이번에는 <strong>과정을 단계로 보여 주는 것</strong>과 <strong>비용을 수치로 비교하는 것</strong>이
-          핵심입니다. 두 항목을 합쳐 50점, 전체의 절반입니다.
-          말로 설명하는 데 그치지 말고 <strong>표나 그림으로 단계를 그려야</strong> 합니다.</p>
+        <p>수행평가 1은 <strong>구조를 설계</strong>하는 과제였습니다. 이번에는 한 걸음 더 나아가
+          <strong>코드를 실행해 결과를 근거로 삼습니다.</strong>
+          실행 결과로 단계를 기록하고(③ 25점), 실측한 비교 횟수로 효율을 비교합니다(④ 25점).
+          두 항목을 합쳐 50점, 전체의 절반입니다.</p>
+
+        <div class="panel" style="background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--edge);border-radius:var(--r);padding:20px 22px">
+          <span class="panel-tag" style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--edge);display:block;margin-bottom:8px">부담 없이 하세요</span>
+          <p style="margin:0">
+            <strong>코드는 완성된 것을 그대로 드립니다.</strong> 여러분이 할 일은 세 가지뿐입니다.
+            ① 코드에 <strong>내 주제의 데이터를 넣고</strong> ② <strong>실행 버튼을 누르고</strong>
+            ③ <strong>나온 결과를 표에 옮겨 적고 해석하는 것</strong>입니다.
+            새로 코드를 짜야 하는 부분은 없습니다.
+            설치도 필요 없습니다 — 구글 계정만 있으면 <strong>Google Colab</strong>에서 바로 실행됩니다.
+          </p>
+        </div>
       </section>
 
       <section id="t2-form">
@@ -2243,14 +2254,15 @@
           <div class="item-h"><span class="n">1</span><h4>탐구 주제 명칭 및 자료의 특성 분석</h4><span class="pts">평가요소 ① · 15점</span></div>
           <div class="item-b">
             <div class="verb">
-              <span class="vf">작성 내용</span>
+              <span class="vf">작성 양식</span>
               <p>1. 탐구 주제 명칭 및 선정 이유<br>
-                (예: 학교 도서관 도서 검색, 음원 사이트 곡 검색, 게임 아이템 시세 조회,
-                학생증 바코드 조회, 택배 송장 조회 등)</p>
-              <p style="margin-top:14px">[자료의 특성]<br>
+                (예: 학교 도서관 도서 검색, 음원 사이트 곡 검색, 학생 명렬표에서 이름 찾기,
+                게임 아이템 시세 조회, 택배 송장 조회 등)</p>
+              <p style="margin-top:14px">[자료의 특성 분석]<br>
                 · 무엇을 <strong>키(key)</strong>로 삼아 무엇을 찾나요?<br>
                 · 자료가 대략 몇 건인가요? (수십 / 수천 / 수십만)<br>
-                · 이 자료는 미리 <strong>정렬되어 있나요?</strong> 정렬할 수 있나요?</p>
+                · 이 자료는 미리 <strong>정렬되어 있나요?</strong> 정렬할 수 있나요?<br>
+                · 자료가 자주 추가·삭제되나요?</p>
               <div class="pick">
                 <div><strong>[자료 구조 선택 (체크)]</strong>
                   배열 · 리스트 — 순서대로 저장, 인덱스로 접근</div>
@@ -2259,6 +2271,7 @@
                 <div><strong>[자료 구조 선택 (체크)]</strong>
                   해시 테이블 — 키를 주소로 변환, 평균 즉시 접근</div>
               </div>
+              <p style="margin-top:14px">[선택 이유] 왜 그 자료 구조인가요?</p>
             </div>
             <div class="tip"><b>상위 수준으로 가려면</b>
               <p>서비스 이름만 적으면 낮은 점수입니다. <strong>키가 무엇이고 무엇을 찾는지</strong>를
@@ -2267,55 +2280,234 @@
         </div>
 
         <div class="item">
-          <div class="item-h"><span class="n">2</span><h4>탐색 알고리즘 선택과 적용 근거</h4><span class="pts">평가요소 ② · 25점</span></div>
+          <div class="item-h"><span class="n">2</span><h4>탐색 방법 선택 및 근거</h4><span class="pts">평가요소 ② · 25점</span></div>
           <div class="item-b">
             <div class="verb">
-              <span class="vf">작성 내용</span>
-              <p>2. 이 자료에서 원하는 값을 찾기 위해 어떤 탐색 방법
-                (순차 탐색 / 이진 탐색 / 해싱 등)을 사용할 것이며, 그 이유는 무엇인가요?<br>
-                다른 탐색 방법과 비교해서 설명해 보세요.</p>
+              <span class="vf">작성 양식</span>
+              <p>2. 탐색 방법 선택 및 근거</p>
+              <div class="pick">
+                <div><strong>[탐색 방법 선택 (체크)]</strong>
+                  순차 탐색 — 앞에서부터 하나씩 확인</div>
+                <div><strong>[탐색 방법 선택 (체크)]</strong>
+                  이진 탐색 — 정렬된 자료에서 범위를 절반씩 줄임</div>
+                <div><strong>[탐색 방법 선택 (체크)]</strong>
+                  해싱 — 키를 계산해 바로 위치를 찾음</div>
+              </div>
+              <p style="margin-top:14px">
+                이 자료에서 원하는 값을 찾을 때 <strong>왜 다른 방법이 아니라 이 방법</strong>이어야 하나요?
+                다른 탐색 방법과 비교해서 설명해 보세요.<br>
+                (정렬 여부 / 자료의 규모 / 추가·삭제 빈도를 근거로 들어 보세요.)</p>
             </div>
             <div class="tip"><b>상위 수준으로 가려면</b>
               <p>“이진 탐색을 쓴다”로 끝내면 절반도 못 받습니다.
                 <strong>“왜 순차 탐색이 아니라 이진 탐색인가”</strong>에 답해야 합니다.
-                정렬 여부, 자료의 규모, 삽입·삭제가 잦은지 — 이 조건들과 연결하세요.
-                <strong>정렬에 드는 비용까지 따져 보면</strong> 최상위 수준입니다.</p></div>
+                <strong>정렬에 드는 비용까지 따져 보면</strong> 최상위 수준입니다.
+                한 번만 찾을 거라면 정렬하는 것이 손해일 수도 있습니다.</p></div>
           </div>
         </div>
 
         <div class="item big">
-          <div class="item-h"><span class="n">3</span><h4>탐색 과정의 단계적 표현</h4><span class="pts">평가요소 ③ · 25점</span></div>
+          <div class="item-h"><span class="n">3</span><h4>코드 실행 및 시뮬레이션</h4><span class="pts">평가요소 ③ · 25점</span></div>
           <div class="item-b">
             <div class="verb">
-              <span class="vf">작성 내용</span>
-              <p>3. 실제 값 하나를 정해, 그 값을 찾아내는 과정을
-                <strong>단계별로 표 또는 그림으로</strong> 표현하세요.<br>
-                각 단계에서 <strong>무엇과 비교했고, 남은 탐색 범위가 어떻게 줄어드는지</strong>
-                반드시 드러나야 합니다.<br>
-                찾는 값이 자료에 <strong>없는 경우</strong>에는 과정이 어떻게 끝나는지도 쓰세요.</p>
+              <span class="vf">작성 양식</span>
+              <p>3. 아래 <strong>코드 A·B</strong>를 Google Colab에서 실행하고 결과를 붙여넣으세요.</p>
+              <p style="margin-top:12px">
+                ① 코드의 <code style="font-family:var(--mono);font-size:13px">data</code> 부분에
+                   <strong>내 주제의 데이터를 10개 이상</strong> 넣기<br>
+                ② <code style="font-family:var(--mono);font-size:13px">target</code> 에 찾을 값을 넣고 실행<br>
+                ③ 출력된 <strong>단계별 결과를 그대로 붙여넣기</strong> (또는 화면 캡처)<br>
+                ④ 자료에 <strong>없는 값</strong>을 넣어 한 번 더 실행하고 결과 붙여넣기<br>
+                ⑤ 실행 결과를 보고 아래 표를 직접 채우기</p>
+              <p style="margin-top:12px">[탐색 과정 표]</p>
+              <div class="tw" style="margin-top:8px">
+                <table style="min-width:420px">
+                  <thead><tr><th scope="col">단계</th><th scope="col">비교한 값</th>
+                    <th scope="col">남은 탐색 범위</th><th scope="col">판단</th></tr></thead>
+                  <tbody>
+                    <tr><td class="mk">1</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">2</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">3</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">…</td><td></td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tip"><b>글로만 쓰면 점수를 못 받습니다</b>
-              <p>이 항목은 <strong>표나 그림이 있어야</strong> 상위 수준으로 올라갑니다.
-                단계 / 비교한 값 / 남은 범위 / 판단 — 이 네 열로 표를 만들면 가장 확실합니다.</p></div>
+
+            <div class="prompt">
+              <div class="prompt-h"><span class="k">코드 A</span><span class="t">순차 탐색 — 한 단계씩 찾는 과정 보기</span>
+                <button class="copy" type="button">복사</button></div>
+              <pre># =========================================================
+#  코드 A · 순차 탐색 - 앞에서부터 하나씩 확인하는 과정
+# =========================================================
+
+# [1] 내 주제의 데이터를 여기에 넣으세요 (10개 이상)
+data = ["강민준", "김서연", "박도윤", "이하은", "정시우",
+        "최지아", "한예준", "황유나", "오시윤", "윤채원"]
+
+# [2] 찾을 값을 정하세요
+target = "정시우"
+
+# ---------- 아래는 고치지 않아도 됩니다 ----------
+def sequential_search(data, target):
+    print(f"[순차 탐색] '{target}' 찾기 - 전체 {len(data)}개\n")
+    count = 0
+    for i, item in enumerate(data):
+        count += 1
+        left = len(data) - i - 1
+        print(f"  {count}단계 | 비교: {item} | 남은 범위: {left}개", end="")
+        if item == target:
+            print("  -> 찾음!")
+            print(f"\n결과: 위치 {i}번, 비교 횟수 {count}번")
+            return count
+        print("  -> 다름")
+    print(f"\n결과: 자료에 없음, 비교 횟수 {count}번")
+    return count
+
+sequential_search(data, target)</pre>
+            </div>
+
+            <div class="prompt">
+              <div class="prompt-h"><span class="k">코드 B</span><span class="t">이진 탐색 — 범위가 절반씩 줄어드는 과정 보기</span>
+                <button class="copy" type="button">복사</button></div>
+              <pre># =========================================================
+#  코드 B · 이진 탐색 - 탐색 범위를 절반씩 줄이는 과정
+# =========================================================
+
+# [1] 내 주제의 데이터를 여기에 넣으세요 (코드 A와 같은 데이터)
+data = ["강민준", "김서연", "박도윤", "이하은", "정시우",
+        "최지아", "한예준", "황유나", "오시윤", "윤채원"]
+
+# [2] 찾을 값을 정하세요
+target = "정시우"
+
+# ---------- 아래는 고치지 않아도 됩니다 ----------
+data = sorted(data)          # 이진 탐색은 정렬이 반드시 필요합니다
+print("정렬한 자료:")
+for i, v in enumerate(data):
+    print(f"  [{i}] {v}")
+print()
+
+def binary_search(data, target):
+    low, high, count = 0, len(data) - 1, 0
+    print(f"[이진 탐색] '{target}' 찾기 - 전체 {len(data)}개\n")
+    while low <= high:
+        mid = (low + high) // 2
+        count += 1
+        print(f"  {count}단계 | 범위 [{low}~{high}] ({high-low+1}개)"
+              f" | 가운데 [{mid}] '{data[mid]}' 와 비교", end="")
+        if data[mid] == target:
+            print("  -> 찾음!")
+            print(f"\n결과: 위치 {mid}번, 비교 횟수 {count}번")
+            return count
+        elif data[mid] &lt; target:
+            print("  -> 목표가 더 큼, 오른쪽 절반만 남김")
+            low = mid + 1
+        else:
+            print("  -> 목표가 더 작음, 왼쪽 절반만 남김")
+            high = mid - 1
+    print(f"\n결과: 자료에 없음, 비교 횟수 {count}번")
+    return count
+
+binary_search(data, target)</pre>
+            </div>
+
+            <div class="tip"><b>실행 결과가 곧 근거입니다</b>
+              <p>출력된 화면을 <strong>그대로 붙여넣고</strong>, 그 결과를 보며 표를 채우세요.
+                실행 결과 없이 표만 있으면 상위 수준으로 올라가지 못합니다.
+                <strong>없는 값을 찾을 때의 결과</strong>까지 넣으면 확실합니다.</p></div>
           </div>
         </div>
 
         <div class="item big">
-          <div class="item-h"><span class="n">4</span><h4>시간 복잡도 분석과 효율 비교</h4><span class="pts">평가요소 ④ · 25점</span></div>
+          <div class="item-h"><span class="n">4</span><h4>실행 결과로 확인한 효율</h4><span class="pts">평가요소 ④ · 25점</span></div>
           <div class="item-b">
             <div class="verb">
-              <span class="vf">작성 내용</span>
-              <p>4. 내가 고른 탐색 방법의 <strong>최선·평균·최악 시간 복잡도</strong>를 제시하고,
-                각각 어떤 상황인지 내 주제로 예를 들어 설명하세요.<br>
-                다른 탐색 방법과 <strong>효율을 비교</strong>하고, 자료가 커질 때 무엇을 선택해야 하는지
-                기준을 제시하세요.</p>
+              <span class="vf">작성 양식</span>
+              <p>4. 아래 <strong>코드 C</strong>를 실행하여 자료 크기별 비교 횟수를 표로 기록하세요.</p>
+              <p style="margin-top:12px">[실측 결과 표]</p>
+              <div class="tw" style="margin-top:8px">
+                <table style="min-width:420px">
+                  <thead><tr><th scope="col">자료 크기</th><th scope="col">순차 탐색<br>평균 비교 횟수</th>
+                    <th scope="col">이진 탐색<br>평균 비교 횟수</th><th scope="col">몇 배 차이?</th></tr></thead>
+                  <tbody>
+                    <tr><td class="mk">10</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">1,000</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">100,000</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">1,000,000</td><td></td><td></td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p style="margin-top:14px">[결과 해석]<br>
+                · 내가 고른 방법의 <strong>최선·평균·최악 시간 복잡도</strong>는 무엇인가요?
+                  각각 어떤 상황인지 내 주제로 예를 들어 보세요.<br>
+                · 이론적인 시간 복잡도와 <strong>실제 실행 결과가 일치하나요?</strong>
+                  이진 탐색의 비교 횟수가 log₂(자료 크기)와 비슷한지 확인해 보세요.<br>
+                · 자료가 커질 때 <strong>무엇을 선택해야 하는지</strong> 기준을 제시하세요.</p>
             </div>
+
+            <div class="prompt">
+              <div class="prompt-h"><span class="k">코드 C</span><span class="t">자료가 커지면 얼마나 차이 나는가 — 실측 실험</span>
+                <button class="copy" type="button">복사</button></div>
+              <pre># =========================================================
+#  코드 C · 자료 크기별 비교 횟수 실측 실험
+#  (마지막 100만 건은 몇 초 걸립니다. 기다려 주세요)
+# =========================================================
+import random, math
+
+def seq_count(data, target):
+    for i, v in enumerate(data):
+        if v == target:
+            return i + 1
+    return len(data)
+
+def bin_count(data, target):
+    low, high, c = 0, len(data) - 1, 0
+    while low &lt;= high:
+        mid = (low + high) // 2
+        c += 1
+        if data[mid] == target:
+            return c
+        elif data[mid] &lt; target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return c
+
+TRIALS = 20      # 무작위로 20번 찾아본 평균을 냅니다
+print(f"{'자료 크기':>12} | {'순차 탐색':>10} | {'이진 탐색':>10} | {'몇 배':>8} | {'log2(n)':>8}")
+print("-" * 62)
+
+for n in [10, 100, 1000, 10000, 100000, 1000000]:
+    data = list(range(n))
+    s = b = 0
+    for _ in range(TRIALS):
+        t = random.randrange(n)
+        s += seq_count(data, t)
+        b += bin_count(data, t)
+    s //= TRIALS
+    b //= TRIALS
+    ratio = s / b if b else 0
+    print(f"{n:>12,} | {s:>10,} | {b:>10,} | {ratio:>7.1f}배 | {math.log2(n):>8.1f}")
+
+print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")</pre>
+            </div>
+
             <div class="tip"><b>비교는 숫자로 하세요</b>
-              <p>“이진 탐색이 더 빠르다”가 아니라 <strong>“100만 건에서 순차 탐색은 평균 50만 번,
-                이진 탐색은 약 20번”</strong>처럼 써야 합니다.
-                해시가 평균 O(1)인데도 항상 최선이 아닌 이유까지 짚으면 최상위 수준입니다.</p></div>
+              <p>“이진 탐색이 더 빠르다”가 아니라 <strong>“100만 건에서 순차 탐색은 평균 약 50만 번,
+                이진 탐색은 약 20번으로 2만 배 차이”</strong>처럼 실행 결과의 숫자를 그대로 쓰세요.
+                이진 탐색의 비교 횟수가 <strong>log₂(n)과 거의 같다</strong>는 것을 확인하고 그 이유를 설명하면 최상위 수준입니다.</p></div>
           </div>
         </div>
+
+        <h3>실습 환경 안내</h3>
+        <ul class="plain">
+          <li><strong>Google Colab</strong>(<span style="font-family:var(--mono);font-size:13px">colab.research.google.com</span>)에서
+            새 노트를 만들고 코드를 붙여넣은 뒤 실행 버튼을 누르면 됩니다. 설치할 것은 없습니다.</li>
+          <li>학교 계정으로 로그인하면 바로 쓸 수 있습니다. 스마트기기가 없으면 컴퓨터실을 이용하세요.</li>
+          <li>코드가 오류를 내면 <strong>따옴표와 쉼표</strong>부터 확인하세요. 데이터를 넣을 때 가장 자주 나는 실수입니다.</li>
+          <li>결과를 붙여넣을 때는 <strong>출력 화면 전체</strong>를 넣으세요. 일부만 넣으면 근거가 약해집니다.</li>
+        </ul>
       </section>
 
       <section id="t2-rubric">
@@ -2328,9 +2520,9 @@
             <div class="track"><div class="val" style="width:60%"></div></div></div>
           <div class="w max"><div class="lab"><span>②</span><b>탐색 알고리즘 선택과 적용 근거</b></div><div class="num">25점</div>
             <div class="track"><div class="val" style="width:100%"></div></div></div>
-          <div class="w max"><div class="lab"><span>③</span><b>탐색 과정의 단계적 표현</b></div><div class="num">25점</div>
+          <div class="w max"><div class="lab"><span>③</span><b>탐색 프로그램 실행과 과정의 단계적 표현</b></div><div class="num">25점</div>
             <div class="track"><div class="val" style="width:100%"></div></div></div>
-          <div class="w max"><div class="lab"><span>④</span><b>시간 복잡도 분석과 효율 비교</b></div><div class="num">25점</div>
+          <div class="w max"><div class="lab"><span>④</span><b>실행 결과 기반 효율 분석과 시간 복잡도 비교</b></div><div class="num">25점</div>
             <div class="track"><div class="val" style="width:100%"></div></div></div>
           <div class="w"><div class="lab"><span>⑤</span><b>탐구 결과의 표현 및 공유</b></div><div class="num">10점</div>
             <div class="track"><div class="val" style="width:40%"></div></div></div>
@@ -2357,19 +2549,19 @@
               <tr><td>탐색 알고리즘을 제시하려고 시도함.</td><td class="pt">5</td></tr>
 
               <tr class="top grp">
-                <td class="el" rowspan="5">③ 탐색 과정의 단계적 표현<small>양식 3 · 만점 25</small></td>
-                <td>탐색의 전 과정을 단계별로 나누어 그림 또는 표로 정확히 표현하고, 각 단계에서 비교 대상과 탐색 범위가 어떻게 변하는지 상세히 설명함.</td><td class="pt">25</td></tr>
-              <tr><td>탐색의 주요 단계를 그림이나 표로 표현하고 각 단계의 처리 과정을 설명함.</td><td class="pt">20</td></tr>
-              <tr><td>탐색의 기본 단계를 표현하고 처리 과정을 제시함.</td><td class="pt">15</td></tr>
-              <tr><td>탐색 과정의 일부 단계를 표현함.</td><td class="pt">10</td></tr>
-              <tr><td>탐색 과정을 표현하려고 시도함.</td><td class="pt">5</td></tr>
+                <td class="el" rowspan="5">③ 탐색 프로그램 실행과 과정의 단계적 표현<small>양식 3 · 만점 25</small></td>
+                <td>자신의 주제 자료로 탐색 프로그램을 실행하여 결과를 제시하고, 찾는 값이 없는 경우까지 실행하여 각 단계의 비교 대상과 탐색 범위 변화를 표로 정확히 정리함.</td><td class="pt">25</td></tr>
+              <tr><td>자신의 주제 자료로 프로그램을 실행하여 결과를 제시하고, 주요 단계의 비교 대상과 탐색 범위를 표로 정리함.</td><td class="pt">20</td></tr>
+              <tr><td>프로그램을 실행하여 결과를 제시하고 탐색의 기본 단계를 정리함.</td><td class="pt">15</td></tr>
+              <tr><td>프로그램을 실행하고 결과의 일부를 제시함.</td><td class="pt">10</td></tr>
+              <tr><td>프로그램을 실행하려고 시도함.</td><td class="pt">5</td></tr>
 
               <tr class="top grp">
-                <td class="el" rowspan="5">④ 시간 복잡도 분석과 효율 비교<small>양식 4 · 만점 25</small></td>
-                <td>선택한 탐색 알고리즘의 최선·평균·최악 시간 복잡도를 정확히 도출하고, 다른 탐색 방법과 효율을 비교하여 자료 규모에 따른 선택 기준을 제시함.</td><td class="pt">25</td></tr>
-              <tr><td>탐색 알고리즘의 시간 복잡도를 정확히 제시하고 다른 방법과 효율을 비교함.</td><td class="pt">20</td></tr>
-              <tr><td>탐색 알고리즘의 시간 복잡도를 제시하고 그 의미를 설명함.</td><td class="pt">15</td></tr>
-              <tr><td>시간 복잡도를 기호로 제시함.</td><td class="pt">10</td></tr>
+                <td class="el" rowspan="5">④ 실행 결과 기반 효율 분석과 시간 복잡도 비교<small>양식 4 · 만점 25</small></td>
+                <td>자료 크기별 비교 횟수를 실측하여 표로 정리하고, 실측값이 이론적 시간 복잡도와 일치하는지 확인하여 자료 규모에 따른 탐색 방법 선택 기준을 제시함.</td><td class="pt">25</td></tr>
+              <tr><td>자료 크기별 비교 횟수를 실측하여 정리하고, 시간 복잡도와 연결하여 두 탐색 방법의 효율을 비교함.</td><td class="pt">20</td></tr>
+              <tr><td>실측 결과를 제시하고 시간 복잡도를 함께 설명함.</td><td class="pt">15</td></tr>
+              <tr><td>실측 결과 또는 시간 복잡도 중 한 가지를 제시함.</td><td class="pt">10</td></tr>
               <tr><td>효율에 대한 기초적인 내용을 제시하려고 시도함.</td><td class="pt">5</td></tr>
 
               <tr class="top grp">
@@ -2394,9 +2586,9 @@
           <div class="sp"><h5>알고리즘 선택</h5>
             <span class="no">“이진 탐색을 쓴다”</span> → <span class="yes">“정렬되어 있으므로 순차 탐색 대신 이진 탐색”</span></div>
           <div class="sp"><h5>과정 표현</h5>
-            <span class="no">글로만 설명</span> → <span class="yes">단계·비교값·남은 범위를 표로 제시</span></div>
+            <span class="no">글로만 설명</span> → <span class="yes">직접 실행한 출력 화면 + 단계·비교값·남은 범위 표</span></div>
           <div class="sp"><h5>효율 비교</h5>
-            <span class="no">“더 빠르다”</span> → <span class="yes">“100만 건에서 50만 번 대 약 20번”</span></div>
+            <span class="no">“더 빠르다”</span> → <span class="yes">실측한 “100만 건에서 50만 번 대 약 20번”</span></div>
         </div>
       </section>
 
@@ -2410,7 +2602,8 @@
             <ul>
               <li>자료 검색과 전문 자료의 요약</li>
               <li>탐색 알고리즘 비교표 받아 보기</li>
-              <li>시간 복잡도 계산이 맞는지 확인받기</li>
+              <li>코드에서 난 <strong>오류의 원인</strong> 물어보기</li>
+              <li>실행 결과의 <strong>해석이 맞는지</strong> 확인받기</li>
               <li>내 논리에서 빠진 부분을 지적받기</li>
             </ul>
           </div>
@@ -2418,17 +2611,18 @@
             <h4>하면 안 되는 것</h4>
             <ul>
               <li>AI가 써 준 문장을 그대로 옮겨 적기</li>
-              <li>단계 표나 분석을 통째로 대신 만들게 하기</li>
-              <li>사실 확인 없이 AI의 복잡도 설명을 그대로 믿기</li>
+              <li><strong>실행하지 않고</strong> AI에게 결과를 지어내게 하기</li>
+              <li>단계 표나 실측 표를 통째로 대신 만들게 하기</li>
               <li>출처와 AI 활용 범위를 밝히지 않기</li>
             </ul>
           </div>
         </div>
 
         <div class="alarm">
-          <strong>결과물 산출에 AI를 활용한 내용을 그대로 작성할 경우, 해당 평가 요소의 최하점이 부여됩니다.</strong>
-          특히 이번 과제는 <strong>단계 표를 직접 만드는 것</strong>이 25점입니다.
-          AI가 만들어 준 표를 옮겨 적으면 그 25점을 통째로 잃습니다. 반드시 내 자료로 직접 채우세요.
+          <strong>실행 결과는 반드시 본인이 직접 돌린 것이어야 합니다.</strong>
+          이번 과제의 ③④번은 <strong>실제로 코드를 실행했는지</strong>를 보는 항목이라 합쳐 50점입니다.
+          AI가 만들어 준 그럴듯한 숫자를 옮겨 적으면 두 항목 모두 최하점입니다.
+          출력 화면을 그대로 붙여넣으면 아무 문제 없습니다 — 돌리기만 하면 되는 일입니다.
         </div>
       </section>
 
@@ -2515,56 +2709,59 @@
         </div>
 
         <div class="prompt hot">
-          <div class="prompt-h"><span class="k">P3 · 양식 3</span><span class="t">단계 표를 내가 만들 수 있게 (25점)</span>
+          <div class="prompt-h"><span class="k">P3 · 양식 3</span><span class="t">코드가 오류 날 때 · 실행 결과 해석하기</span>
             <button class="copy" type="button">복사</button></div>
-          <pre>[양식 3] 탐색 과정을 단계로 표현하기
+          <pre>[양식 3] 코드 실행과 결과 해석
 
-내 주제: (          )
-내가 고른 탐색 방법: (          )
-자료의 예: (내 주제에 맞는 데이터 10개 정도를 직접 적기)
+내가 넣은 데이터: (코드의 data 부분을 그대로 붙여넣기)
 찾으려는 값: (          )
+실행 결과: (Colab 출력 화면을 그대로 붙여넣기.
+            오류가 났다면 오류 메시지를 그대로 붙여넣기)
 
 [요청]
-1. 이 자료에서 그 값을 찾는 과정이 몇 단계로 이루어지는지,
-   각 단계에서 무엇을 확인하게 되는지 설명해 줘.
-   단, 완성된 표를 만들어 주지는 마. 내가 직접 채울 거야.
+1. 오류가 났다면 원인이 무엇인지 알려 줘.
+   고친 코드 전체를 주지 말고, 어느 줄의 무엇이 문제인지만 짚어 줘.
 
-2. 내가 표를 만든다면 어떤 열이 있어야 하는지 알려 줘.
-   그리고 각 열에 무엇을 적어야 하는지 한 줄씩 설명해 줘.
+2. 실행 결과를 보고, 내가 표에 옮겨 적어야 할 항목이
+   (단계 / 비교한 값 / 남은 탐색 범위 / 판단) 각각 출력의 어느
+   부분에 해당하는지 알려 줘. 표를 대신 채워 주지는 마.
 
-3. 각 단계에서 '남은 탐색 범위'가 어떻게 줄어드는지,
-   내가 스스로 계산해 볼 수 있도록 질문으로 짚어 줘.
+3. 이 결과에서 탐색 범위가 어떻게 줄어들고 있는지,
+   내가 스스로 설명할 수 있도록 질문 3개를 던져 줘.
 
-4. 찾는 값이 자료에 없을 때 과정이 어떻게 끝나는지 알려 줘.
-
-5. 이 과정을 그림으로 그린다면 무엇을 꼭 표시해야 하는지 알려 줘.</pre>
+4. 자료에 없는 값을 찾으면 결과가 어떻게 달라질지
+   내가 예상해 보게 하는 질문을 하나 해 줘.
+   (답은 알려 주지 마. 내가 직접 실행해서 확인할 거야.)</pre>
         </div>
 
         <div class="prompt hot">
-          <div class="prompt-h"><span class="k">P4 · 양식 4</span><span class="t">시간 복잡도와 효율 비교 (25점)</span>
+          <div class="prompt-h"><span class="k">P4 · 양식 4</span><span class="t">실측 결과를 이론과 맞춰 보기 (25점)</span>
             <button class="copy" type="button">복사</button></div>
-          <pre>[양식 4] 시간 복잡도와 효율 비교
+          <pre>[양식 4] 실측 결과와 시간 복잡도
 
 내 주제: (          )
 내가 고른 탐색 방법: (          )
-자료 규모: (          )
+코드 C 실행 결과: (출력된 표를 그대로 붙여넣기)
 
 [요청]
-1. 내가 고른 방법의 최선·평균·최악 시간 복잡도를 각각 알려 주고,
-   각 경우가 어떤 상황인지 내 주제로 예를 들어 설명해 줘.
+1. 내 실행 결과에서 이진 탐색의 비교 횟수가 log2(자료 크기)와
+   얼마나 비슷한지 확인해 줘. 차이가 있다면 왜 그런지 알려 줘.
 
-2. 자료가 1,000건일 때와 100만 건일 때, 방법별로 비교 횟수가
-   대략 몇 번인지 표로 보여 줘.
-   (순차 탐색 / 이진 탐색 / 해싱)
+2. 순차 탐색의 평균 비교 횟수가 자료 크기의 절반쯤 나오는 이유를
+   내가 스스로 설명할 수 있도록 질문으로 짚어 줘.
 
-3. 해시 테이블이 평균 O(1)인데도 항상 최선이 아닌 이유를 알려 줘.
-   충돌이 많아지면 어떻게 되는지도 알려 줘.
+3. 내가 고른 방법의 최선·평균·최악이 각각 어떤 상황인지,
+   내 주제로 예를 들어 설명해 줘.
 
-4. '정렬해서 이진 탐색하기'와 '그냥 순차 탐색하기' 중 무엇이
-   유리한지 갈리는 기준이 무엇인지, 내가 스스로 판단할 수 있도록
-   질문으로 짚어 줘. (한 번만 찾을 때와 여러 번 찾을 때를 나눠서)
+4. 해시 테이블이 평균 O(1)인데도 항상 최선이 아닌 이유를 알려 줘.
 
-5. 마지막에 [내가 직접 판단해야 할 것] 목록을 붙여 줘.</pre>
+5. '정렬해서 이진 탐색하기'와 '그냥 순차 탐색하기' 중 무엇이
+   유리한지 갈리는 기준을, 내가 판단할 수 있도록 질문으로 짚어 줘.
+   (한 번만 찾을 때와 여러 번 찾을 때를 나눠서)
+
+6. 마지막에 [내가 직접 판단해야 할 것] 목록을 붙여 줘.
+
+내 실행 결과의 숫자를 네가 지어내지 마. 내가 붙여넣은 것만 써 줘.</pre>
         </div>
 
         <div class="prompt">
@@ -2632,11 +2829,11 @@
           <label class="check"><input type="checkbox">
             <span><b>양식 2</b><strong>정렬에 드는 비용</strong>까지 따져 보았다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 3</b>탐색 과정을 <strong>표 또는 그림</strong>으로 만들었다.</span></label>
+            <span><b>양식 3</b>코드 A·B에 <strong>내 데이터를 넣어 실행</strong>하고 출력 화면을 붙여넣었다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 3</b>각 단계의 <strong>비교한 값과 남은 범위</strong>가 드러난다.</span></label>
+            <span><b>양식 3</b>실행 결과를 보고 <strong>단계 표</strong>를 채웠고, <strong>없는 값</strong>도 실행해 봤다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 4</b>최선·평균·최악을 구분했고, 비교 횟수를 <strong>숫자로</strong> 비교했다.</span></label>
+            <span><b>양식 4</b>코드 C를 실행해 <strong>자료 크기별 비교 횟수</strong>를 표에 기록했다.</span></label>
           <label class="check"><input type="checkbox">
             <span><b>공통</b>참고 자료 출처와 <strong>AI를 어디에 어떻게 썼는지</strong> 적었다.</span></label>
         </div>
