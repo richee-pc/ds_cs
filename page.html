@@ -104,8 +104,9 @@
     background: var(--ground);
     color: var(--ink);
     font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: 17px;
+    line-height: 1.82;
+    letter-spacing: -.004em;
     -webkit-font-smoothing: antialiased;
     word-break: keep-all;
     overflow-x: hidden;
@@ -396,33 +397,37 @@
 
   .sh-n {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 11.5px;
+    font-weight: 700;
     letter-spacing: .16em;
-    color: var(--edge);
-    display: block;
-    margin-bottom: 9px;
+    color: #fff;
+    background: var(--edge);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 12px;
   }
 
   h2 {
-    font-size: clamp(23px, 3.6vw, 31px);
+    font-size: clamp(25px, 3.9vw, 34px);
     line-height: 1.26;
     letter-spacing: -.03em;
     font-weight: 800;
     margin: 0;
     text-wrap: balance;
     padding-bottom: 14px;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 3px solid var(--edge);
   }
 
   .note {
     color: var(--ink-2);
-    font-size: 15px;
+    font-size: 16px;
     margin: 16px 0 26px;
     max-width: 66ch;
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 19.5px;
     font-weight: 800;
     letter-spacing: -.018em;
     margin: 34px 0 12px;
@@ -944,7 +949,7 @@
 
   .brand {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 12.5px;
     letter-spacing: .1em;
     color: var(--edge-2);
     flex: none;
@@ -965,8 +970,8 @@
   .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; }
 
   .tabs a {
-    font-size: 13.5px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     color: rgba(215, 232, 228, .62);
     text-decoration: none;
     padding: 15px 13px 13px;
@@ -1145,24 +1150,24 @@
 
   .page[data-page="lesson"],
 .page[data-page="search"] {
-    --ground: #f4f8fd;
+    --ground: #f7fbff;
     --surface: #ffffff;
-    --surface-2: #eef4fb;
+    --surface-2: #eff6fd;
     --ink: #12202e;
     --ink-2: #3f5670;
     --muted: #6b8099;
     --line: #dbe6f2;
     --line-2: #b9cde3;
-    --edge: #0b74d1;
-    --edge-2: #2e9bf0;
-    --edge-soft: #e3f0fd;
+    --edge: #0a6fd0;
+    --edge-2: #38a5f5;
+    --edge-soft: #e6f2fe;
     --sort: #e0574c;
     --sort-soft: #fdeceb;
-    --deep: #103353;
-    --deep-2: #17456e;
+    --deep: #12406b;
+    --deep-2: #1a5a92;
     --on-deep: #dfeefc;
     --on-deep-dim: #8fb4d6;
-    background: #f4f8fd;
+    background: #f7fbff;
 
     --c-idle: #b9d4f2;
     --c-cmp: #ffb020;
@@ -1461,8 +1466,8 @@
   .stage {
     display: flex;
     align-items: flex-end;
-    gap: 5px;
-    height: 250px;
+    gap: 6px;
+    height: 268px;
     padding: 12px 10px 0;
     background: var(--surface-2);
     border-radius: 8px;
@@ -1484,10 +1489,10 @@
 
   .bar span {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .28);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .35);
   }
 
   .bar.is-cmp   { background: var(--c-cmp); }
@@ -1511,14 +1516,15 @@
   .legend i { width: 12px; height: 12px; border-radius: 3px; flex: none; }
 
   .say {
-    margin-top: 12px;
+    margin-top: 14px;
     background: var(--edge-soft);
-    border-left: 3px solid var(--edge);
-    border-radius: 0 6px 6px 0;
-    padding: 11px 15px;
-    font-size: 14.5px;
-    line-height: 1.6;
-    min-height: 44px;
+    border-left: 4px solid var(--edge);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 500;
+    min-height: 52px;
     color: var(--ink);
   }
 
@@ -1628,7 +1634,7 @@
     border-radius: 99px;
   }
 
-  .easy p { margin: 0 0 9px; font-size: 15px; line-height: 1.75; max-width: none; }
+  .easy p { margin: 0 0 10px; font-size: 16px; line-height: 1.8; max-width: none; }
   .easy p:last-child { margin-bottom: 0; }
   .easy .quote { color: var(--ink-2); font-style: italic; }
 
@@ -1636,10 +1642,10 @@
 
   .lbl-row {
     display: grid;
-    grid-template-columns: minmax(120px, auto) 1fr;
-    gap: 12px;
+    grid-template-columns: minmax(130px, auto) 1fr;
+    gap: 14px;
     align-items: baseline;
-    font-size: 14px;
+    font-size: 15px;
     padding: 8px 12px;
     background: var(--surface);
     border: 1px solid var(--line);
@@ -1863,15 +1869,106 @@
   .srow .lf.new { background: var(--c-key); color: #fff; }
   .srow .lf u { text-decoration: none; opacity: .5; }
 
+  /* ---- 셸: 부분 리스트 표 ---- */
+
+  table.subtab { border-collapse: collapse; width: 100%; table-layout: fixed; margin-top: 2px; }
+
+  table.subtab td {
+    border: 1px solid var(--line);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    height: 26px;
+    color: var(--ink-2);
+  }
+
+  table.subtab td.lbl {
+    width: 46px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--surface-2);
+    border-color: var(--line-2);
+  }
+
+  table.subtab td.all { background: var(--surface-2); color: var(--ink); }
+  table.subtab td.has { color: #fff; }
+  table.subtab td.g0 { background: #2e9bf0; }
+  table.subtab td.g1 { background: #f2545b; }
+  table.subtab td.g2 { background: #12b886; }
+  table.subtab td.g3 { background: #7b5cf0; }
+  table.subtab td.g4 { background: #ffb020; color: #17224a; }
+  table.subtab tr.on td.lbl { background: var(--edge); color: #fff; border-color: var(--edge); }
+  table.subtab tr.on td { border-color: var(--edge); }
+
+  /* ---- 합병: 배열 A / B / C ---- */
+
+  .mrow {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 9px;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .mrow .mlbl {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .mrow.hot .mlbl { color: var(--edge); }
+
+  .mcells { display: flex; gap: 4px; flex-wrap: wrap; min-height: 32px; align-items: center; }
+
+  .mcells i {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 5px;
+    background: var(--c-idle);
+    color: #17224a;
+    position: relative;
+  }
+
+  .mcells i.used { opacity: .3; }
+  .mcells i.p { background: var(--c-cmp); }
+  .mcells i.p::after {
+    content: "▼";
+    position: absolute;
+    top: -13px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--c-cmp);
+  }
+  .mcells i.empty { background: none; color: var(--muted); font-weight: 400; font-size: 12px; padding-left: 0; }
+  .mrow:last-child .mcells i { background: var(--c-done); color: #fff; }
+
   /* ---- 알고리즘 카드 ---- */
 
   .algo {
     background: var(--surface);
     border: 1px solid var(--line);
+    border-top: 4px solid var(--ac, var(--edge));
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(16, 51, 83, .04), 0 10px 26px -20px rgba(16, 51, 83, .35);
   }
+
+  .ac1 { --ac: #e8590c; }   /* 선택 */
+  .ac2 { --ac: #1971c2; }   /* 삽입 */
+  .ac3 { --ac: #0ca678; }   /* 버블 */
+  .ac4 { --ac: #7048e8; }   /* 셸  */
+  .ac5 { --ac: #e03131; }   /* 퀵  */
+  .ac6 { --ac: #0c8599; }   /* 합병 */
+  .ac7 { --ac: #c2255c; }   /* 기수 */
+  .ac8 { --ac: #f08c00; }   /* 힙  */
 
   .algo-h {
     display: flex;
@@ -1884,9 +1981,9 @@
   }
 
   .algo-h .no {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: var(--edge);
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    background: var(--ac, var(--edge));
     color: #fff;
     font-family: var(--mono);
     font-size: 13px;
@@ -1895,24 +1992,22 @@
     flex: none;
   }
 
-  .algo.fast .algo-h .no { background: var(--c-done); }
 
-  .algo-h h4 { margin: 0; font-size: 17.5px; font-weight: 800; flex: 1 1 auto; }
+
+  .algo-h h4 { margin: 0; font-size: 19px; font-weight: 800; flex: 1 1 auto; }
   .algo-h h4 em { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 8px; letter-spacing: .04em; }
 
   .algo-h .big-o {
     font-family: var(--mono);
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--edge);
-    background: var(--edge-soft);
-    padding: 4px 11px;
+    color: #fff;
+    background: var(--ac, var(--edge));
+    padding: 5px 13px;
     border-radius: 99px;
     flex: none;
   }
 
-  .algo.fast .algo-h .big-o { color: #0a7a5a; background: #dcf7ee; }
-  :root[data-theme="dark"] .algo.fast .algo-h .big-o { color: #6ee7bb; background: #0c3b2c; }
 
   .algo-b { padding: 18px 20px 20px; }
   .algo-b > p { margin-top: 0; }
@@ -1931,12 +2026,12 @@
   .code-src::before { content: ""; flex: none; width: 14px; height: 1px; background: var(--line-2); }
 
   .algo pre {
-    background: #10243a;
-    color: #d7e7f7;
-    border-radius: 8px;
-    padding: 16px 18px;
-    font-size: 12.8px;
-    line-height: 1.72;
+    background: #0e2337;
+    color: #dfeaf6;
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-size: 14px;
+    line-height: 1.8;
     overflow-x: auto;
     white-space: pre;
     margin: 0;
@@ -1958,6 +2053,111 @@
   }
 
   .cut-note b { color: var(--sort); }
+
+  /* ---- 퀵 정렬 게임 ---- */
+
+  .game {
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    padding: 20px 22px 22px;
+    box-shadow: 0 1px 2px rgba(16,51,83,.05), 0 14px 34px -22px rgba(16,51,83,.4);
+  }
+
+  .g-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .g-q { font-size: 16px; font-weight: 700; line-height: 1.55; }
+  .g-q b { font-family: var(--mono); color: var(--c-key); font-size: 18px; }
+
+  .g-score {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .g-score b { color: var(--edge); font-size: 15px; }
+
+  .g-arr, .g-idx { display: flex; gap: 6px; }
+  .g-arr { margin-bottom: 6px; }
+
+  .g-arr i {
+    flex: 1 1 0;
+    min-width: 0;
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    padding: 13px 0;
+    border-radius: 8px;
+    background: var(--c-idle);
+    color: #17224a;
+    transition: background .2s, transform .2s;
+  }
+
+  .g-arr i.pv { background: var(--c-key); color: #fff; transform: translateY(-4px); }
+  .g-arr i.sm { background: #a9dffb; }
+  .g-arr i.bg2 { background: #ffd9a8; }
+
+  .g-idx button {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    font-weight: 700;
+    border: 1.5px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink-2);
+    padding: 9px 0;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+
+  .g-idx button:hover:not(:disabled) { border-color: var(--edge); color: var(--edge); }
+  .g-idx button:disabled { cursor: default; }
+  .g-idx button.ok { background: var(--c-done); border-color: var(--c-done); color: #fff; }
+  .g-idx button.no { background: var(--c-swap); border-color: var(--c-swap); color: #fff; }
+
+  .g-say {
+    margin: 14px 0 0;
+    min-height: 46px;
+    background: var(--edge-soft);
+    border-left: 3px solid var(--edge);
+    border-radius: 0 7px 7px 0;
+    padding: 11px 15px;
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .g-say.good { background: #dcf7ee; border-color: var(--c-done); }
+  .g-say.bad { background: var(--sort-soft); border-color: var(--c-swap); }
+  :root[data-theme="dark"] .g-say.good { background: #0c3b2c; }
+
+  .g-ctrl { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+
+  .g-ctrl button:not(.cta) {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink-2);
+    padding: 12px 20px;
+    border-radius: var(--r);
+    cursor: pointer;
+  }
+
+  .g-ctrl button:not(.cta):hover { border-color: var(--edge); color: var(--edge); }
 
   /* ---- 확인 문제 ---- */
 
@@ -2469,6 +2669,7 @@
         <li><a href="#ls-why">정렬은 왜 배우나</a></li>
         <li><a href="#ls-sim">정렬 시뮬레이터</a></li>
         <li><a href="#ls-algo">알고리즘 5가지와 핵심 코드</a></li>
+        <li><a href="#ls-game">피벗 자리 맞히기</a></li>
         <li><a href="#ls-cmp">한눈에 비교</a></li>
         <li><a href="#ls-quiz">확인 문제</a></li>
       </ol>
@@ -2577,6 +2778,8 @@
           </div>
 
           <div class="stage" id="ls-stage"></div>
+          <div class="stem" id="ls-sub"></div>
+          <div class="stem" id="ls-merge"></div>
           <div class="stem" id="ls-stem"></div>
 
           <div class="legend">
@@ -2643,7 +2846,7 @@
         <p class="note">아래 코드는 <strong>수업 슬라이드에 실린 원문 그대로</strong>입니다.
           시뮬레이터에서 본 움직임이 코드의 어느 줄에서 일어나는지 짚어 보세요.</p>
 
-        <div class="algo">
+        <div class="algo ac1">
           <div class="algo-h"><span class="no">1</span>
             <h4>선택 정렬<em>SELECTION SORT</em></h4><span class="big-o">O(n²)</span></div>
           <div class="algo-b">
@@ -2686,7 +2889,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac2">
           <div class="algo-h"><span class="no">2</span>
             <h4>삽입 정렬<em>INSERTION SORT</em></h4><span class="big-o">O(n²)</span></div>
           <div class="algo-b">
@@ -2729,7 +2932,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac3">
           <div class="algo-h"><span class="no">3</span>
             <h4>버블 정렬<em>BUBBLE SORT</em></h4><span class="big-o">O(n²)</span></div>
           <div class="algo-b">
@@ -2768,7 +2971,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac4">
           <div class="algo-h"><span class="no">4</span>
             <h4>셸 정렬<em>SHELL SORT</em></h4><span class="big-o">O(n^1.5)</span></div>
           <div class="algo-b">
@@ -2783,51 +2986,23 @@
                 <strong>마지막 1칸 삽입 정렬은 거의 할 일이 없습니다.</strong></p>
               <p class="quote">방 치울 때 물건을 구역별로 대충 던져 놓고 나서 정리하는 것과 같습니다.</p>
             </div>
-            <p class="code-src">수업 슬라이드 원문 · C</p>
-            <pre>inc_insertion_sort(<b>int</b> list[], <b>int</b> first, <b>int</b> last, <b>int</b> gap) {
-    <b>int</b> i, j, key;
-    <b>for</b>(i=first+gap; i&lt;=last; i=i+gap){
-        key = list[i];
-        <b>for</b>(j=i-gap; j&gt;=first &amp;&amp; key&lt;list[j];j=j-gap)
-            list[j+gap]=list[j];
-        list[j+gap]=key;
-    }
-}
+            <div class="cut-note"><b>코드는 생략합니다</b>
+              셸 정렬의 코드는 <strong>삽입 정렬과 사실상 같습니다.</strong>
+              <span style="font-family:var(--mono)">j--</span> 가
+              <span style="font-family:var(--mono)">j -= gap</span> 으로 바뀐 것 하나뿐입니다.
+              코드를 외우기보다 <strong>부분 리스트가 어떻게 묶이는지</strong>를 눈으로 익히세요.</div>
 
-<b>void</b> shell_sort( <b>int</b> list[], <b>int</b> n ) {
-    <b>int</b> i, gap;
-    <b>for</b>( gap=n/2; gap&gt;0; gap = gap/2 ) {
-        <b>if</b>( (gap%2) == 0 ) gap++;
-        <b>for</b>(i=0;i&lt;gap;i++)  <u>// 부분 리스트의 개수는 gap</u>
-            inc_insertion_sort(list, i, n-1, gap);
-  }
-}</pre>
-            <div class="line-by-line">
-              <div class="lbl-row"><code>gap = n/2</code>
-                <span>“처음엔 <strong>절반만큼 멀리 떨어진 것끼리</strong> 묶자.” 자료가 8개면 8/2 = 4.</span></div>
-              <div class="lbl-row"><code>if( (gap%2) == 0 ) gap++;</code>
-                <span>“<strong>간격이 짝수면 1을 더해 홀수로</strong> 만든다.” 그래서 4가 아니라 <strong>5</strong>부터 시작합니다.
-                  간격이 계속 짝수면 같은 짝수 위치끼리만 묶여서 골고루 섞이지 않기 때문입니다.</span></div>
-              <div class="lbl-row"><code>gap = gap/2</code>
-                <span>“한 바퀴 돌았으면 <strong>간격을 절반으로 줄여</strong> 다시.”
-                  8개짜리 자료에서는 <strong>5 → 3 → 1</strong> 순으로 좁아집니다.
-                  시뮬레이터에서 직접 확인해 보세요.</span></div>
-              <div class="lbl-row"><code>for(i=0; i&lt;gap; i++)</code>
-                <span>“<strong>묶음이 gap개</strong> 생기니까, 각 묶음마다 한 번씩 정렬하자.”</span></div>
-              <div class="lbl-row"><code>j = j-gap</code>
-                <span>삽입 정렬과 똑같은데 <strong>1칸이 아니라 gap칸씩</strong> 건너뜁니다. 이 한 곳만 다릅니다.</span></div>
-              <div class="lbl-row"><code>gap = 5 일 때</code>
-                <span>0번과 5번, 1번과 6번, 2번과 7번이 한 묶음. 3번과 4번은 짝이 없어 혼자입니다.
-                  시뮬레이터에서 <strong>하늘색으로 묶인 것</strong>이 바로 이 묶음입니다.</span></div>
-            </div>
-            <div class="cut-note"><b>핵심</b>
-              <span style="font-family:var(--mono)">inc_insertion_sort</span> 는 <strong>삽입 정렬과 사실상 같은 코드</strong>인데,
-              <span style="font-family:var(--mono)">j--</span> 가 <span style="font-family:var(--mono)">j-=gap</span> 으로 바뀐 것뿐입니다.
-              시뮬레이터에서 <strong>하늘색으로 묶인 것</strong>이 같은 묶음입니다. gap이 줄어드는 걸 눈으로 보세요.</div>
+            <p class="code-src">직접 보기</p>
+            <button class="cta" type="button" data-sim="shell">
+              시뮬레이터에서 부분 리스트 보기 <span>&rarr;</span></button>
+            <p style="margin-top:10px;font-size:14px;color:var(--ink-2)">
+              자료 8개면 <strong>gap이 5 &rarr; 3 &rarr; 1</strong> 로 좁아집니다.
+              간격 5일 때는 <strong>5줄</strong>, 3일 때는 <strong>3줄</strong>의 부분 리스트가 생깁니다.
+              각 줄이 색으로 구분되어 표로 나타납니다 &mdash; 수업 자료의 그 표와 같은 형식입니다.</p>
           </div>
         </div>
 
-        <div class="algo fast">
+        <div class="algo fast ac5">
           <div class="algo-h"><span class="no">5</span>
             <h4>퀵 정렬<em>QUICK SORT</em></h4><span class="big-o">평균 O(n log n)</span></div>
           <div class="algo-b">
@@ -2940,7 +3115,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac6">
           <div class="algo-h"><span class="no">+</span>
             <h4>합병 정렬<em>MERGE SORT</em></h4><span class="big-o">O(n log n)</span></div>
           <div class="algo-b">
@@ -2963,10 +3138,42 @@
               <li><strong>결합</strong> — 정렬된 부분 배열을 하나의 배열로 통합한다.</li>
             </ul>
 
-            <div class="cut-note"><b>수업 자료에는 코드가 없습니다</b>
-              합병 정렬은 슬라이드에 <strong>그림(분할·합병 과정)만</strong> 실려 있습니다.
-              시뮬레이터에서 합병 정렬을 골라 <strong>쪼개는 단계</strong>와 <strong>합치는 단계</strong>를 직접 넘겨 보세요.
-              배열 A와 배열 B의 맨 앞만 비교해서 배열 C로 옮겨 담는 그 과정입니다.</div>
+            <p class="code-src">분할하고 다시 합치는 과정</p>
+            <div class="tw" style="border:1px solid var(--line);border-radius:8px;background:var(--surface)">
+              <svg viewBox="0 0 400 275" style="width:100%;min-width:400px;height:auto;display:block;padding:10px">
+                <style>
+                  .mv{font-family:var(--mono);font-size:11px;font-weight:700;fill:#17224a}
+                  .mc{fill:#ffd8d8;stroke:#f2545b;stroke-width:1.2;rx:3}
+                  .mc2{fill:#d6f5e8;stroke:#12b886;stroke-width:1.2;rx:3}
+                  .ml{font-family:var(--mono);font-size:9px;fill:#7b8794}
+                  .ma{stroke:#9aa5b1;stroke-width:1;fill:none;marker-end:url(#ar)}
+                </style>
+                <defs><marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 z" fill="#9aa5b1"/></marker></defs>
+
+                <text class="ml" x="4" y="12">분할 &darr;</text>
+                <g id="l0"><rect class="mc" x="108" y="12" width="208" height="20"/><text class="mv" x="121" y="26" text-anchor="middle">27</text><text class="mv" x="147" y="26" text-anchor="middle">10</text><text class="mv" x="173" y="26" text-anchor="middle">12</text><text class="mv" x="199" y="26" text-anchor="middle">20</text><text class="mv" x="225" y="26" text-anchor="middle">25</text><text class="mv" x="251" y="26" text-anchor="middle">13</text><text class="mv" x="277" y="26" text-anchor="middle">15</text><text class="mv" x="303" y="26" text-anchor="middle">22</text></g>
+                <path class="ma" d="M140,32 L86,52"/><path class="ma" d="M180,32 L234,52"/>
+                <g><rect class="mc" x="8" y="54" width="104" height="20"/><text class="mv" x="21" y="68" text-anchor="middle">27</text><text class="mv" x="47" y="68" text-anchor="middle">10</text><text class="mv" x="73" y="68" text-anchor="middle">12</text><text class="mv" x="99" y="68" text-anchor="middle">20</text><rect class="mc" x="216" y="54" width="104" height="20"/><text class="mv" x="229" y="68" text-anchor="middle">25</text><text class="mv" x="255" y="68" text-anchor="middle">13</text><text class="mv" x="281" y="68" text-anchor="middle">15</text><text class="mv" x="307" y="68" text-anchor="middle">22</text></g>
+                <path class="ma" d="M60,74 L38,94"/><path class="ma" d="M112,74 L134,94"/>
+                <path class="ma" d="M208,74 L186,94"/><path class="ma" d="M260,74 L282,94"/>
+                <g><rect class="mc" x="8" y="96" width="52" height="20"/><text class="mv" x="21" y="110" text-anchor="middle">27</text><text class="mv" x="47" y="110" text-anchor="middle">10</text><rect class="mc" x="112" y="96" width="52" height="20"/><text class="mv" x="125" y="110" text-anchor="middle">12</text><text class="mv" x="151" y="110" text-anchor="middle">20</text><rect class="mc" x="164" y="96" width="52" height="20"/><text class="mv" x="177" y="110" text-anchor="middle">25</text><text class="mv" x="203" y="110" text-anchor="middle">13</text><rect class="mc" x="268" y="96" width="52" height="20"/><text class="mv" x="281" y="110" text-anchor="middle">15</text><text class="mv" x="307" y="110" text-anchor="middle">22</text></g>
+
+                <text class="ml" x="4" y="146">합병 &uarr;</text>
+                <g><rect class="mc2" x="8" y="158" width="52" height="20"/><text class="mv" x="21" y="172" text-anchor="middle">10</text><text class="mv" x="47" y="172" text-anchor="middle">27</text><rect class="mc2" x="112" y="158" width="52" height="20"/><text class="mv" x="125" y="172" text-anchor="middle">12</text><text class="mv" x="151" y="172" text-anchor="middle">20</text><rect class="mc2" x="164" y="158" width="52" height="20"/><text class="mv" x="177" y="172" text-anchor="middle">13</text><text class="mv" x="203" y="172" text-anchor="middle">25</text><rect class="mc2" x="268" y="158" width="52" height="20"/><text class="mv" x="281" y="172" text-anchor="middle">15</text><text class="mv" x="307" y="172" text-anchor="middle">22</text></g>
+                <path class="ma" d="M38,178 L60,198"/><path class="ma" d="M134,178 L112,198"/>
+                <path class="ma" d="M186,178 L208,198"/><path class="ma" d="M282,178 L260,198"/>
+                <g><rect class="mc2" x="8" y="200" width="104" height="20"/><text class="mv" x="21" y="214" text-anchor="middle">10</text><text class="mv" x="47" y="214" text-anchor="middle">12</text><text class="mv" x="73" y="214" text-anchor="middle">20</text><text class="mv" x="99" y="214" text-anchor="middle">27</text><rect class="mc2" x="216" y="200" width="104" height="20"/><text class="mv" x="229" y="214" text-anchor="middle">13</text><text class="mv" x="255" y="214" text-anchor="middle">15</text><text class="mv" x="281" y="214" text-anchor="middle">22</text><text class="mv" x="307" y="214" text-anchor="middle">25</text></g>
+                <path class="ma" d="M86,220 L140,240"/><path class="ma" d="M234,220 L180,240"/>
+                <g><rect class="mc2" x="108" y="242" width="208" height="20"/><text class="mv" x="121" y="256" text-anchor="middle">10</text><text class="mv" x="147" y="256" text-anchor="middle">12</text><text class="mv" x="173" y="256" text-anchor="middle">13</text><text class="mv" x="199" y="256" text-anchor="middle">15</text><text class="mv" x="225" y="256" text-anchor="middle">20</text><text class="mv" x="251" y="256" text-anchor="middle">22</text><text class="mv" x="277" y="256" text-anchor="middle">25</text><text class="mv" x="303" y="256" text-anchor="middle">27</text></g>
+              </svg>
+            </div>
+            <div class="cut-note" style="margin-top:10px"><b>수업 자료에는 코드가 없습니다</b>
+              합병 정렬은 슬라이드에 <strong>그림만</strong> 실려 있습니다.
+              시뮬레이터를 열면 <strong>배열 A와 배열 B의 맨 앞만 비교해</strong> 배열 C로 옮기는 과정이
+              한 단계씩 나옵니다.</div>
+            <button class="cta" type="button" data-sim="merge" style="margin-top:12px">
+              시뮬레이터에서 합치는 과정 보기 <span>&rarr;</span></button>
 
             <div class="cut-note"><b>퀵 정렬과 뭐가 다른가</b>
               퀵 정렬은 <strong>피벗 기준으로 비균등</strong> 하게 자르고, 합병 정렬은 <strong>무조건 가운데</strong>에서 자릅니다.
@@ -2975,7 +3182,7 @@
               시뮬레이터에서 합병 정렬을 골라 <strong>쪼개는 단계</strong>와 <strong>합치는 단계</strong>를 눈으로 보세요.</div>
           </div>
         </div>
-        <div class="algo fast">
+        <div class="algo fast ac7">
           <div class="algo-h"><span class="no">7</span>
             <h4>기수 정렬<em>RADIX SORT</em></h4><span class="big-o">O(d·n)</span></div>
           <div class="algo-b">
@@ -3017,13 +3224,51 @@
             <div class="cut-note"><b>왜 O(n log n) 보다 빠른가</b>
               비교를 아예 안 하기 때문입니다. 자릿수 d가 고정이면 <strong>자료 개수 n에 정비례</strong>합니다.
               대신 <strong>정수처럼 자릿수로 나눌 수 있는 자료</strong>에만 쓸 수 있고, 바구니 10개를 위한 메모리가 필요합니다.
-              시뮬레이터에서 <strong>기수정렬 예제</strong> 자료로 돌리면 위 슬라이드 예제가 그대로 재현됩니다.</div>
+              시뮬레이터에서 <strong>슬라이드 기수 예제</strong> 자료로 돌리면 위 예제가 그대로 재현됩니다.</div>
+            <button class="cta" type="button" data-sim="radix" style="margin-top:12px">
+              시뮬레이터에서 줄기와 잎 보기 <span>&rarr;</span></button>
           </div>
         </div>
       </section>
 
+      <section id="ls-game">
+        <div class="sh"><span class="sh-n">04 / 게임</span><h2>피벗 자리 맞히기</h2></div>
+        <p class="note">퀵 정렬의 핵심은 딱 하나입니다 &mdash;
+          <strong>피벗은 한 번 자리를 잡으면 절대 움직이지 않는다.</strong>
+          그럼 그 자리가 어디인지 <strong>가르기를 해 보지 않고도</strong> 알 수 있을까요? 맞혀 보세요.</p>
+
+        <div class="game">
+          <div class="g-top">
+            <span class="g-q">이 배열에서 <b id="gv">?</b> 를 피벗으로 잡으면,
+              <b>최종적으로 몇 번 자리</b>에 놓일까요?</span>
+            <span class="g-score">맞힌 개수 <b id="gs">0</b> &nbsp;·&nbsp; 연속 <b id="gk">0</b></span>
+          </div>
+
+          <div class="g-arr" id="ga"></div>
+          <div class="g-idx" id="gi"></div>
+
+          <p class="g-say" id="gm">아래 번호 중 하나를 눌러 보세요.</p>
+
+          <div class="g-ctrl">
+            <button type="button" class="cta" id="gnext">다음 문제 <span>&rarr;</span></button>
+            <button type="button" id="ghint">힌트</button>
+          </div>
+        </div>
+
+        <div class="split" style="margin-top:16px">
+          <div class="sp"><h5>왜 맞힐 수 있을까</h5>
+            피벗의 왼쪽에는 <strong>피벗보다 작은 값만</strong> 모입니다.
+            그러니까 <span class="yes">피벗보다 작은 값의 개수 = 피벗의 자리 번호</span> 입니다.
+            가르기를 끝까지 해 보지 않아도 셈만으로 알 수 있습니다.</div>
+          <div class="sp"><h5>이게 왜 중요한가</h5>
+            그 자리가 <strong>배열의 한가운데 근처</strong>면 좌우가 반씩 나뉘어 빠릅니다.
+            반대로 <span class="no">0번이나 맨 끝</span>이 계속 나오면 한쪽으로만 쪼개져
+            <strong>최악 O(n&sup2;)</strong> 가 됩니다. 피벗을 잘 고르는 것이 그래서 중요합니다.</div>
+        </div>
+      </section>
+
       <section id="ls-cmp">
-        <div class="sh"><span class="sh-n">04 / 정리</span><h2>한눈에 비교</h2></div>
+        <div class="sh"><span class="sh-n">05 / 정리</span><h2>한눈에 비교</h2></div>
         <p class="note">시뮬레이터로 같은 자료를 돌려 보면 이 표의 숫자가 왜 이런지 알 수 있습니다.</p>
 
         <div class="tw">
@@ -3100,7 +3345,7 @@
       </section>
 
       <section id="ls-quiz">
-        <div class="sh"><span class="sh-n">05 / 점검</span><h2>확인 문제</h2></div>
+        <div class="sh"><span class="sh-n">06 / 점검</span><h2>확인 문제</h2></div>
         <p class="note">먼저 스스로 답을 생각한 뒤 눌러서 확인하세요.</p>
 
         <div class="quiz">
@@ -3329,7 +3574,7 @@
         <div class="sh"><span class="sh-n">03 / 코드</span><h2>탐색 방법과 핵심 코드</h2></div>
         <p class="note">아래 코드는 <strong>수업 슬라이드에 실린 원문 그대로</strong>입니다.</p>
 
-        <div class="algo">
+        <div class="algo ac1">
           <div class="algo-h"><span class="no">1</span>
             <h4>순차 탐색<em>SEQUENTIAL SEARCH</em></h4><span class="big-o">O(n)</span></div>
           <div class="algo-b">
@@ -3395,7 +3640,7 @@
           </div>
         </div>
 
-        <div class="algo fast">
+        <div class="algo fast ac2">
           <div class="algo-h"><span class="no">2</span>
             <h4>이진 탐색<em>BINARY SEARCH</em></h4><span class="big-o">O(log n)</span></div>
           <div class="algo-b">
@@ -3447,7 +3692,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac3">
           <div class="algo-h"><span class="no">3</span>
             <h4>색인 순차 탐색<em>INDEXED SEQUENTIAL SEARCH</em></h4><span class="big-o">O(m + n/m)</span></div>
           <div class="algo-b">
@@ -3463,7 +3708,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac4">
           <div class="algo-h"><span class="no">4</span>
             <h4>보간 탐색<em>INTERPOLATION SEARCH</em></h4><span class="big-o">O(log n)</span></div>
           <div class="algo-b">
@@ -3480,7 +3725,7 @@
           </div>
         </div>
 
-        <div class="algo">
+        <div class="algo ac5">
           <div class="algo-h"><span class="no">5</span>
             <h4>균형 이진 탐색 트리<em>AVL TREE</em></h4><span class="big-o">O(log n)</span></div>
           <div class="algo-b">
@@ -5163,9 +5408,9 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       }
 
       /* 합병 정렬 — 반씩 쪼갠 뒤 두 묶음을 나란히 놓고 작은 것부터 집어냅니다. */
+      /* 합병 정렬 — 수업 자료의 '배열 A / 배열 B / 배열 C' 그림을 그대로 재현합니다. */
       function merge(src) {
         var a = src.slice(), out = [], cmp = 0, mv = 0, done = [];
-        out.push(F(a, cmp, mv, {}, done, '시작 — 반씩 쪼갠 다음, 다시 합치면서 정렬합니다.', true));
 
         function band(l, r, role) {
           var m = {};
@@ -5173,35 +5418,59 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           return m;
         }
 
-        function ms(left, right) {
-          if (left >= right) return;
-          var mid = Math.floor((left + right) / 2);
-          out.push(F(a, cmp, mv, band(left, right, 'grp'), done,
-            '[' + left + '~' + right + '] 을 [' + left + '~' + mid + '] 와 [' + (mid + 1) + '~' + right + '] 로 쪼갭니다.', true));
-          ms(left, mid);
-          ms(mid + 1, right);
-
-          var tmp = [], i = left, j = mid + 1;
-          while (i <= mid && j <= right) {
-            cmp++;
-            var m = band(left, right, 'grp'); m[i] = 'cmp'; m[j] = 'cmp';
-            var pick;
-            if (a[i] <= a[j]) { pick = a[i]; tmp.push(a[i]); i++; }
-            else { pick = a[j]; tmp.push(a[j]); j++; }
-            out.push(F(a, cmp, mv, m, done,
-              '왼쪽 묶음 앞 ' + a[Math.min(i, mid)] + ' 와 오른쪽 묶음 앞 ' + a[Math.min(j, right)] +
-              ' 중 작은 ' + pick + ' 를 먼저 꺼냅니다.'));
-          }
-          while (i <= mid) { tmp.push(a[i]); i++; }
-          while (j <= right) { tmp.push(a[j]); j++; }
-          for (var k = 0; k < tmp.length; k++) { a[left + k] = tmp[k]; mv++; }
-          out.push(F(a, cmp, mv, band(left, right, 'key'), done,
-            '합치기 완료 → ' + tmp.join(' '), true));
+        function snap(marks, msg, lm, mg, tree) {
+          var f = F(a, cmp, mv, marks, done, msg, lm);
+          f.mg = mg || null;
+          f.tree = tree || null;
+          out.push(f);
         }
 
-        ms(0, a.length - 1);
+        var depth = 0;
+        snap({}, '시작 — 반씩 쪼갠 다음, 두 묶음의 맨 앞만 비교하며 합칩니다.', true);
+
+        function ms(left, right, lv) {
+          if (left >= right) return;
+          var mid = Math.floor((left + right) / 2);
+          snap(band(left, right, 'grp'),
+            '[' + left + '~' + right + '] 을 [' + left + '~' + mid + '] 와 [' + (mid + 1) + '~' + right + '] 로 쪼갭니다.',
+            true, null, { left: left, right: right, mid: mid, lv: lv, act: 'split' });
+          ms(left, mid, lv + 1);
+          ms(mid + 1, right, lv + 1);
+
+          var A = a.slice(left, mid + 1), B = a.slice(mid + 1, right + 1), C = [];
+          var i = 0, j = 0;
+          snap(band(left, right, 'grp'),
+            '정렬된 두 묶음을 합칩니다. 배열 A와 배열 B의 맨 앞만 보면 됩니다.',
+            true, { A: A.slice(), B: B.slice(), C: [], ai: 0, bi: 0, pick: -1 },
+            { left: left, right: right, mid: mid, lv: lv, act: 'merge' });
+
+          while (i < A.length && j < B.length) {
+            cmp++;
+            var pick, from;
+            if (A[i] <= B[j]) { pick = A[i]; from = 0; i++; }
+            else { pick = B[j]; from = 1; j++; }
+            C.push(pick);
+            snap(band(left, right, 'grp'),
+              'A의 ' + (from === 0 ? pick : A[i]) + ' 와 B의 ' + (from === 1 ? pick : B[j]) +
+              ' 중 작은 ' + pick + ' 를 배열 C로 옮깁니다.',
+              false, { A: A.slice(), B: B.slice(), C: C.slice(), ai: i, bi: j, pick: from });
+          }
+          while (i < A.length) { C.push(A[i]); i++; snap(band(left, right, 'grp'),
+            'B가 비었습니다. A에 남은 것을 그대로 옮깁니다.', false,
+            { A: A.slice(), B: B.slice(), C: C.slice(), ai: i, bi: j, pick: 0 }); }
+          while (j < B.length) { C.push(B[j]); j++; snap(band(left, right, 'grp'),
+            'A가 비었습니다. B에 남은 것을 그대로 옮깁니다.', false,
+            { A: A.slice(), B: B.slice(), C: C.slice(), ai: i, bi: j, pick: 1 }); }
+
+          for (var k = 0; k < C.length; k++) { a[left + k] = C[k]; mv++; }
+          snap(band(left, right, 'key'), '합치기 완료 → ' + C.join(' '), true,
+            { A: A.slice(), B: B.slice(), C: C.slice(), ai: i, bi: j, pick: -1 },
+            { left: left, right: right, mid: mid, lv: lv, act: 'done' });
+        }
+
+        ms(0, a.length - 1, 0);
         for (var d = 0; d < a.length; d++) done.push(d);
-        out.push(F(a, cmp, mv, {}, done, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + mv + '번', true));
+        snap({}, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + mv + '번', true);
         return out;
       }
 
@@ -5385,38 +5654,70 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         return out;
       }
 
+      /* 셸 정렬 — 수업 자료의 '부분 리스트' 표를 그대로 재현합니다.
+         gap칸 떨어진 것끼리 한 줄에 모아 보여 주고, 그 줄만 삽입 정렬합니다. */
       function shell(src) {
-        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        var a = src.slice(), out = [], cmp = 0, mv = 0, done = [];
         var n = a.length;
-        out.push(F(a, cmp, swp, {}, done, '시작 — 간격(gap)을 두고 부분 리스트를 삽입 정렬합니다.'));
+
+        function lists(gap) {
+          var L = [];
+          for (var s0 = 0; s0 < gap; s0++) {
+            var idx = [];
+            for (var t = s0; t < n; t += gap) idx.push(t);
+            L.push(idx);
+          }
+          return L;
+        }
+
+        function snap(marks, msg, lm, gap, act, cap) {
+          var f = F(a, cmp, mv, marks, done, msg, lm);
+          f.sub = gap ? { gap: gap, lists: lists(gap), act: (act === undefined ? -1 : act),
+                          cap: cap || '' } : null;
+          out.push(f);
+        }
+
+        snap({}, '시작 — 멀리 떨어진 것끼리 먼저 대충 정리하고, 간격을 좁혀 갑니다.', true, 0);
+
         for (var gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
           if (gap % 2 === 0) gap++;
-          out.push(F(a, cmp, swp, {}, done, 'gap = ' + gap + ' — ' + gap + '칸씩 떨어진 것끼리 묶습니다.', true));
-          for (var s = 0; s < gap; s++) {
+          snap({}, 'gap = ' + gap + ' — ' + gap + '칸씩 떨어진 것끼리 ' + gap + '개의 부분 리스트로 묶습니다.',
+               true, gap, -1, '간격 ' + gap + '일 때의 부분 리스트');
+
+          for (var s1 = 0; s1 < gap; s1++) {
             var grp = {};
-            for (var t = s; t < n; t += gap) grp[t] = 'grp';
-            for (var i = s + gap; i < n; i += gap) {
+            for (var t1 = s1; t1 < n; t1 += gap) grp[t1] = 'grp';
+            snap(grp, s1 + '번째 부분 리스트를 삽입 정렬합니다.', false, gap, s1,
+                 '간격 ' + gap + ' — ' + s1 + '번째 줄 정렬 중');
+
+            for (var i = s1 + gap; i < n; i += gap) {
               var key = a[i], j = i - gap;
               var m = {}; for (var k in grp) m[k] = grp[k]; m[i] = 'key';
-              out.push(F(a, cmp, swp, m, done, '부분 리스트(시작 ' + s + ') 에서 key = ' + key));
-              while (j >= s && a[j] > key) {
+              snap(m, 'key = ' + key + ' 를 이 줄 안에서 알맞은 자리에 넣습니다.', false, gap, s1,
+                   '간격 ' + gap + ' — ' + s1 + '번째 줄 정렬 중');
+              while (j >= s1 && a[j] > key) {
                 cmp++;
                 var big = a[j];
-                a[j + gap] = a[j]; swp++;
+                a[j + gap] = a[j]; mv++;
                 var m2 = {}; for (var k2 in grp) m2[k2] = grp[k2];
                 m2[j] = 'cmp'; m2[j + gap] = 'swap';
-                out.push(F(a, cmp, swp, m2, done, big + ' > ' + key + ' → ' + gap + '칸 뒤로 밀기'));
+                snap(m2, big + ' > ' + key + ' → ' + gap + '칸 뒤로 밀기', false, gap, s1,
+                     '간격 ' + gap + ' — ' + s1 + '번째 줄 정렬 중');
                 j -= gap;
               }
-              if (j >= s) cmp++;
+              if (j >= s1) cmp++;
               a[j + gap] = key;
               var m3 = {}; for (var k3 in grp) m3[k3] = grp[k3]; m3[j + gap] = 'key';
-              out.push(F(a, cmp, swp, m3, done, key + ' 를 ' + (j + gap) + '번 자리에 삽입'));
+              snap(m3, key + ' 를 ' + (j + gap) + '번 자리에 넣음', false, gap, s1,
+                   '간격 ' + gap + ' — ' + s1 + '번째 줄 정렬 중');
             }
           }
+          snap({}, '간격 ' + gap + ' 정렬 후의 전체 배열 → ' + a.join(' '), true, gap, -1,
+               '부분 리스트 정렬 후');
         }
+
         for (var d = 0; d < n; d++) done.push(d);
-        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + swp + '번'));
+        snap({}, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + mv + '번', true, 0);
         return out;
       }
 
@@ -5505,6 +5806,46 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           html += '<div class="' + cls + '" style="height:' + h + '%"><span>' + f.a[i] + '</span></div>';
         }
         stage.innerHTML = html;
+
+        /* 셸 정렬 — 부분 리스트 표 */
+        var sub = document.getElementById('ls-sub');
+        if (f.sub && f.sub.gap > 0) {
+          var sh2 = '<p class="stem-h"><b>부분 리스트</b><span>' + (f.sub.cap || '') + '</span></p>';
+          sh2 += '<table class="subtab"><tr><td class="lbl">전체</td>';
+          for (var c0 = 0; c0 < f.a.length; c0++) sh2 += '<td class="all">' + f.a[c0] + '</td>';
+          sh2 += '</tr>';
+          for (var li = 0; li < f.sub.lists.length; li++) {
+            var row = f.sub.lists[li];
+            sh2 += '<tr class="' + (li === f.sub.act ? 'on' : '') + '"><td class="lbl">' +
+                   (li + 1) + '줄</td>';
+            for (var c1 = 0; c1 < f.a.length; c1++) {
+              var has = row.indexOf(c1) >= 0;
+              sh2 += '<td class="' + (has ? 'has g' + (li % 5) : '') + '">' +
+                     (has ? f.a[c1] : '') + '</td>';
+            }
+            sh2 += '</tr>';
+          }
+          sh2 += '</table>';
+          sub.innerHTML = sh2;
+          sub.classList.add('show');
+        } else { sub.classList.remove('show'); sub.innerHTML = ''; }
+
+        /* 합병 정렬 — 배열 A / B / C */
+        var mgEl = document.getElementById('ls-merge');
+        if (f.mg) {
+          function line(name, arr, ptr, hot) {
+            var h = '<div class="mrow' + (hot ? ' hot' : '') + '"><span class="mlbl">' + name + '</span><span class="mcells">';
+            if (!arr.length) h += '<i class="empty">비었음</i>';
+            for (var q = 0; q < arr.length; q++)
+              h += '<i class="' + (q === ptr ? 'p' : (q < ptr ? 'used' : '')) + '">' + arr[q] + '</i>';
+            return h + '</span></div>';
+          }
+          mgEl.innerHTML = '<p class="stem-h"><b>합치는 과정</b><span>두 묶음의 맨 앞(▼)만 비교합니다</span></p>' +
+            line('배열 A', f.mg.A, f.mg.ai, f.mg.pick === 0) +
+            line('배열 B', f.mg.B, f.mg.bi, f.mg.pick === 1) +
+            line('배열 C', f.mg.C, -1, false);
+          mgEl.classList.add('show');
+        } else { mgEl.classList.remove('show'); mgEl.innerHTML = ''; }
 
         var stem = document.getElementById('ls-stem');
         if (f.buckets) {
@@ -5908,6 +6249,101 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
 
       build();
     })();
+
+
+    /* ---------- 퀵 정렬 게임 : 피벗 자리 맞히기 ---------- */
+    (function () {
+      var ga = document.getElementById('ga');
+      if (!ga) return;
+      var gi = document.getElementById('gi'), gm = document.getElementById('gm');
+      var gv = document.getElementById('gv'), gs = document.getElementById('gs'), gk = document.getElementById('gk');
+      var score = 0, streak = 0, arr = [], pivot = 0, answer = 0, solved = false;
+
+      function make() {
+        arr = [];
+        while (arr.length < 8) {
+          var v = Math.floor(Math.random() * 90) + 10;
+          if (arr.indexOf(v) < 0) arr.push(v);
+        }
+        pivot = arr[0];
+        answer = arr.filter(function (v) { return v < pivot; }).length;
+        solved = false;
+        gv.textContent = pivot;
+        draw(false);
+        gm.textContent = '아래 번호 중 하나를 눌러 보세요.';
+        gm.className = 'g-say';
+      }
+
+      function draw(reveal) {
+        var h = '';
+        for (var i = 0; i < arr.length; i++) {
+          var c = 'g-arr-cell';
+          if (i === 0) c = 'pv';
+          else if (reveal) c = (arr[i] < pivot) ? 'sm' : 'bg2';
+          else c = '';
+          h += '<i class="' + c + '">' + arr[i] + '</i>';
+        }
+        ga.innerHTML = h;
+        var g = '';
+        for (var j = 0; j < arr.length; j++) g += '<button type="button" data-i="' + j + '">' + j + '</button>';
+        gi.innerHTML = g;
+        gi.querySelectorAll('button').forEach(function (b) {
+          b.addEventListener('click', function () { pick(parseInt(b.getAttribute('data-i'), 10), b); });
+        });
+      }
+
+      function pick(i, btn) {
+        if (solved) return;
+        solved = true;
+        gi.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+        var smaller = arr.filter(function (v) { return v < pivot; });
+        if (i === answer) {
+          score++; streak++;
+          btn.classList.add('ok');
+          gm.className = 'g-say good';
+          gm.innerHTML = '정답! 피벗 <b>' + pivot + '</b> 보다 작은 값이 <b>' + smaller.length +
+            '개</b>(' + (smaller.join(', ') || '없음') + ') 이므로 <b>' + answer + '번 자리</b>입니다.' +
+            (answer === 0 || answer === arr.length - 1
+              ? ' &mdash; 한쪽으로 완전히 치우쳤습니다. 이런 피벗이 계속 나오면 최악 O(n²)!'
+              : '');
+        } else {
+          streak = 0;
+          btn.classList.add('no');
+          gi.querySelectorAll('button')[answer].classList.add('ok');
+          gm.className = 'g-say bad';
+          gm.innerHTML = '아쉽네요. 정답은 <b>' + answer + '번</b>입니다. ' +
+            '피벗 <b>' + pivot + '</b> 보다 작은 값이 <b>' + smaller.length + '개</b>(' +
+            (smaller.join(', ') || '없음') + ') 이니까, 그 ' + smaller.length +
+            '개가 왼쪽에 놓이고 피벗은 바로 그 뒤에 옵니다.';
+        }
+        draw(true);
+        gi.querySelectorAll('button').forEach(function (b, idx) {
+          b.disabled = true;
+          if (idx === answer) b.classList.add('ok');
+          else if (idx === i) b.classList.add('no');
+        });
+        gs.textContent = score; gk.textContent = streak;
+      }
+
+      document.getElementById('gnext').addEventListener('click', make);
+      document.getElementById('ghint').addEventListener('click', function () {
+        gm.className = 'g-say';
+        gm.innerHTML = '힌트 &mdash; 피벗의 <b>왼쪽에는 피벗보다 작은 값만</b> 모입니다. ' +
+          '그러니 <b>피벗보다 작은 값이 몇 개인지</b> 세어 보세요. 그 개수가 곧 자리 번호입니다.';
+      });
+      make();
+    })();
+
+    /* ---------- 카드에서 시뮬레이터로 보내기 ---------- */
+    document.querySelectorAll('[data-sim]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var want = b.getAttribute('data-sim');
+        var btn = document.querySelector('#ls-algs button[data-alg="' + want + '"]');
+        if (btn) btn.click();
+        var sec = document.getElementById('ls-sim');
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
     /* ---------- 차례 이동 (해시 없이 스크롤) ---------- */
     document.querySelectorAll('.rail a').forEach(function (a) {
