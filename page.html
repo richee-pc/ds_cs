@@ -1139,6 +1139,436 @@
   .fl h4 { margin: 0 0 8px; font-size: 16.5px; font-weight: 800; }
   .fl p { margin: 0; font-size: 14.3px; color: var(--ink-2); max-width: none; }
 
+  /* =====================================================================
+     정렬 알고리즘 수업 페이지 — 밝고 산뜻한 별도 톤
+     ===================================================================== */
+
+  .page[data-page="lesson"] {
+    --ground: #f4f8fd;
+    --surface: #ffffff;
+    --surface-2: #eef4fb;
+    --ink: #12202e;
+    --ink-2: #3f5670;
+    --muted: #6b8099;
+    --line: #dbe6f2;
+    --line-2: #b9cde3;
+    --edge: #0b74d1;
+    --edge-2: #2e9bf0;
+    --edge-soft: #e3f0fd;
+    --sort: #e0574c;
+    --sort-soft: #fdeceb;
+    --deep: #103353;
+    --deep-2: #17456e;
+    --on-deep: #dfeefc;
+    --on-deep-dim: #8fb4d6;
+    background: #f4f8fd;
+
+    --c-idle: #b9d4f2;
+    --c-cmp: #ffb020;
+    --c-swap: #f2545b;
+    --c-key: #7b5cf0;
+    --c-pivot: #7b5cf0;
+    --c-done: #12b886;
+    --c-grp: #8fd3f4;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .page[data-page="lesson"] {
+      --ground: #0d1a26;
+      --surface: #132535;
+      --surface-2: #173043;
+      --ink: #e2eefa;
+      --ink-2: #adc5da;
+      --muted: #7f9bb5;
+      --line: #233d54;
+      --line-2: #35566f;
+      --edge: #4bb0f5;
+      --edge-2: #74c6fb;
+      --edge-soft: #113148;
+      --sort: #ff8a80;
+      --sort-soft: #3a1f1d;
+      --deep: #0a1622;
+      --deep-2: #12293d;
+      background: #0d1a26;
+      --c-idle: #35566f;
+    }
+  }
+
+  :root[data-theme="dark"] .page[data-page="lesson"] {
+    --ground: #0d1a26;
+    --surface: #132535;
+    --surface-2: #173043;
+    --ink: #e2eefa;
+    --ink-2: #adc5da;
+    --muted: #7f9bb5;
+    --line: #233d54;
+    --line-2: #35566f;
+    --edge: #4bb0f5;
+    --edge-2: #74c6fb;
+    --edge-soft: #113148;
+    --sort: #ff8a80;
+    --sort-soft: #3a1f1d;
+    --deep: #0a1622;
+    --deep-2: #12293d;
+    background: #0d1a26;
+    --c-idle: #35566f;
+  }
+
+  :root[data-theme="light"] .page[data-page="lesson"] {
+    --ground: #f4f8fd;
+    --surface: #ffffff;
+    --surface-2: #eef4fb;
+    --ink: #12202e;
+    --ink-2: #3f5670;
+    --muted: #6b8099;
+    --line: #dbe6f2;
+    --line-2: #b9cde3;
+    --edge: #0b74d1;
+    --edge-2: #2e9bf0;
+    --edge-soft: #e3f0fd;
+    --sort: #e0574c;
+    --sort-soft: #fdeceb;
+    --deep: #103353;
+    --deep-2: #17456e;
+    background: #f4f8fd;
+    --c-idle: #b9d4f2;
+  }
+
+  /* ---- 시뮬레이터 ---- */
+
+  .sim {
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 2px rgba(16, 51, 83, .05), 0 14px 34px -22px rgba(16, 51, 83, .4);
+  }
+
+  .sim-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .chips button {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 700;
+    border: 1px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink-2);
+    padding: 7px 14px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+
+  .chips button:hover { border-color: var(--edge); color: var(--edge); }
+
+  .chips button.on {
+    background: var(--edge);
+    border-color: var(--edge);
+    color: #fff;
+  }
+
+  .chips .lbl {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--muted);
+    align-self: center;
+    margin-right: 2px;
+  }
+
+  .stage {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 250px;
+    padding: 12px 10px 0;
+    background: var(--surface-2);
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+
+  .bar {
+    flex: 1 1 0;
+    min-width: 0;
+    background: var(--c-idle);
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 5px;
+    transition: height .18s ease, background .18s ease, transform .18s ease;
+    position: relative;
+  }
+
+  .bar span {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .28);
+  }
+
+  .bar.is-cmp   { background: var(--c-cmp); }
+  .bar.is-swap  { background: var(--c-swap); transform: translateY(-6px); }
+  .bar.is-key   { background: var(--c-key); }
+  .bar.is-pivot { background: var(--c-pivot); }
+  .bar.is-grp   { background: var(--c-grp); }
+  .bar.is-done  { background: var(--c-done); }
+  .bar.is-done.is-cmp { background: var(--c-cmp); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 16px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+
+  .say {
+    margin-top: 12px;
+    background: var(--edge-soft);
+    border-left: 3px solid var(--edge);
+    border-radius: 0 6px 6px 0;
+    padding: 11px 15px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    min-height: 44px;
+    color: var(--ink);
+  }
+
+  .ctrl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .ctrl button {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 700;
+    border: 1px solid var(--line-2);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 9px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .14s, border-color .14s, color .14s;
+  }
+
+  .ctrl button:hover:not(:disabled) { border-color: var(--edge); color: var(--edge); }
+  .ctrl button:disabled { opacity: .4; cursor: default; }
+
+  .ctrl button.play {
+    background: var(--edge);
+    border-color: var(--edge);
+    color: #fff;
+    min-width: 92px;
+  }
+
+  .ctrl button.play:hover { filter: brightness(1.08); color: #fff; }
+
+  .ctrl label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ctrl input[type="range"] { accent-color: var(--edge); width: 96px; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 14px;
+  }
+
+  .stats div { background: var(--surface); padding: 11px 14px; }
+
+  .stats dt {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .stats dd {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+
+  .track-sim {
+    height: 5px;
+    background: var(--line);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+
+  .track-sim i { display: block; height: 100%; width: 0; background: var(--edge); border-radius: 99px; transition: width .15s linear; }
+
+  /* ---- 알고리즘 카드 ---- */
+
+  .algo {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .algo-h {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+
+  .algo-h .no {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--edge);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+
+  .algo.fast .algo-h .no { background: var(--c-done); }
+
+  .algo-h h4 { margin: 0; font-size: 17.5px; font-weight: 800; flex: 1 1 auto; }
+  .algo-h h4 em { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); margin-left: 8px; letter-spacing: .04em; }
+
+  .algo-h .big-o {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--edge);
+    background: var(--edge-soft);
+    padding: 4px 11px;
+    border-radius: 99px;
+    flex: none;
+  }
+
+  .algo.fast .algo-h .big-o { color: #0a7a5a; background: #dcf7ee; }
+  :root[data-theme="dark"] .algo.fast .algo-h .big-o { color: #6ee7bb; background: #0c3b2c; }
+
+  .algo-b { padding: 18px 20px 20px; }
+  .algo-b > p { margin-top: 0; }
+
+  .code-src {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .09em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 7px;
+  }
+
+  .code-src::before { content: ""; flex: none; width: 14px; height: 1px; background: var(--line-2); }
+
+  .algo pre {
+    background: #10243a;
+    color: #d7e7f7;
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-size: 12.8px;
+    line-height: 1.72;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+    max-height: none;
+  }
+
+  .algo pre b { color: #ffc25c; font-weight: 400; }
+  .algo pre i { color: #7fd4a8; font-style: normal; }
+  .algo pre u { color: #8fb4d6; text-decoration: none; }
+
+  .cut-note {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--ink-2);
+    background: var(--sort-soft);
+    border-left: 3px solid var(--sort);
+    border-radius: 0 6px 6px 0;
+    padding: 11px 15px;
+  }
+
+  .cut-note b { color: var(--sort); }
+
+  /* ---- 확인 문제 ---- */
+
+  .quiz {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+
+  .quiz p { margin: 0 0 12px; font-weight: 700; font-size: 15.5px; }
+  .quiz p em { font-style: normal; font-family: var(--mono); color: var(--edge); margin-right: 8px; }
+
+  .quiz button {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px dashed var(--line-2);
+    background: var(--surface-2);
+    color: var(--muted);
+    padding: 8px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+
+  .quiz button:hover { border-color: var(--edge); color: var(--edge); }
+
+  .quiz .ans {
+    display: none;
+    margin-top: 10px;
+    background: var(--edge-soft);
+    border-radius: 7px;
+    padding: 13px 16px;
+    font-size: 14.5px;
+    line-height: 1.72;
+  }
+
+  .quiz.open .ans { display: block; }
+  .quiz.open button { display: none; }
+
   /* ---------- 비공개(준비 중) 탭 ---------- */
 
   .tabs a.locked { display: none; }
@@ -1287,8 +1717,9 @@
     <span class="brand">DS · 2026 2학기</span>
     <nav class="tabs" aria-label="페이지">
       <a href="#/overview" data-go="overview"><span class="tn">01</span>2학기 수업 안내</a>
-      <a href="#/task1" data-go="task1"><span class="tn">02</span>수행평가 1 · 정렬 알고리즘 설계</a>
-      <a href="#/task2" data-go="task2" class="locked"><span class="tn">03</span>수행평가 2 · 탐색 알고리즘 설계</a>
+      <a href="#/lesson" data-go="lesson"><span class="tn">02</span>정렬 알고리즘 수업</a>
+      <a href="#/task1" data-go="task1"><span class="tn">03</span>수행평가 1 · 정렬 알고리즘 설계</a>
+      <a href="#/task2" data-go="task2" class="locked"><span class="tn">04</span>수행평가 2 · 탐색 알고리즘 설계</a>
     </nav>
   </div>
 </header>
@@ -1537,6 +1968,447 @@
         <button class="cta" type="button" data-goto="task1">
           수행평가 1 · 정렬 알고리즘 설계 보러 가기 <span>→</span>
         </button>
+      </section>
+
+      <footer>
+        <div class="sig">
+          <a class="repo" href="https://github.com/richee-pc/ds_cs" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+            github.com/richee-pc/ds_cs
+          </a>
+          <p class="by">made by ptp<span class="bun" aria-hidden="true">🐰</span></p>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<!-- ================= 페이지 · 정렬 알고리즘 수업 ================= -->
+<div class="page" data-page="lesson">
+
+  <header class="hero" style="background:var(--deep)">
+    <div class="hero-in">
+      <div>
+        <p class="kicker"><i>chapter 4</i><i>3학년 자료구조</i><i>수업 자료</i></p>
+        <h1>정렬 알고리즘<span class="b">움직이는 걸로 이해하기</span></h1>
+        <p class="lede">
+          정렬은 <strong>모든 과학기술 분야에서 가장 기본적이고 중요한 알고리즘</strong> 중 하나입니다.
+          자료를 찾으려면 먼저 순서가 있어야 하기 때문입니다.
+          아래에서 다섯 가지 정렬을 <strong>직접 돌려 보고</strong>, 수업 시간에 본 <strong>핵심 코드</strong>와
+          맞춰 보세요.
+        </p>
+        <dl class="facts">
+          <div class="fact"><dt>다루는 정렬</dt><dd>5가지 <em>선택·삽입·버블·셸·퀵</em></dd></div>
+          <div class="fact"><dt>학습지 연계</dt><dd>정렬 학습지 <em>1번 문항</em></dd></div>
+        </dl>
+      </div>
+
+      <div class="viz" aria-hidden="true">
+        <svg viewBox="0 0 420 240" role="img">
+          <text class="vz-cap" x="0" y="12">BEFORE — 뒤섞인 자료</text>
+          <rect class="vz-bar" x="10"  y="34" width="34" height="56" rx="3" style="fill:#f2545b;animation-delay:.05s;transform-origin:27px 90px" />
+          <rect class="vz-bar" x="54"  y="58" width="34" height="32" rx="3" style="fill:#ffb020;animation-delay:.1s;transform-origin:71px 90px" />
+          <rect class="vz-bar" x="98"  y="18" width="34" height="72" rx="3" style="fill:#7b5cf0;animation-delay:.15s;transform-origin:115px 90px" />
+          <rect class="vz-bar" x="142" y="46" width="34" height="44" rx="3" style="fill:#2e9bf0;animation-delay:.2s;transform-origin:159px 90px" />
+          <rect class="vz-bar" x="186" y="70" width="34" height="20" rx="3" style="fill:#12b886;animation-delay:.25s;transform-origin:203px 90px" />
+          <rect class="vz-bar" x="230" y="30" width="34" height="60" rx="3" style="fill:#ff8fab;animation-delay:.3s;transform-origin:247px 90px" />
+
+          <text class="vz-cap" x="300" y="66" style="font-size:13px">정렬</text>
+          <path class="vz-path" d="M296,80 L392,80" style="stroke:#74c6fb;animation-delay:.5s" />
+          <path class="vz-path" d="M382,73 L392,80 L382,87" style="stroke:#74c6fb;animation-delay:.8s" />
+
+          <text class="vz-cap" x="0" y="140">AFTER — 크기 순으로</text>
+          <rect class="vz-bar" x="10"  y="198" width="34" height="20" rx="3" style="fill:#12b886;animation-delay:1s;transform-origin:27px 218px" />
+          <rect class="vz-bar" x="54"  y="186" width="34" height="32" rx="3" style="fill:#12b886;animation-delay:1.1s;transform-origin:71px 218px" />
+          <rect class="vz-bar" x="98"  y="174" width="34" height="44" rx="3" style="fill:#12b886;animation-delay:1.2s;transform-origin:115px 218px" />
+          <rect class="vz-bar" x="142" y="162" width="34" height="56" rx="3" style="fill:#12b886;animation-delay:1.3s;transform-origin:159px 218px" />
+          <rect class="vz-bar" x="186" y="158" width="34" height="60" rx="3" style="fill:#12b886;animation-delay:1.4s;transform-origin:203px 218px" />
+          <rect class="vz-bar" x="230" y="146" width="34" height="72" rx="3" style="fill:#12b886;animation-delay:1.5s;transform-origin:247px 218px" />
+          <line class="vz-tick" x1="10" y1="222" x2="264" y2="222" style="stroke:#4d7ea8" />
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="rail" aria-label="차례">
+      <p class="rail-t">차례</p>
+      <ol>
+        <li><a href="#ls-why">정렬은 왜 배우나</a></li>
+        <li><a href="#ls-sim">정렬 시뮬레이터</a></li>
+        <li><a href="#ls-algo">알고리즘 5가지와 핵심 코드</a></li>
+        <li><a href="#ls-cmp">한눈에 비교</a></li>
+        <li><a href="#ls-quiz">확인 문제</a></li>
+      </ol>
+    </nav>
+
+    <main>
+
+      <section id="ls-why">
+        <div class="sh"><span class="sh-n">01 / 개념</span><h2>정렬은 왜 배우나</h2></div>
+        <p class="note">수업 슬라이드 <em>chapter 4</em> 도입부를 정리한 것입니다.</p>
+
+        <div class="goals">
+          <div class="goal">
+            <span class="g-k">정렬이란</span>
+            <h4>자료를 일정 순서대로 나열하는 것</h4>
+            <p>물건을 크기 순으로 오름차순이나 내림차순으로 나열하는 것.
+               정렬은 컴퓨터공학을 포함한 모든 과학기술 분야에서 가장 기본적이고 중요한 알고리즘 중 하나입니다.
+               <strong>자료 탐색에 있어서 필수적</strong>이기 때문입니다.</p>
+          </div>
+          <div class="goal">
+            <span class="g-k">정렬의 대상</span>
+            <h4>레코드와 키(key)</h4>
+            <p>일반적으로 정렬시켜야 될 대상은 <strong>레코드(record)</strong>입니다.
+               레코드는 <strong>필드</strong>라는 더 작은 단위로 구성되고,
+               그중 <strong>키(key) 필드</strong>로 레코드와 레코드를 구별합니다.</p>
+          </div>
+        </div>
+
+        <h3>어떤 정렬을 골라야 할까</h3>
+        <p><strong>모든 경우에 최적인 정렬 알고리즘은 없습니다.</strong>
+          따라서 각 응용 분야에 적합한 정렬 방법을 사용해야 합니다.
+          고를 때의 기준은 두 가지입니다 — <strong>비교 횟수</strong>와 <strong>이동 횟수</strong>.</p>
+
+        <div class="split">
+          <div class="sp"><h5>단순하지만 비효율적인 방법</h5>
+            삽입 정렬 · 선택 정렬 · 버블 정렬 등 <span class="no">O(n²)</span></div>
+          <div class="sp"><h5>복잡하지만 효율적인 방법</h5>
+            퀵 정렬 · 힙 정렬 · 합병 정렬 · 기수 정렬 등 <span class="yes">O(n log n)</span></div>
+        </div>
+      </section>
+
+      <section id="ls-sim">
+        <div class="sh"><span class="sh-n">02 / 실습</span><h2>정렬 시뮬레이터</h2></div>
+        <p class="note">알고리즘과 자료를 고르고 <strong>재생</strong>을 누르세요.
+          <strong>다음</strong> 버튼으로 한 단계씩 넘기면 무엇이 어떻게 움직이는지 정확히 볼 수 있습니다.
+          자료는 <strong>정렬 학습지에 나온 배열</strong>을 그대로 넣어 두었습니다.</p>
+
+        <div class="sim">
+          <div class="sim-top">
+            <div class="chips" id="ls-algs">
+              <span class="lbl">알고리즘</span>
+              <button type="button" data-alg="selection" class="on">선택 정렬</button>
+              <button type="button" data-alg="insertion">삽입 정렬</button>
+              <button type="button" data-alg="bubble">버블 정렬</button>
+              <button type="button" data-alg="shell">셸 정렬</button>
+              <button type="button" data-alg="quick">퀵 정렬</button>
+            </div>
+          </div>
+          <div class="sim-top">
+            <div class="chips" id="ls-data">
+              <span class="lbl">자료</span>
+              <button type="button" data-set="7,4,9,6,3,8,7,5" class="on">학습지 ①</button>
+              <button type="button" data-set="71,49,92,55,38,82,72,53">학습지 ②</button>
+              <button type="button" data-set="4,5,9,3,6,8,7,1">학습지 ③</button>
+              <button type="button" data-set="random">무작위</button>
+            </div>
+          </div>
+
+          <div class="stage" id="ls-stage"></div>
+
+          <div class="legend">
+            <span><i style="background:var(--c-idle)"></i>대기</span>
+            <span><i style="background:var(--c-cmp)"></i>비교 중</span>
+            <span><i style="background:var(--c-swap)"></i>교환</span>
+            <span><i style="background:var(--c-key)"></i>기준값 · 피벗</span>
+            <span><i style="background:var(--c-grp)"></i>같은 부분 리스트</span>
+            <span><i style="background:var(--c-done)"></i>정렬 완료</span>
+          </div>
+
+          <p class="say" id="ls-say">알고리즘과 자료를 고른 뒤 재생을 눌러 보세요.</p>
+
+          <div class="track-sim"><i id="ls-prog"></i></div>
+
+          <div class="ctrl">
+            <button type="button" id="ls-first">처음으로</button>
+            <button type="button" id="ls-prev">이전</button>
+            <button type="button" class="play" id="ls-play">재생</button>
+            <button type="button" id="ls-next">다음</button>
+            <label>속도
+              <input type="range" id="ls-speed" min="1" max="10" value="6">
+            </label>
+          </div>
+
+          <dl class="stats">
+            <div><dt>단계</dt><dd id="ls-step">0 / 0</dd></div>
+            <div><dt>비교 횟수</dt><dd id="ls-cmp">0</dd></div>
+            <div><dt>교환·이동</dt><dd id="ls-swp">0</dd></div>
+            <div><dt>자료 개수</dt><dd id="ls-n">0</dd></div>
+          </dl>
+        </div>
+
+        <h3>이렇게 보세요</h3>
+        <ul class="plain">
+          <li><strong>선택 정렬</strong> — 초록으로 확정되는 자리가 <em>왼쪽부터 하나씩</em> 늘어납니다.</li>
+          <li><strong>삽입 정렬</strong> — 보라색 기준값이 왼쪽으로 파고들어 갑니다. 이미 정렬된 자료면 거의 안 움직입니다.</li>
+          <li><strong>버블 정렬</strong> — 큰 값이 <em>오른쪽 끝으로 밀려</em> 확정됩니다. 교환 횟수가 가장 많습니다.</li>
+          <li><strong>셸 정렬</strong> — 하늘색으로 묶인 것이 같은 부분 리스트입니다. 간격이 점점 좁아집니다.</li>
+          <li><strong>퀵 정렬</strong> — 보라색 피벗이 제자리를 찾으면 그 자리가 바로 확정됩니다.</li>
+        </ul>
+      </section>
+
+      <section id="ls-algo">
+        <div class="sh"><span class="sh-n">03 / 코드</span><h2>알고리즘 5가지와 핵심 코드</h2></div>
+        <p class="note">아래 코드는 <strong>수업 슬라이드에 실린 원문 그대로</strong>입니다.
+          시뮬레이터에서 본 움직임이 코드의 어느 줄에서 일어나는지 짚어 보세요.</p>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">1</span>
+            <h4>선택 정렬<em>SELECTION SORT</em></h4><span class="big-o">O(n²)</span></div>
+          <div class="algo-b">
+            <p>초기에는 왼쪽 리스트는 비어 있고, 정렬할 숫자들은 모두 오른쪽 리스트에 존재합니다.
+              오른쪽에서 <strong>가장 작은 값을 골라(select)</strong> 왼쪽 끝에 붙이는 것을 반복합니다.</p>
+            <p class="code-src">수업 슬라이드 원문 · C</p>
+            <pre>#define SWAP(x, y, t) ( (t)=(x), (x)=(y), (y)=(t) )
+
+<b>void</b> selection_sort(<b>int</b> list[], <b>int</b> n) {
+    <b>int</b> i, j, least, temp;
+    <b>for</b>(i=0; i&lt;n-1; i++) {
+        least = i;
+        <b>for</b>(j=i+1; j&lt;n; j++)    <u>// 최솟값 탐색</u>
+            <b>if</b>(list[j]&lt;list[least]) least = j;
+        SWAP(list[i], list[least], temp);
+    }
+}</pre>
+            <div class="cut-note"><b>핵심</b>
+              안쪽 for문이 <strong>최솟값의 위치(least)를 찾기만</strong> 하고, 교환은 바깥 for문에서
+              <strong>한 번만</strong> 일어납니다. 그래서 비교는 많아도 <strong>교환 횟수가 가장 적습니다.</strong></div>
+          </div>
+        </div>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">2</span>
+            <h4>삽입 정렬<em>INSERTION SORT</em></h4><span class="big-o">O(n²)</span></div>
+          <div class="algo-b">
+            <p>정렬되어 있는 부분에 새로운 레코드를 <strong>올바른 위치에 삽입</strong>하는 과정을 반복합니다.
+              카드를 손에 쥐고 한 장씩 끼워 넣는 것과 같습니다.</p>
+            <p class="code-src">수업 슬라이드 원문 · C</p>
+            <pre><b>void</b> insertion_sort(<b>int</b> list[], <b>int</b> n)
+{
+    <b>int</b> i, j, key;
+    <b>for</b>(i=1; i&lt;n; i++){
+        key = list[i];
+        <b>for</b>(j=i-1; j&gt;=0 &amp;&amp; list[j]&gt;key; j--)
+            list[j+1] = list[j];
+        list[j+1] = key;
+   }
+}</pre>
+            <div class="cut-note"><b>핵심</b>
+              안쪽 for문의 조건 <span style="font-family:var(--mono)">list[j]&gt;key</span> 가 거짓이 되는 순간 멈춥니다.
+              그래서 <strong>이미 정렬된 자료에서는 거의 움직이지 않아 O(n)</strong> 에 가까워집니다.
+              시뮬레이터에서 학습지 ③(4 5 9 3 6 8 7 1) 앞부분이 빠르게 지나가는 이유입니다.</div>
+          </div>
+        </div>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">3</span>
+            <h4>버블 정렬<em>BUBBLE SORT</em></h4><span class="big-o">O(n²)</span></div>
+          <div class="algo-b">
+            <p>인접한 2개의 레코드를 비교하여 <strong>순서대로 되어 있지 않으면 서로 교환</strong>합니다.
+              큰 값이 거품처럼 뒤로 떠오릅니다.</p>
+            <p class="code-src">수업 슬라이드 원문 · C</p>
+            <pre><b>void</b> bubble_sort(<b>int</b> list[], <b>int</b> n)
+{
+    <b>int</b> i, j, temp;
+    <b>for</b>(i=n-1; i&gt;0; i--){
+        <b>for</b>(j=0; j&lt;i; j++)
+           <b>if</b>(list[j]&gt;list[j+1])
+               SWAP(list[j], list[j+1], temp);
+   }
+}</pre>
+            <div class="cut-note"><b>핵심</b>
+              비교할 때마다 곧바로 교환하므로 <strong>이동(교환) 횟수가 가장 많습니다.</strong>
+              시뮬레이터에서 같은 자료로 선택 정렬과 버블 정렬의 <strong>교환 횟수를 비교</strong>해 보세요.</div>
+          </div>
+        </div>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">4</span>
+            <h4>셸 정렬<em>SHELL SORT</em></h4><span class="big-o">O(n^1.5)</span></div>
+          <div class="algo-b">
+            <p>전체 리스트를 <strong>일정 간격(gap)의 부분 리스트로 나눈 후</strong>,
+              나뉜 각각의 부분 리스트를 삽입 정렬합니다. 간격을 절반씩 줄여 가며 반복합니다.</p>
+            <p class="code-src">수업 슬라이드 원문 · C</p>
+            <pre>inc_insertion_sort(<b>int</b> list[], <b>int</b> first, <b>int</b> last, <b>int</b> gap) {
+    <b>int</b> i, j, key;
+    <b>for</b>(i=first+gap; i&lt;=last; i=i+gap){
+        key = list[i];
+        <b>for</b>(j=i-gap; j&gt;=first &amp;&amp; key&lt;list[j];j=j-gap)
+            list[j+gap]=list[j];
+        list[j+gap]=key;
+    }
+}
+
+<b>void</b> shell_sort( <b>int</b> list[], <b>int</b> n ) {
+    <b>int</b> i, gap;
+    <b>for</b>( gap=n/2; gap&gt;0; gap = gap/2 ) {
+        <b>if</b>( (gap%2) == 0 ) gap++;
+        <b>for</b>(i=0;i&lt;gap;i++)  <u>// 부분 리스트의 개수는 gap</u>
+            inc_insertion_sort(list, i, n-1, gap);
+  }
+}</pre>
+            <div class="cut-note"><b>핵심</b>
+              <span style="font-family:var(--mono)">inc_insertion_sort</span> 는 삽입 정렬과 똑같은데
+              <strong>1칸씩이 아니라 gap칸씩</strong> 건너뜁니다.
+              멀리 떨어진 값을 미리 대충 옮겨 두기 때문에, 마지막 gap=1 삽입 정렬이 훨씬 빨리 끝납니다.</div>
+          </div>
+        </div>
+
+        <div class="algo fast">
+          <div class="algo-h"><span class="no">5</span>
+            <h4>퀵 정렬<em>QUICK SORT</em></h4><span class="big-o">평균 O(n log n)</span></div>
+          <div class="algo-b">
+            <p><strong>평균적으로 가장 빠른 정렬 방법</strong>입니다. 분할정복법을 사용하여
+              리스트를 2개의 부분 리스트로 <strong>비균등 분할</strong>하고, 각각의 부분 리스트를 다시 퀵 정렬(재귀호출)합니다.</p>
+            <p class="code-src">수업 슬라이드 원문 · C</p>
+            <pre><b>int</b> partition(<b>int</b> list[], <b>int</b> left, <b>int</b> right) {
+   <b>int</b> pivot, temp, low, high;
+   low = left;
+   high = right+1;
+   pivot = list[left];
+   <b>do</b> {
+            <b>do</b>
+                low++;
+            <b>while</b>(low&lt;=right &amp;&amp; list[low]&lt;pivot);
+            <b>do</b>
+                high--;
+            <b>while</b>(high&gt;=left &amp;&amp; list[high]&gt;pivot);
+            <b>if</b>(low&lt;high) SWAP(list[low], list[high], temp);
+   } <b>while</b>(low&lt;high);  </pre>
+            <div class="cut-note"><b>슬라이드가 여기서 끝납니다</b>
+              수업 자료의 코드는 <span style="font-family:var(--mono)">} while(low&lt;high);</span> 까지만 실려 있습니다.
+              실제로는 아래 두 줄이 더 있어야 완성됩니다. 시험 대비용으로 꼭 기억해 두세요.</div>
+            <p class="code-src">이어지는 부분</p>
+            <pre>   SWAP(list[left], list[high], temp);   <u>// 피벗을 제자리로</u>
+   <b>return</b> high;                          <u>// 피벗의 최종 위치를 돌려줌</u>
+}
+
+<b>void</b> quick_sort(<b>int</b> list[], <b>int</b> left, <b>int</b> right) {
+   <b>if</b>(left&lt;right) {
+      <b>int</b> q = partition(list, left, right);
+      quick_sort(list, left, q-1);          <u>// 피벗 왼쪽</u>
+      quick_sort(list, q+1, right);         <u>// 피벗 오른쪽</u>
+   }
+}</pre>
+            <div class="cut-note"><b>핵심</b>
+              <strong>피벗은 한 번 자리를 잡으면 다시 움직이지 않습니다.</strong>
+              시뮬레이터에서 보라색 피벗이 초록으로 바뀌는 순간이 바로 그 지점입니다.
+              피벗을 어떻게 고르느냐에 따라 성능이 달라져서, <strong>이미 정렬된 자료에 첫 원소를 피벗으로 쓰면
+              최악 O(n²)</strong> 가 됩니다.</div>
+          </div>
+        </div>
+
+        <div class="algo">
+          <div class="algo-h"><span class="no">+</span>
+            <h4>합병 정렬<em>MERGE SORT</em></h4><span class="big-o">O(n log n)</span></div>
+          <div class="algo-b">
+            <p>리스트를 두 개의 균등한 크기로 분할하고, 분할된 부분 리스트를 정렬한 다음,
+              정렬된 두 개의 부분 리스트를 합하여 전체 리스트를 정렬합니다.</p>
+            <ul class="plain">
+              <li><strong>분할</strong> — 배열을 같은 크기의 2개 부분 배열로 나눈다.</li>
+              <li><strong>정복</strong> — 부분 배열을 정렬한다. 크기가 충분히 작지 않으면 재귀호출로 다시 분할정복을 적용한다.</li>
+              <li><strong>결합</strong> — 정렬된 부분 배열을 하나의 배열로 통합한다.</li>
+            </ul>
+            <div class="cut-note"><b>퀵 정렬과의 차이</b>
+              퀵 정렬은 <strong>비균등</strong> 분할(피벗 기준), 합병 정렬은 <strong>균등</strong> 분할(가운데 기준)입니다.
+              그래서 합병 정렬은 자료가 어떻게 생겼든 항상 O(n log n)이지만, <strong>추가 메모리</strong>가 필요합니다.
+              수업 슬라이드에는 그림으로만 나와 있어 여기서는 코드를 싣지 않았습니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ls-cmp">
+        <div class="sh"><span class="sh-n">04 / 정리</span><h2>한눈에 비교</h2></div>
+        <p class="note">시뮬레이터로 같은 자료를 돌려 보면 이 표의 숫자가 왜 이런지 알 수 있습니다.</p>
+
+        <div class="tw">
+          <table>
+            <thead><tr>
+              <th scope="col">정렬</th><th scope="col">평균</th><th scope="col">최악</th>
+              <th scope="col">한 줄 원리</th><th scope="col">언제 쓰나</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="el">선택 정렬</td><td class="mk">O(n²)</td><td class="mk">O(n²)</td>
+                <td>가장 작은 값을 골라 앞에 놓기</td><td>교환 비용이 클 때</td></tr>
+              <tr><td class="el">삽입 정렬</td><td class="mk">O(n²)</td><td class="mk">O(n²)</td>
+                <td>정렬된 앞부분에 끼워 넣기</td><td>거의 정렬된 자료일 때</td></tr>
+              <tr><td class="el">버블 정렬</td><td class="mk">O(n²)</td><td class="mk">O(n²)</td>
+                <td>이웃끼리 비교해 교환</td><td>이해가 쉬워 학습용</td></tr>
+              <tr><td class="el">셸 정렬</td><td class="mk">O(n^1.5)</td><td class="mk">O(n²)</td>
+                <td>간격을 두고 삽입 정렬</td><td>중간 크기 자료</td></tr>
+              <tr class="top"><td class="el">퀵 정렬</td><td class="mk">O(n log n)</td><td class="mk">O(n²)</td>
+                <td>피벗 기준 비균등 분할</td><td>평균적으로 가장 빠름</td></tr>
+              <tr class="top"><td class="el">합병 정렬</td><td class="mk">O(n log n)</td><td class="mk">O(n log n)</td>
+                <td>균등 분할 후 합병</td><td>최악을 피해야 할 때</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>꼭 기억할 것</h3>
+        <ul class="plain">
+          <li><strong>모든 경우에 최적인 정렬은 없다.</strong> 자료의 크기와 상태를 보고 골라야 한다.</li>
+          <li>고르는 기준은 <strong>비교 횟수</strong>와 <strong>이동 횟수</strong> 두 가지다.</li>
+          <li>퀵 정렬은 평균은 가장 빠르지만 <strong>최악은 O(n²)</strong> — 피벗 선택이 중요하다.</li>
+          <li>합병 정렬만 <strong>최악에도 O(n log n)</strong> 을 보장한다. 대신 메모리를 더 쓴다.</li>
+        </ul>
+      </section>
+
+      <section id="ls-quiz">
+        <div class="sh"><span class="sh-n">05 / 점검</span><h2>확인 문제</h2></div>
+        <p class="note">먼저 스스로 답을 생각한 뒤 눌러서 확인하세요.</p>
+
+        <div class="quiz">
+          <p><em>Q1</em> 같은 자료를 선택 정렬과 버블 정렬로 각각 돌리면,
+            <strong>교환 횟수</strong>는 어느 쪽이 더 많을까? 그 이유는?</p>
+          <button type="button">답 확인</button>
+          <div class="ans"><strong>버블 정렬</strong>이 훨씬 많습니다.
+            버블 정렬은 이웃을 비교할 때마다 곧바로 교환하지만,
+            선택 정렬은 안쪽 반복에서 <strong>최솟값의 위치만 기억해 두었다가</strong>
+            바깥 반복마다 <strong>딱 한 번만</strong> 교환하기 때문입니다.
+            비교 횟수는 둘 다 약 n²/2 로 비슷합니다.</div>
+        </div>
+
+        <div class="quiz">
+          <p><em>Q2</em> 이미 오름차순으로 정렬된 배열에 <strong>삽입 정렬</strong>을 적용하면
+            시간 복잡도는 어떻게 될까?</p>
+          <button type="button">답 확인</button>
+          <div class="ans"><strong>O(n)</strong> 이 됩니다.
+            안쪽 for문의 조건 <span style="font-family:var(--mono)">list[j]&gt;key</span> 가
+            첫 비교에서 바로 거짓이 되어 한 번도 밀지 않고 빠져나오기 때문입니다.
+            바깥 for문만 n−1번 도는 셈이라 삽입 정렬은
+            <strong>거의 정렬된 자료에서 가장 유리한</strong> 알고리즘입니다.</div>
+        </div>
+
+        <div class="quiz">
+          <p><em>Q3</em> 퀵 정렬에서 <strong>이미 정렬된 배열</strong>에 대해
+            <strong>맨 왼쪽 원소를 피벗</strong>으로 고르면 어떤 일이 생길까?</p>
+          <button type="button">답 확인</button>
+          <div class="ans">피벗보다 작은 값이 하나도 없어서 분할이 <strong>1개와 n−1개</strong>로
+            극단적으로 치우칩니다. 이 상태가 매번 반복되어 재귀 깊이가 n이 되고,
+            결과적으로 <strong>최악의 경우 O(n²)</strong> 가 됩니다.
+            그래서 정렬 학습지 3번처럼 <strong>왼쪽·중간·오른쪽의 중간값을 피벗으로 고르는 방법</strong>을 씁니다.</div>
+        </div>
+
+        <div class="quiz">
+          <p><em>Q4</em> 셸 정렬에서 <strong>간격(gap)</strong>을 두는 이유는 무엇일까?</p>
+          <button type="button">답 확인</button>
+          <div class="ans">삽입 정렬은 값을 <strong>한 칸씩만</strong> 옮기기 때문에,
+            멀리 떨어진 곳에 있어야 할 값이 제자리를 찾으려면 아주 많이 움직여야 합니다.
+            셸 정렬은 <strong>gap칸씩 건너뛰며</strong> 미리 대충 자리를 잡아 두어
+            이 이동량을 크게 줄입니다. 마지막에 gap=1 로 삽입 정렬을 하면
+            이미 거의 정렬된 상태라 금방 끝납니다.</div>
+        </div>
+
+        <div class="quiz">
+          <p><em>Q5</em> 정렬 알고리즘을 고를 때의 두 가지 기준은 무엇인가?</p>
+          <button type="button">답 확인</button>
+          <div class="ans"><strong>비교 횟수</strong>와 <strong>이동(교환) 횟수</strong>입니다.
+            자료 하나의 크기가 크면 옮기는 비용이 커지므로 이동 횟수가 적은 선택 정렬이 유리할 수 있고,
+            비교 자체가 비싸면 비교 횟수가 적은 쪽이 유리합니다.
+            <strong>모든 경우에 최적인 정렬 알고리즘은 없습니다.</strong></div>
+        </div>
       </section>
 
       <footer>
@@ -2500,10 +3372,18 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           </div>
         </div>
 
+        <h3>실습 노트북 — 복사할 필요 없이 바로 실행</h3>
+        <p>코드 A·B·C가 모두 들어 있는 <strong>Colab 노트북</strong>을 준비했습니다.
+          아래 버튼을 누르면 바로 열립니다. 열자마자 <strong>[드라이브에 사본 저장]</strong> 을 눌러 내 사본을 만드세요.</p>
+        <a class="cta" href="https://colab.research.google.com/github/richee-pc/ds_cs/blob/main/ds_search_practice.ipynb"
+           target="_blank" rel="noopener noreferrer">
+          Colab 실습 노트북 열기 <span>→</span>
+        </a>
+
         <h3>실습 환경 안내</h3>
         <ul class="plain">
-          <li><strong>Google Colab</strong>(<span style="font-family:var(--mono);font-size:13px">colab.research.google.com</span>)에서
-            새 노트를 만들고 코드를 붙여넣은 뒤 실행 버튼을 누르면 됩니다. 설치할 것은 없습니다.</li>
+          <li>노트북을 쓰지 않고 <strong>Google Colab</strong>(<span style="font-family:var(--mono);font-size:13px">colab.research.google.com</span>)에서
+            새 노트를 만들어 위 코드를 붙여넣어도 됩니다. 설치할 것은 없습니다.</li>
           <li>학교 계정으로 로그인하면 바로 쓸 수 있습니다. 스마트기기가 없으면 컴퓨터실을 이용하세요.</li>
           <li>코드가 오류를 내면 <strong>따옴표와 쉼표</strong>부터 확인하세요. 데이터를 넣을 때 가장 자주 나는 실수입니다.</li>
           <li>결과를 붙여넣을 때는 <strong>출력 화면 전체</strong>를 넣으세요. 일부만 넣으면 근거가 약해집니다.</li>
@@ -2947,6 +3827,301 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       var n = (location.hash || '').replace(/^#\//, '');
       if (names.indexOf(n) >= 0) show(n, false);
     });
+
+    /* =====================================================================
+       정렬 시뮬레이터
+       각 알고리즘을 실행하면서 매 단계의 상태(프레임)를 기록해 두고,
+       기록된 프레임을 앞뒤로 넘기며 보여 준다.
+       ===================================================================== */
+    (function () {
+      var stage = document.getElementById('ls-stage');
+      if (!stage) return;
+
+      var say = document.getElementById('ls-say');
+      var elStep = document.getElementById('ls-step');
+      var elCmp = document.getElementById('ls-cmp');
+      var elSwp = document.getElementById('ls-swp');
+      var elN = document.getElementById('ls-n');
+      var prog = document.getElementById('ls-prog');
+      var btnPlay = document.getElementById('ls-play');
+      var btnNext = document.getElementById('ls-next');
+      var btnPrev = document.getElementById('ls-prev');
+      var btnFirst = document.getElementById('ls-first');
+      var speed = document.getElementById('ls-speed');
+
+      var frames = [], cur = 0, timer = null;
+      var alg = 'selection';
+      var base = [7, 4, 9, 6, 3, 8, 7, 5];
+
+      function F(a, cmp, swp, marks, done, msg) {
+        return { a: a.slice(), cmp: cmp, swp: swp, marks: marks || {}, done: done.slice(), msg: msg };
+      }
+
+      function selection(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        out.push(F(a, cmp, swp, {}, done, '시작 — 아직 확정된 자리가 없습니다.'));
+        for (var i = 0; i < a.length - 1; i++) {
+          var least = i;
+          var m = {}; m[i] = 'key'; m[least] = 'key';
+          out.push(F(a, cmp, swp, m, done, i + '번 자리에 넣을 최솟값을 찾습니다. (least = ' + i + ')'));
+          for (var j = i + 1; j < a.length; j++) {
+            cmp++;
+            var m2 = {}; m2[least] = 'key'; m2[j] = 'cmp';
+            out.push(F(a, cmp, swp, m2, done, a[j] + ' 와 현재 최솟값 ' + a[least] + ' 를 비교'));
+            if (a[j] < a[least]) {
+              least = j;
+              var m3 = {}; m3[least] = 'key';
+              out.push(F(a, cmp, swp, m3, done, '더 작은 값 ' + a[least] + ' 발견 → least = ' + least));
+            }
+          }
+          if (least !== i) {
+            var x = a[i], y = a[least];
+            a[i] = y; a[least] = x; swp++;
+            var m4 = {}; m4[i] = 'swap'; m4[least] = 'swap';
+            out.push(F(a, cmp, swp, m4, done, x + ' 와 ' + y + ' 를 교환 (SWAP)'));
+          } else {
+            out.push(F(a, cmp, swp, {}, done, a[i] + ' 가 이미 최솟값이라 교환하지 않습니다.'));
+          }
+          done.push(i);
+          out.push(F(a, cmp, swp, {}, done, i + '번 자리 확정'));
+        }
+        done.push(a.length - 1);
+        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 교환 ' + swp + '번'));
+        return out;
+      }
+
+      function insertion(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [0];
+        out.push(F(a, cmp, swp, {}, done, '시작 — 첫 원소는 이미 정렬된 것으로 봅니다.'));
+        for (var i = 1; i < a.length; i++) {
+          var key = a[i], j = i - 1;
+          var m = {}; m[i] = 'key';
+          out.push(F(a, cmp, swp, m, done, 'key = ' + key + ' 를 앞쪽 정렬 구간에 끼워 넣습니다.'));
+          while (j >= 0 && a[j] > key) {
+            cmp++;
+            var big = a[j];
+            a[j + 1] = a[j]; swp++;
+            var m2 = {}; m2[j] = 'cmp'; m2[j + 1] = 'swap';
+            out.push(F(a, cmp, swp, m2, done, big + ' > ' + key + ' 이므로 한 칸 뒤로 밀기'));
+            j--;
+          }
+          if (j >= 0) {
+            cmp++;
+            var m3 = {}; m3[j] = 'cmp';
+            out.push(F(a, cmp, swp, m3, done, a[j] + ' ≤ ' + key + ' 이므로 여기서 멈춥니다.'));
+          }
+          a[j + 1] = key;
+          done.push(i);
+          var m4 = {}; m4[j + 1] = 'key';
+          out.push(F(a, cmp, swp, m4, done, key + ' 를 ' + (j + 1) + '번 자리에 삽입'));
+        }
+        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + swp + '번'));
+        return out;
+      }
+
+      function bubble(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        out.push(F(a, cmp, swp, {}, done, '시작 — 이웃한 두 값을 비교해 큰 값을 뒤로 보냅니다.'));
+        for (var i = a.length - 1; i > 0; i--) {
+          for (var j = 0; j < i; j++) {
+            cmp++;
+            var m = {}; m[j] = 'cmp'; m[j + 1] = 'cmp';
+            out.push(F(a, cmp, swp, m, done, a[j] + ' 와 ' + a[j + 1] + ' 를 비교'));
+            if (a[j] > a[j + 1]) {
+              var x = a[j], y = a[j + 1];
+              a[j] = y; a[j + 1] = x; swp++;
+              var m2 = {}; m2[j] = 'swap'; m2[j + 1] = 'swap';
+              out.push(F(a, cmp, swp, m2, done, x + ' > ' + y + ' → 교환'));
+            }
+          }
+          done.push(i);
+          out.push(F(a, cmp, swp, {}, done, '가장 큰 값이 ' + i + '번 자리에 확정'));
+        }
+        done.push(0);
+        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 교환 ' + swp + '번'));
+        return out;
+      }
+
+      function shell(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        var n = a.length;
+        out.push(F(a, cmp, swp, {}, done, '시작 — 간격(gap)을 두고 부분 리스트를 삽입 정렬합니다.'));
+        for (var gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+          if (gap % 2 === 0) gap++;
+          out.push(F(a, cmp, swp, {}, done, 'gap = ' + gap + ' — ' + gap + '칸씩 떨어진 것끼리 묶습니다.'));
+          for (var s = 0; s < gap; s++) {
+            var grp = {};
+            for (var t = s; t < n; t += gap) grp[t] = 'grp';
+            for (var i = s + gap; i < n; i += gap) {
+              var key = a[i], j = i - gap;
+              var m = {}; for (var k in grp) m[k] = grp[k]; m[i] = 'key';
+              out.push(F(a, cmp, swp, m, done, '부분 리스트(시작 ' + s + ') 에서 key = ' + key));
+              while (j >= s && a[j] > key) {
+                cmp++;
+                var big = a[j];
+                a[j + gap] = a[j]; swp++;
+                var m2 = {}; for (var k2 in grp) m2[k2] = grp[k2];
+                m2[j] = 'cmp'; m2[j + gap] = 'swap';
+                out.push(F(a, cmp, swp, m2, done, big + ' > ' + key + ' → ' + gap + '칸 뒤로 밀기'));
+                j -= gap;
+              }
+              if (j >= s) cmp++;
+              a[j + gap] = key;
+              var m3 = {}; for (var k3 in grp) m3[k3] = grp[k3]; m3[j + gap] = 'key';
+              out.push(F(a, cmp, swp, m3, done, key + ' 를 ' + (j + gap) + '번 자리에 삽입'));
+            }
+          }
+        }
+        for (var d = 0; d < n; d++) done.push(d);
+        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 이동 ' + swp + '번'));
+        return out;
+      }
+
+      function quick(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        out.push(F(a, cmp, swp, {}, done, '시작 — 피벗을 기준으로 나누고 각각을 다시 퀵 정렬합니다.'));
+
+        function partition(left, right) {
+          var pivot = a[left], low = left, high = right + 1;
+          var m = {}; m[left] = 'pivot';
+          out.push(F(a, cmp, swp, m, done, '구간 [' + left + '~' + right + '] 의 피벗 = ' + pivot));
+          do {
+            do { low++; if (low <= right) cmp++; } while (low <= right && a[low] < pivot);
+            do { high--; if (high >= left) cmp++; } while (high >= left && a[high] > pivot);
+            if (low < high) {
+              var x = a[low], y = a[high];
+              a[low] = y; a[high] = x; swp++;
+              var m2 = {}; m2[left] = 'pivot'; m2[low] = 'swap'; m2[high] = 'swap';
+              out.push(F(a, cmp, swp, m2, done,
+                '왼쪽에서 찾은 큰 값 ' + x + ' 와 오른쪽에서 찾은 작은 값 ' + y + ' 를 교환'));
+            } else {
+              var m3 = {}; m3[left] = 'pivot';
+              if (high >= left && high < a.length) m3[high] = 'cmp';
+              out.push(F(a, cmp, swp, m3, done,
+                'low(' + low + ') 와 high(' + high + ') 가 엇갈렸습니다. 분할을 끝냅니다.'));
+            }
+          } while (low < high);
+          var p = a[left], q = a[high];
+          a[left] = q; a[high] = p; swp++;
+          done.push(high);
+          var m4 = {}; m4[high] = 'pivot';
+          out.push(F(a, cmp, swp, m4, done, '피벗 ' + p + ' 를 제자리 ' + high + '번으로 옮김 → 확정'));
+          return high;
+        }
+
+        function qs(left, right) {
+          if (left < right) {
+            var q = partition(left, right);
+            qs(left, q - 1);
+            qs(q + 1, right);
+          } else if (left === right && done.indexOf(left) < 0) {
+            done.push(left);
+            out.push(F(a, cmp, swp, {}, done, left + '번은 원소가 하나뿐이라 이미 정렬됨'));
+          }
+        }
+
+        qs(0, a.length - 1);
+        for (var d = 0; d < a.length; d++) if (done.indexOf(d) < 0) done.push(d);
+        out.push(F(a, cmp, swp, {}, done, '정렬 완료! 비교 ' + cmp + '번, 교환 ' + swp + '번'));
+        return out;
+      }
+
+      var ALG = { selection: selection, insertion: insertion, bubble: bubble, shell: shell, quick: quick };
+
+      function draw() {
+        var f = frames[cur];
+        if (!f) return;
+        var max = Math.max.apply(null, f.a) || 1;
+        var html = '';
+        for (var i = 0; i < f.a.length; i++) {
+          var cls = 'bar';
+          if (f.done.indexOf(i) >= 0) cls += ' is-done';
+          if (f.marks[i]) cls += ' is-' + f.marks[i];
+          var h = 20 + (f.a[i] / max) * 76;
+          html += '<div class="' + cls + '" style="height:' + h + '%"><span>' + f.a[i] + '</span></div>';
+        }
+        stage.innerHTML = html;
+        say.textContent = f.msg;
+        elCmp.textContent = f.cmp;
+        elSwp.textContent = f.swp;
+        elN.textContent = f.a.length;
+        elStep.textContent = (cur + 1) + ' / ' + frames.length;
+        prog.style.width = ((cur + 1) / frames.length * 100) + '%';
+        btnPrev.disabled = (cur === 0);
+        btnNext.disabled = (cur >= frames.length - 1);
+      }
+
+      function build() {
+        stop();
+        frames = ALG[alg](base);
+        cur = 0;
+        draw();
+      }
+
+      function step(d) {
+        var n = cur + d;
+        if (n < 0 || n >= frames.length) { stop(); return; }
+        cur = n;
+        draw();
+      }
+
+      function delay() { return 620 - (parseInt(speed.value, 10) - 1) * 62; }
+
+      function tick() {
+        if (cur >= frames.length - 1) { stop(); return; }
+        step(1);
+        timer = setTimeout(tick, delay());
+      }
+
+      function play() {
+        if (cur >= frames.length - 1) { cur = 0; draw(); }
+        btnPlay.textContent = '정지';
+        timer = setTimeout(tick, delay());
+      }
+
+      function stop() {
+        if (timer) { clearTimeout(timer); timer = null; }
+        btnPlay.textContent = '재생';
+      }
+
+      btnPlay.addEventListener('click', function () { timer ? stop() : play(); });
+      btnNext.addEventListener('click', function () { stop(); step(1); });
+      btnPrev.addEventListener('click', function () { stop(); step(-1); });
+      btnFirst.addEventListener('click', function () { stop(); cur = 0; draw(); });
+      speed.addEventListener('input', function () {
+        if (timer) { clearTimeout(timer); timer = setTimeout(tick, delay()); }
+      });
+
+      document.querySelectorAll('#ls-algs button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('#ls-algs button').forEach(function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          alg = b.getAttribute('data-alg');
+          build();
+        });
+      });
+
+      document.querySelectorAll('#ls-data button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('#ls-data button').forEach(function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          var v = b.getAttribute('data-set');
+          if (v === 'random') {
+            base = [];
+            for (var i = 0; i < 9; i++) base.push(Math.floor(Math.random() * 95) + 5);
+          } else {
+            base = v.split(',').map(Number);
+          }
+          build();
+        });
+      });
+
+      document.querySelectorAll('.quiz button').forEach(function (b) {
+        b.addEventListener('click', function () { b.parentNode.classList.add('open'); });
+      });
+
+      build();
+    })();
 
     /* ---------- 차례 이동 (해시 없이 스크롤) ---------- */
     document.querySelectorAll('.rail a').forEach(function (a) {
