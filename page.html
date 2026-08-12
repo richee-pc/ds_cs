@@ -2534,8 +2534,8 @@
         <p class="kicker"><i>2026학년도 2학기</i><i>3학년</i><i>오리엔테이션</i></p>
         <h1>자료구조<span class="b">2학기 수업 안내</span></h1>
         <p class="lede">
-          1학기에는 <strong>줄 세우기(선형 구조)</strong> 를 배웠습니다. 2학기에는 그것으로 안 되는 문제를 만납니다.
-          <strong>트리와 그래프</strong>로 관계를 표현하고, 그 안에서 <strong>찾고(탐색) 줄 세우는(정렬)</strong> 방법을 배웁니다.
+          1학기에 <strong>선형 구조와 비선형 구조</strong>를 모두 배웠습니다. 자료를 담는 그릇은 다 익힌 셈입니다.
+          2학기에는 그 그릇 안에서 <strong>줄 세우고(정렬) 찾아내는(탐색)</strong> 방법만 집중해서 다룹니다.
           모든 수업과 평가는 <strong>1차 정기고사 전에 끝납니다.</strong>
         </p>
         <dl class="facts">
@@ -2547,8 +2547,8 @@
       <div class="glance">
         <div class="gl"><span class="w">4주</span>
           <span class="n">수행평가 1 · 정렬 알고리즘 설계<small>8/24~8/28</small></span><span class="p">35%</span></div>
-        <div class="gl"><span class="w">8주</span>
-          <span class="n">수행평가 2 · 탐색 알고리즘 설계<small>9/21~9/23</small></span><span class="p">35%</span></div>
+        <div class="gl"><span class="w">7주</span>
+          <span class="n">수행평가 2 · 탐색 알고리즘 설계<small>9/14~9/18</small></span><span class="p">35%</span></div>
         <div class="gl"><span class="w">10주</span>
           <span class="n">1차 정기고사<small>10/2, 10/6~10/8</small></span><span class="p">30%</span></div>
       </div>
@@ -2572,35 +2572,35 @@
 
       <section id="big">
         <div class="sh"><span class="sh-n">01 / 개관</span><h2>학기의 큰 그림</h2></div>
-        <p class="note">2학기 전체가 세 단계로 이어집니다. 뒤 단계는 앞 단계 위에서만 성립하므로,
-          한 단계를 놓치면 다음이 무너집니다.</p>
+        <p class="note">2학기는 <strong>정렬과 탐색, 딱 두 가지</strong>만 다룹니다.
+          자료구조는 1학기에 다 배웠으니, 이제 그 자료를 <strong>어떻게 다룰지</strong>에만 집중합니다.</p>
 
-        <div class="flow">
-          <div class="fl"><span class="t">STEP 1 · 2~3주</span>
-            <h4>구조를 바꾼다</h4>
-            <p>배열과 리스트로는 “A와 B가 연결되어 있다”를 표현할 수 없습니다.
-               트리와 그래프로 관계 자체를 자료구조에 담습니다.</p></div>
-          <div class="fl"><span class="t">STEP 2 · 4~6주</span>
-            <h4>순서를 만든다</h4>
-            <p>찾아낸 결과를 사용자에게 보여 주려면 순서가 필요합니다.
-               정렬 알고리즘을 원리와 시간 복잡도로 비교해 고릅니다.</p></div>
-          <div class="fl"><span class="t">STEP 3 · 7~9주</span>
-            <h4>빠르게 찾는다</h4>
+        <div class="flow" style="grid-template-columns:1fr 1fr">
+          <div class="fl"><span class="t">전반부 · chapter 4</span>
+            <h4>순서를 만든다 &mdash; 정렬</h4>
+            <p>자료를 크기 순으로 나열하는 일곱 가지 방법을 배웁니다.
+               <strong>선택 · 삽입 · 버블 · 셸 · 퀵 · 합병 · 기수</strong>.
+               같은 일을 하는데 왜 방법이 일곱 개나 되는지, 어떤 걸 골라야 하는지를 익힙니다.</p></div>
+          <div class="fl"><span class="t">후반부 · chapter 5</span>
+            <h4>빠르게 찾는다 &mdash; 탐색</h4>
             <p>자료가 많아지면 전부 확인할 수 없습니다.
-               이진 탐색과 해싱으로 찾는 비용을 줄이는 방법을 배웁니다.</p></div>
+               <strong>순차 · 이진 · 색인 · 보간 탐색과 해싱</strong>으로
+               찾는 비용을 O(n) 에서 O(log n), O(1) 까지 줄이는 방법을 배웁니다.</p></div>
         </div>
 
         <h3>1학기와 어떻게 이어지는가</h3>
-        <p>1학기에 배운 배열·스택·큐·연결 리스트는 모두 <strong>한 줄로 이어진 구조</strong>였습니다.
-          2학기 첫 수행평가가 “배열로 처리하면 무엇이 문제인가”를 묻는 이유가 여기에 있습니다.
-          1학기 내용을 다시 꺼내 쓸 일이 많으니, 스택과 큐의 동작만은 확실히 기억해 두세요.
-          그래프 탐색에서 그대로 쓰입니다.</p>
+        <p>1학기에 <strong>선형 구조</strong>(배열·스택·큐·연결 리스트)와
+          <strong>비선형 구조</strong>(트리·그래프)를 모두 배웠습니다.
+          2학기에는 새로운 자료구조를 배우지 않습니다. 대신 <strong>그 자료구조 위에서 돌아가는 알고리즘</strong>을 다룹니다.</p>
+        <p>1학기 내용은 계속 꺼내 씁니다. <strong>스택과 큐</strong>는 퀵 정렬의 재귀와 기수 정렬의 바구니에서,
+          <strong>트리</strong>는 힙 정렬과 이진 탐색 트리에서 그대로 쓰입니다.
+          수행평가 1도 1학기에 배운 <strong>비선형 구조로 문제를 모델링한 뒤 정렬을 설계</strong>하는 과제입니다.</p>
       </section>
 
       <section id="road">
         <div class="sh"><span class="sh-n">02 / 진도</span><h2>주차별 로드맵</h2></div>
-        <p class="note">개학 8월 5일부터 1차 정기고사 직전까지 <strong>총 51차시</strong>로 전 과정을 마칩니다.
-          주황색으로 표시된 주에 평가가 있습니다.</p>
+        <p class="note">개학 8월 5일부터 1차 정기고사 직전까지 <strong>정렬(chapter 4)과 탐색(chapter 5)</strong>을 마칩니다.
+          주황색으로 표시된 주에 평가가 있습니다. <strong>분반마다 시간표가 달라</strong> 진도가 조금씩 다를 수 있습니다.</p>
 
         <div class="tw">
           <table>
@@ -2610,21 +2610,21 @@
             </tr></thead>
             <tbody>
               <tr><td class="mk">1주</td><td class="mk">8/5~8/7</td>
-                <td>오리엔테이션 · 자료와 추상화 · 시간 복잡도와 빅오 표기</td><td>진단평가</td></tr>
+                <td>오리엔테이션 · 알고리즘의 효율 · 시간 복잡도와 빅오 표기</td><td>진단평가</td></tr>
               <tr><td class="mk">2주</td><td class="mk">8/10~8/14</td>
-                <td>트리 — 용어, 이진 트리, 전위·중위·후위 순회</td><td></td></tr>
+                <td><b>정렬</b> — 정렬의 개념과 선택 기준 · 선택 정렬 · 삽입 정렬</td><td></td></tr>
               <tr><td class="mk">3주</td><td class="mk">8/18~8/21</td>
-                <td>그래프 — 정점과 간선, 인접 행렬·리스트, DFS·BFS</td><td></td></tr>
+                <td><b>정렬</b> — 버블 정렬 · 셸 정렬 · 기초 정렬 비교 실험</td><td></td></tr>
               <tr class="hit"><td class="mk">4주</td><td class="mk">8/24~8/28</td>
-                <td>정렬의 개념과 분류 · 선택 정렬 · 비선형 구조 설계</td><td class="ev">수행평가 1</td></tr>
+                <td><b>정렬</b> — 퀵 정렬 · 힙 정렬 · 정렬 설계 실습</td><td class="ev">수행평가 1</td></tr>
               <tr><td class="mk">5주</td><td class="mk">8/31~9/4</td>
-                <td>삽입 정렬 · 버블 정렬 · 기초 정렬 비교 실험</td><td>피드백·재도전</td></tr>
+                <td><b>정렬</b> — 합병 정렬 · 기수 정렬 · 일곱 가지 종합 비교</td><td>피드백·재도전</td></tr>
               <tr><td class="mk">6주</td><td class="mk">9/7~9/11</td>
-                <td>분할 정복 · 병합 정렬 · 퀵 정렬 · 힙 정렬</td><td></td></tr>
-              <tr><td class="mk">7주</td><td class="mk">9/14~9/18</td>
-                <td>순차 탐색 · 이진 탐색 · 해싱과 충돌 해결</td><td></td></tr>
-              <tr class="hit"><td class="mk">8주</td><td class="mk">9/21~9/23</td>
-                <td>탐색 알고리즘 설계 · 발표와 공유</td><td class="ev">수행평가 2</td></tr>
+                <td><b>탐색</b> — 탐색의 개념 · 순차 탐색 · 이진 탐색</td><td></td></tr>
+              <tr class="hit"><td class="mk">7주</td><td class="mk">9/14~9/18</td>
+                <td><b>탐색</b> — 색인 순차 · 보간 탐색 · 탐색 설계 실습</td><td class="ev">수행평가 2</td></tr>
+              <tr><td class="mk">8주</td><td class="mk">9/21~9/23</td>
+                <td><b>탐색</b> — 해싱 · 해시 함수 · 충돌 해결 네 가지</td><td>피드백·재도전</td></tr>
               <tr><td class="mk">9주</td><td class="mk">9/28~10/1</td>
                 <td>정렬·탐색 종합 정리 · 오개념 클리닉 · 자기평가</td><td></td></tr>
               <tr class="hit"><td class="mk">10주</td><td class="mk">10/2, 10/6~8</td>
@@ -2635,7 +2635,43 @@
           </table>
         </div>
 
-        <div class="alarm" style="background:var(--sort-soft);border-color:var(--sort)">
+        <h3>분반별 일정</h3>
+        <p>분반마다 주당 시간표가 달라 <strong>1차 정기고사까지의 총 차시가 다릅니다.</strong>
+          진도 순서와 평가 주간은 <strong>세 분반 모두 같습니다.</strong></p>
+
+        <div class="tw">
+          <table>
+            <thead><tr>
+              <th scope="col">분반</th><th scope="col">시작</th>
+              <th scope="col">정렬 수업</th><th scope="col">수행평가 1</th>
+              <th scope="col">탐색 수업</th><th scope="col">수행평가 2</th>
+              <th scope="col">정기고사 전<br>총 차시</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="el">자구 A</td><td class="mk">8/13</td>
+                <td class="mk">8월 2주~4주</td><td class="ev">8/24~8/28</td>
+                <td class="mk">9월 1주~3주</td><td class="ev">9/14~9/18</td>
+                <td class="pt">20</td></tr>
+              <tr><td class="el">자구 B</td><td class="mk">8/13</td>
+                <td class="mk">8월 2주~4주</td><td class="ev">8/24~8/28</td>
+                <td class="mk">9월 1주~3주</td><td class="ev">9/14~9/18</td>
+                <td class="pt">19</td></tr>
+              <tr><td class="el">자구 C</td><td class="mk">8/12</td>
+                <td class="mk">8월 2주~4주</td><td class="ev">8/24~8/28</td>
+                <td class="mk">9월 1주~3주</td><td class="ev">9/14~9/18</td>
+                <td class="pt">21</td></tr>
+              <tr class="sum"><td class="el">공통</td>
+                <td colspan="5">정렬 수업 &rarr; 수행평가 1 &rarr; 탐색 수업 &rarr; 수행평가 2 &rarr; 종합 정리 · 자습</td>
+                <td class="pt">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:10px;font-size:15px;color:var(--ink-2)">
+          <strong>차시가 적은 분반은 자습 시간이 적습니다.</strong> 그만큼 수업 시간에 집중하는 것이 중요합니다.
+          자기 분반의 정확한 날짜는 교실에 붙은 시간표를 확인하세요.</p>
+
+        <div class="alarm" style="background:var(--sort-soft);border-color:var(--sort);margin-top:16px">
           <strong>3학년 2학기는 1차 정기고사로 끝납니다.</strong>
           2차 정기고사가 없으므로, 10월 8일까지의 성적이 이 과목의 최종 성적입니다.
           만회할 기회가 한 번뿐이라는 뜻이니 4주차 수행평가부터 집중해 주세요.
@@ -2668,7 +2704,7 @@
               <tr><td class="mk">수행평가 1</td><td>정렬 알고리즘 설계</td>
                 <td>프로젝트<br>(설계 탐구)</td><td class="mk">8/24~8/28</td><td class="pt">100</td><td class="pt">35%</td></tr>
               <tr><td class="mk">수행평가 2</td><td>탐색 알고리즘 설계</td>
-                <td>프로젝트<br>(설계 탐구)</td><td class="mk">9/21~9/23</td><td class="pt">100</td><td class="pt">35%</td></tr>
+                <td>프로젝트<br>(설계 탐구)</td><td class="mk">9/14~9/18</td><td class="pt">100</td><td class="pt">35%</td></tr>
               <tr><td class="mk">정기고사</td><td>1차 정기고사</td>
                 <td>선택형·단답형</td><td class="mk">10/2, 10/6~8</td><td class="pt">100</td><td class="pt">30%</td></tr>
               <tr class="sum"><td class="mk">합계</td><td>서술·논술형 반영비율 0%</td><td></td><td></td><td></td><td class="pt">100%</td></tr>
@@ -2676,14 +2712,6 @@
           </table>
         </div>
 
-        <h3>동점자 처리 우선순위</h3>
-        <p>총점이 같을 경우 <strong>① 1차 정기고사 → ② 정렬 알고리즘 설계 → ③ 탐색 알고리즘 설계</strong> 순으로
-          점수가 높은 사람이 앞섭니다.</p>
-
-        <h3>평가에 빠졌을 때</h3>
-        <p>수행평가에 응시하지 못하면 사유와 관계없이 학교에서 정한 기간 안에 <strong>추가 평가를 실시</strong>합니다.
-          재응시 기회를 주었는데도 본인 의사로 참여하지 않으면 0점, 부득이한 사정이면 교과협의회를 거쳐
-          영역별 최하점의 차하점을 부여합니다. 결시했다면 반드시 교과 선생님께 먼저 알리세요.</p>
       </section>
 
       <section id="grade">
@@ -2737,13 +2765,6 @@
           그대로 복사해서 쓰면 안전합니다.
         </div>
 
-        <h3>수업 중 지켜야 할 것</h3>
-        <ul class="plain">
-          <li>모든 수행평가는 <strong>수업 시간 안에</strong> 실시합니다. 집에서 미리 만들어 오는 과제형 평가는 없습니다.</li>
-          <li>채점기준표는 평가 전에 반드시 공개합니다. 기준을 모르고 평가받는 일은 없습니다.</li>
-          <li>결과는 실시 후 개별 통지하며, 공개일 포함 <strong>3일간(공휴일 제외) 이의신청</strong>할 수 있습니다.</li>
-          <li>미도달 학생에게는 피드백 후 <strong>1회 보완 제출 기회</strong>를 줍니다(최대 C수준 인정).</li>
-        </ul>
       </section>
 
       <section id="cal">
@@ -2755,7 +2776,7 @@
           <div class="dt off"><b>8/17 (월)</b><span>대체공휴일</span></div>
           <div class="dt key"><b>8/24~8/28</b><span>수행평가 1 · 정렬 알고리즘 설계</span></div>
           <div class="dt"><b>9/2 (수)</b><span>대학수학능력시험 모의평가</span></div>
-          <div class="dt key"><b>9/21~9/23</b><span>수행평가 2 · 탐색 알고리즘 설계</span></div>
+          <div class="dt key"><b>9/14~9/18</b><span>수행평가 2 · 탐색 알고리즘 설계</span></div>
           <div class="dt off"><b>9/24~9/26</b><span>추석 연휴</span></div>
           <div class="dt key"><b>10/2, 10/6~10/8</b><span>1차 정기고사</span></div>
           <div class="dt off"><b>10/5, 10/9</b><span>대체공휴일 · 한글날</span></div>
@@ -4780,7 +4801,7 @@
           프로그래밍을 잘 못해도 괜찮습니다.
         </p>
         <dl class="facts">
-          <div class="fact"><dt>평가 시기</dt><dd>8월 4주 <em>9/21~9/23</em></dd></div>
+          <div class="fact"><dt>평가 시기</dt><dd>9월 3주 <em>9/14~9/18</em></dd></div>
           <div class="fact"><dt>만점 / 반영</dt><dd>100점 <em>35%</em></dd></div>
         </dl>
       </div>
