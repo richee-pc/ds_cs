@@ -7,3 +7,6 @@ env/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 원본 폰트 파일은 저장소에 올리지 않는다 (HTML 에 서브셋으로 내장됨)
+fonts/
