@@ -21,10 +21,11 @@
     --on-deep: #d7e8e4;
     --on-deep-dim: #7e9c9a;
 
-    --sans: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont,
-            "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
-    --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Consolas",
-            "D2Coding", "Menlo", monospace;
+    --sans: "Pretendard Variable", "Pretendard", "SUIT", "Spoqa Han Sans Neo",
+            "Wanted Sans", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+            "Noto Sans KR", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    --mono: "JetBrains Mono", "Cascadia Code", "D2Coding", ui-monospace,
+            "SFMono-Regular", "Consolas", "Menlo", monospace;
 
     --r: 4px;
   }
@@ -106,7 +107,10 @@
     font-family: var(--sans);
     font-size: 17px;
     line-height: 1.82;
-    letter-spacing: -.004em;
+    letter-spacing: -.011em;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     word-break: keep-all;
     overflow-x: hidden;
@@ -184,8 +188,8 @@
 
   .hero h1 {
     font-size: clamp(31px, 6vw, 55px);
-    line-height: 1.14;
-    letter-spacing: -.035em;
+    line-height: 1.1;
+    letter-spacing: -.045em;
     font-weight: 800;
     margin: 0 0 8px;
     text-wrap: balance;
@@ -410,8 +414,8 @@
 
   h2 {
     font-size: clamp(25px, 3.9vw, 34px);
-    line-height: 1.26;
-    letter-spacing: -.03em;
+    line-height: 1.24;
+    letter-spacing: -.038em;
     font-weight: 800;
     margin: 0;
     text-wrap: balance;
@@ -429,11 +433,11 @@
   h3 {
     font-size: 19.5px;
     font-weight: 800;
-    letter-spacing: -.018em;
+    letter-spacing: -.028em;
     margin: 34px 0 12px;
   }
 
-  p { margin: 0 0 14px; max-width: 68ch; }
+  p { margin: 0 0 14px; max-width: 68ch; text-wrap: pretty; }
 
   strong { font-weight: 700; }
 
@@ -1150,26 +1154,26 @@
 
   .page[data-page="lesson"],
 .page[data-page="search"] {
-    --ground: #f7fbff;
+    --ground: #f2fbff;
     --surface: #ffffff;
-    --surface-2: #eff6fd;
-    --ink: #12202e;
-    --ink-2: #3f5670;
-    --muted: #6b8099;
-    --line: #dbe6f2;
-    --line-2: #b9cde3;
-    --edge: #0a6fd0;
-    --edge-2: #38a5f5;
-    --edge-soft: #e6f2fe;
+    --surface-2: #e8f6fe;
+    --ink: #0f2733;
+    --ink-2: #3a5c6e;
+    --muted: #6a8a9c;
+    --line: #d3ecf8;
+    --line-2: #a8d7ee;
+    --edge: #0891c7;
+    --edge-2: #38bdf8;
+    --edge-soft: #e0f4fe;
     --sort: #e0574c;
     --sort-soft: #fdeceb;
-    --deep: #12406b;
-    --deep-2: #1a5a92;
-    --on-deep: #dfeefc;
-    --on-deep-dim: #8fb4d6;
-    background: #f7fbff;
+    --deep: #0b4a67;
+    --deep-2: #12688e;
+    --on-deep: #dcf2fb;
+    --on-deep-dim: #8ec6e0;
+    background: #f2fbff;
 
-    --c-idle: #b9d4f2;
+    --c-idle: #a5dcf2;
     --c-cmp: #ffb020;
     --c-swap: #f2545b;
     --c-key: #7b5cf0;
@@ -1224,74 +1228,98 @@
 
   :root[data-theme="light"] .page[data-page="lesson"],
   .page[data-page="search"] {
-    --ground: #f4f8fd;
+    --ground: #f2fbff;
     --surface: #ffffff;
-    --surface-2: #eef4fb;
-    --ink: #12202e;
-    --ink-2: #3f5670;
-    --muted: #6b8099;
-    --line: #dbe6f2;
-    --line-2: #b9cde3;
-    --edge: #0b74d1;
-    --edge-2: #2e9bf0;
-    --edge-soft: #e3f0fd;
+    --surface-2: #e8f6fe;
+    --ink: #0f2733;
+    --ink-2: #3a5c6e;
+    --muted: #6a8a9c;
+    --line: #d3ecf8;
+    --line-2: #a8d7ee;
+    --edge: #0891c7;
+    --edge-2: #38bdf8;
+    --edge-soft: #e0f4fe;
     --sort: #e0574c;
     --sort-soft: #fdeceb;
-    --deep: #103353;
-    --deep-2: #17456e;
-    background: #f4f8fd;
-    --c-idle: #b9d4f2;
+    --deep: #0b4a67;
+    --deep-2: #12688e;
+    background: #f2fbff;
+    --c-idle: #a5dcf2;
   }
 
   /* 탐색 페이지는 같은 밝은 톤에 보라 계열 포인트 */
   .page[data-page="search"] {
-    --edge: #5b46d6;
-    --edge-2: #7c66f0;
-    --edge-soft: #eeebfd;
-    --deep: #241d52;
-    --deep-2: #322a6b;
-    --on-deep: #e6e2fb;
-    --on-deep-dim: #a79ede;
-    background: #f8f7fe;
+    --ground: #fff7f4;
+    --surface: #ffffff;
+    --surface-2: #ffeee8;
+    --ink: #2e1712;
+    --ink-2: #6b463c;
+    --muted: #96736a;
+    --line: #fadcd2;
+    --line-2: #f0b7a6;
+    --edge: #e14434;
+    --edge-2: #f4735c;
+    --edge-soft: #ffece6;
+    --sort: #c2410c;
+    --sort-soft: #ffeddb;
+    --deep: #5c1c12;
+    --deep-2: #7d2a1c;
+    --on-deep: #ffe6de;
+    --on-deep-dim: #d99f8e;
+    background: #fff7f4;
+    --c-idle: #ffcbb8;
+    --c-cmp: #f59e0b;
+    --c-swap: #dc2626;
+    --c-key: #b5179e;
+    --c-pivot: #b5179e;
+    --c-done: #059669;
   }
 
   @media (prefers-color-scheme: dark) {
     .page[data-page="search"] {
-      --edge: #9d8bff;
-      --edge-2: #b7a8ff;
-      --edge-soft: #241d52;
-      --deep: #14102e;
-      --deep-2: #201a45;
-      background: #121020;
-      --ground: #121020;
-      --surface: #1b1834;
-      --surface-2: #221e40;
-      --line: #302b52;
-      --line-2: #453e6e;
+      --edge: #ff8a70;
+      --edge-2: #ffa590;
+      --edge-soft: #46180f;
+      --deep: #240c07;
+      --deep-2: #3a140c;
+      background: #1d0f0b;
+      --ground: #1d0f0b;
+      --surface: #2a1611;
+      --surface-2: #341c15;
+      --line: #4a2a20;
+      --line-2: #6b3d2e;
+      --c-idle: #6b3d2e;
     }
   }
 
   :root[data-theme="dark"] .page[data-page="search"] {
-    --edge: #9d8bff;
-    --edge-2: #b7a8ff;
-    --edge-soft: #241d52;
-    --deep: #14102e;
-    --deep-2: #201a45;
-    background: #121020;
-    --ground: #121020;
-    --surface: #1b1834;
-    --surface-2: #221e40;
-    --line: #302b52;
-    --line-2: #453e6e;
+    --edge: #ff8a70;
+    --edge-2: #ffa590;
+    --edge-soft: #46180f;
+    --deep: #240c07;
+    --deep-2: #3a140c;
+    background: #1d0f0b;
+    --ground: #1d0f0b;
+    --surface: #2a1611;
+    --surface-2: #341c15;
+    --line: #4a2a20;
+    --line-2: #6b3d2e;
+    --c-idle: #6b3d2e;
   }
 
   :root[data-theme="light"] .page[data-page="search"] {
-    --edge: #5b46d6;
-    --edge-2: #7c66f0;
-    --edge-soft: #eeebfd;
-    --deep: #241d52;
-    --deep-2: #322a6b;
-    background: #f8f7fe;
+    --ground: #fff7f4;
+    --surface: #ffffff;
+    --surface-2: #ffeee8;
+    --line: #fadcd2;
+    --line-2: #f0b7a6;
+    --edge: #e14434;
+    --edge-2: #f4735c;
+    --edge-soft: #ffece6;
+    --deep: #5c1c12;
+    --deep-2: #7d2a1c;
+    background: #fff7f4;
+    --c-idle: #ffcbb8;
   }
 
   /* ---- 탐색: 배열 셀 ---- */
@@ -1338,7 +1366,7 @@
   }
 
   .cell.out { opacity: .26; }
-  .cell.range { background: #d9d2fb; }
+  .cell.range { background: #ffd9cc; }
   .cell.look { background: var(--c-cmp); transform: translateY(-5px); }
   .cell.mid { background: var(--c-key); }
   .cell.mid b, .cell.mid i, .cell.look b, .cell.hit b, .cell.hit i { color: #fff; }
@@ -2158,6 +2186,80 @@
   }
 
   .g-ctrl button:not(.cta):hover { border-color: var(--edge); color: var(--edge); }
+
+  /* 2단계 — 직접 가르기 */
+
+  .g-arr.rr i { position: relative; }
+  .g-arr.rr i.lo { background: #ffd43b; color: #17224a; }
+  .g-arr.rr i.hi { background: #74c0fc; color: #17224a; }
+  .g-arr.rr i.both { background: linear-gradient(90deg, #ffd43b 50%, #74c0fc 50%); }
+  .g-arr.rr i.fixed { background: var(--c-done); color: #fff; }
+
+  .g-ptr { display: flex; gap: 6px; margin-top: 4px; }
+
+  .g-ptr span {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--muted);
+    min-height: 30px;
+  }
+
+  .g-ptr span.l { color: #b8860b; }
+  .g-ptr span.h { color: #1c7ed6; }
+
+  .g-off { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2px; }
+
+  .g-off span {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    background: var(--surface-2);
+    border: 1px dashed var(--line-2);
+  }
+
+  .g-off span.l { color: #b8860b; }
+  .g-off span.h { color: #1c7ed6; }
+
+  .hearts { font-size: 16px; letter-spacing: 2px; color: #f2545b; }
+  .hearts.gone { color: var(--line-2); }
+
+  .g-rule {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line-2);
+  }
+
+  @media (min-width: 760px) { .g-rule { grid-template-columns: repeat(3, 1fr); } }
+
+  .g-rule > div {
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 10px 13px;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .g-rule b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .05em;
+    color: var(--edge);
+    margin-bottom: 3px;
+  }
+
+  .g-rule span { color: var(--ink-2); }
+  .g-rule em { font-style: normal; font-weight: 700; color: var(--ink); }
 
   /* ---- 확인 문제 ---- */
 
@@ -3232,38 +3334,67 @@
       </section>
 
       <section id="ls-game">
-        <div class="sh"><span class="sh-n">04 / 게임</span><h2>피벗 자리 맞히기</h2></div>
-        <p class="note">퀵 정렬의 핵심은 딱 하나입니다 &mdash;
-          <strong>피벗은 한 번 자리를 잡으면 절대 움직이지 않는다.</strong>
-          그럼 그 자리가 어디인지 <strong>가르기를 해 보지 않고도</strong> 알 수 있을까요? 맞혀 보세요.</p>
+        <div class="sh"><span class="sh-n">04 / 게임</span><h2>퀵 정렬 훈련소</h2></div>
+        <p class="note">퀵 정렬은 <strong>직접 해 봐야</strong> 이해됩니다.
+          두 가지 훈련을 준비했습니다. 먼저 몸을 풀고, 그다음 진짜 알고리즘을 손으로 돌려 보세요.</p>
 
-        <div class="game">
+        <div class="sim-top">
+          <div class="chips" id="gmode">
+            <span class="lbl">훈련</span>
+            <button type="button" data-m="guess" class="on">1단계 · 피벗 자리 맞히기</button>
+            <button type="button" data-m="run">2단계 · 내가 직접 가르기</button>
+          </div>
+        </div>
+
+        <!-- ── 1단계 ── -->
+        <div class="game" id="g1">
           <div class="g-top">
             <span class="g-q">이 배열에서 <b id="gv">?</b> 를 피벗으로 잡으면,
               <b>최종적으로 몇 번 자리</b>에 놓일까요?</span>
             <span class="g-score">맞힌 개수 <b id="gs">0</b> &nbsp;·&nbsp; 연속 <b id="gk">0</b></span>
           </div>
-
           <div class="g-arr" id="ga"></div>
           <div class="g-idx" id="gi"></div>
-
           <p class="g-say" id="gm">아래 번호 중 하나를 눌러 보세요.</p>
-
           <div class="g-ctrl">
             <button type="button" class="cta" id="gnext">다음 문제 <span>&rarr;</span></button>
             <button type="button" id="ghint">힌트</button>
           </div>
         </div>
 
+        <!-- ── 2단계 ── -->
+        <div class="game" id="g2" style="display:none">
+          <div class="g-top">
+            <span class="g-q" id="rq">왼손(low)이 움직이는 중입니다. 여기서 <b>멈춰야 할까요?</b></span>
+            <span class="g-score">
+              <span id="rl" class="hearts">&#9829;&#9829;&#9829;</span>
+              &nbsp;·&nbsp; 성공한 가르기 <b id="rs">0</b></span>
+          </div>
+
+          <div class="g-arr rr" id="ra"></div>
+          <div class="g-ptr" id="rp"></div>
+          <div class="g-off" id="roff"></div>
+
+          <p class="g-say" id="rm">왼손은 <b>피벗보다 큰 값</b>을 만나면 멈춥니다. 계속 갈까요, 멈출까요?</p>
+
+          <div class="g-ctrl" id="rc"></div>
+
+          <div class="g-rule">
+            <div><b>왼손 low</b><span>왼쪽에서 오른쪽으로. <em>피벗보다 큰 값</em>을 만나면 멈춘다.</span></div>
+            <div><b>오른손 high</b><span>오른쪽에서 왼쪽으로. <em>피벗보다 작은 값</em>을 만나면 멈춘다.</span></div>
+            <div><b>둘 다 멈추면</b><span>아직 안 엇갈렸으면 <em>교환</em>, 엇갈렸으면 <em>가르기 끝</em>.</span></div>
+          </div>
+        </div>
+
         <div class="split" style="margin-top:16px">
-          <div class="sp"><h5>왜 맞힐 수 있을까</h5>
+          <div class="sp"><h5>1단계에서 배우는 것</h5>
             피벗의 왼쪽에는 <strong>피벗보다 작은 값만</strong> 모입니다.
             그러니까 <span class="yes">피벗보다 작은 값의 개수 = 피벗의 자리 번호</span> 입니다.
             가르기를 끝까지 해 보지 않아도 셈만으로 알 수 있습니다.</div>
-          <div class="sp"><h5>이게 왜 중요한가</h5>
-            그 자리가 <strong>배열의 한가운데 근처</strong>면 좌우가 반씩 나뉘어 빠릅니다.
-            반대로 <span class="no">0번이나 맨 끝</span>이 계속 나오면 한쪽으로만 쪼개져
-            <strong>최악 O(n&sup2;)</strong> 가 됩니다. 피벗을 잘 고르는 것이 그래서 중요합니다.</div>
+          <div class="sp"><h5>2단계에서 배우는 것</h5>
+            두 손이 <strong>언제 멈추는지</strong>가 퀵 정렬의 전부입니다.
+            한 번만 손으로 끝까지 돌려 보면 <span class="yes">코드의 do-while 두 개가 무슨 뜻인지</span>
+            바로 보입니다.</div>
         </div>
       </section>
 
@@ -3538,7 +3669,7 @@
 
           <div class="legend">
             <span><i style="background:var(--c-idle)"></i>대기</span>
-            <span><i style="background:#d9d2fb"></i>남은 탐색 범위</span>
+            <span><i style="background:#ffd9cc"></i>남은 탐색 범위</span>
             <span><i style="background:var(--c-cmp)"></i>지금 확인 중</span>
             <span><i style="background:var(--c-key)"></i>가운데(mid)</span>
             <span><i style="background:var(--c-done)"></i>찾음</span>
@@ -6251,13 +6382,27 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
     })();
 
 
-    /* ---------- 퀵 정렬 게임 : 피벗 자리 맞히기 ---------- */
+    /* ---------- 퀵 정렬 훈련소 ---------- */
     (function () {
       var ga = document.getElementById('ga');
       if (!ga) return;
+
+      /* ===== 모드 전환 ===== */
+      document.querySelectorAll('#gmode button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('#gmode button').forEach(function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          var run = b.getAttribute('data-m') === 'run';
+          document.getElementById('g1').style.display = run ? 'none' : '';
+          document.getElementById('g2').style.display = run ? '' : 'none';
+          if (run) newRound();
+        });
+      });
+
+      /* ===== 1단계 : 피벗 자리 맞히기 ===== */
       var gi = document.getElementById('gi'), gm = document.getElementById('gm');
       var gv = document.getElementById('gv'), gs = document.getElementById('gs'), gk = document.getElementById('gk');
-      var score = 0, streak = 0, arr = [], pivot = 0, answer = 0, solved = false;
+      var arr = [], pivot = 0, answer = 0, solved = false, score = 0, streak = 0;
 
       function make() {
         arr = [];
@@ -6277,10 +6422,7 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       function draw(reveal) {
         var h = '';
         for (var i = 0; i < arr.length; i++) {
-          var c = 'g-arr-cell';
-          if (i === 0) c = 'pv';
-          else if (reveal) c = (arr[i] < pivot) ? 'sm' : 'bg2';
-          else c = '';
+          var c = (i === 0) ? 'pv' : (reveal ? (arr[i] < pivot ? 'sm' : 'bg2') : '');
           h += '<i class="' + c + '">' + arr[i] + '</i>';
         }
         ga.innerHTML = h;
@@ -6288,33 +6430,27 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         for (var j = 0; j < arr.length; j++) g += '<button type="button" data-i="' + j + '">' + j + '</button>';
         gi.innerHTML = g;
         gi.querySelectorAll('button').forEach(function (b) {
-          b.addEventListener('click', function () { pick(parseInt(b.getAttribute('data-i'), 10), b); });
+          b.addEventListener('click', function () { pick(parseInt(b.getAttribute('data-i'), 10)); });
         });
       }
 
-      function pick(i, btn) {
+      function pick(i) {
         if (solved) return;
         solved = true;
-        gi.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
         var smaller = arr.filter(function (v) { return v < pivot; });
         if (i === answer) {
           score++; streak++;
-          btn.classList.add('ok');
           gm.className = 'g-say good';
           gm.innerHTML = '정답! 피벗 <b>' + pivot + '</b> 보다 작은 값이 <b>' + smaller.length +
             '개</b>(' + (smaller.join(', ') || '없음') + ') 이므로 <b>' + answer + '번 자리</b>입니다.' +
             (answer === 0 || answer === arr.length - 1
-              ? ' &mdash; 한쪽으로 완전히 치우쳤습니다. 이런 피벗이 계속 나오면 최악 O(n²)!'
-              : '');
+              ? ' &mdash; 한쪽으로 완전히 치우쳤습니다. 이런 피벗이 계속 나오면 최악 O(n²)!' : '');
         } else {
           streak = 0;
-          btn.classList.add('no');
-          gi.querySelectorAll('button')[answer].classList.add('ok');
           gm.className = 'g-say bad';
-          gm.innerHTML = '아쉽네요. 정답은 <b>' + answer + '번</b>입니다. ' +
-            '피벗 <b>' + pivot + '</b> 보다 작은 값이 <b>' + smaller.length + '개</b>(' +
-            (smaller.join(', ') || '없음') + ') 이니까, 그 ' + smaller.length +
-            '개가 왼쪽에 놓이고 피벗은 바로 그 뒤에 옵니다.';
+          gm.innerHTML = '아쉽네요. 정답은 <b>' + answer + '번</b>입니다. 피벗 <b>' + pivot +
+            '</b> 보다 작은 값이 <b>' + smaller.length + '개</b>(' + (smaller.join(', ') || '없음') +
+            ') 이니까, 그 ' + smaller.length + '개가 왼쪽에 놓이고 피벗은 바로 그 뒤에 옵니다.';
         }
         draw(true);
         gi.querySelectorAll('button').forEach(function (b, idx) {
@@ -6332,6 +6468,232 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           '그러니 <b>피벗보다 작은 값이 몇 개인지</b> 세어 보세요. 그 개수가 곧 자리 번호입니다.';
       });
       make();
+
+      /* ===== 2단계 : 내가 직접 가르기 ===== */
+      var ra = document.getElementById('ra'), rp = document.getElementById('rp');
+      var rq = document.getElementById('rq'), rm = document.getElementById('rm');
+      var rc = document.getElementById('rc'), rl = document.getElementById('rl'), rs = document.getElementById('rs');
+      var A, pv, low, high, phase, life, cleared, fixedAt, fresh;
+
+      function newRound() {
+        A = [];
+        while (A.length < 7) {
+          var v = Math.floor(Math.random() * 60) + 10;
+          if (A.indexOf(v) < 0) A.push(v);
+        }
+        pv = A[0];
+        low = 0; high = A.length;      // high = right + 1
+        fixedAt = -1;
+        phase = 'low';
+        fresh = true;          // do-while 이므로 각 단계는 '먼저 한 칸' 부터
+        life = (typeof life === 'number' && life > 0) ? life : 3;
+        step();
+      }
+
+      function hearts() {
+        var h = '';
+        for (var i = 0; i < 3; i++) h += (i < life ? '&#9829;' : '&#9825;');
+        rl.innerHTML = h;
+        rl.className = 'hearts' + (life <= 1 ? ' gone' : '');
+      }
+
+      function drawR() {
+        var h = '';
+        for (var i = 0; i < A.length; i++) {
+          var c = '';
+          if (i === fixedAt) c = 'fixed';
+          else if (i === 0 && fixedAt < 0) c = 'pv';
+          if (fixedAt < 0) {
+            if (i === low && i === high) c = 'both';
+            else if (i === low) c = 'lo';
+            else if (i === high) c = 'hi';
+          }
+          h += '<i class="' + c + '">' + A[i] + '</i>';
+        }
+        ra.innerHTML = h;
+        var p = '';
+        for (var j = 0; j < A.length; j++) {
+          var t = [];
+          if (fixedAt < 0 && j === low) t.push('<span class="l">▲ 왼손</span>');
+          if (fixedAt < 0 && j === high) t.push('<span class="h">▲ 오른손</span>');
+          p += '<span>' + (t.length ? t.join('<br>').replace(/<span class="[lh]">|<\/span>/g, '') : '') + '</span>';
+        }
+        // 포인터 줄은 클래스로 색만 준다
+        var cells = '';
+        for (var k = 0; k < A.length; k++) {
+          var lab = '';
+          if (fixedAt < 0 && k === low && k === high) lab = '▲ 왼손·오른손';
+          else if (fixedAt < 0 && k === low) lab = '▲ 왼손';
+          else if (fixedAt < 0 && k === high) lab = '▲ 오른손';
+          var cls = (k === low && fixedAt < 0) ? 'l' : ((k === high && fixedAt < 0) ? 'h' : '');
+          cells += '<span class="' + cls + '">' + lab + '</span>';
+        }
+        rp.innerHTML = cells;
+
+        // 손이 배열 밖으로 나간 경우도 보이게 한다
+        var off = '';
+        if (fixedAt < 0 && low >= A.length) off += '<span class="l">왼손이 배열 끝을 넘어갔습니다 (' + low + '번)</span>';
+        if (fixedAt < 0 && high < 0) off += '<span class="h">오른손이 배열 앞을 넘어갔습니다 (' + high + '번)</span>';
+        document.getElementById('roff').innerHTML = off;
+        hearts();
+      }
+
+      function buttons(list) {
+        rc.innerHTML = '';
+        list.forEach(function (b) {
+          var el = document.createElement('button');
+          el.type = 'button';
+          el.textContent = b.t;
+          if (b.primary) el.className = 'cta';
+          el.addEventListener('click', function () { b.f(); });
+          rc.appendChild(el);
+        });
+      }
+
+      function wrong(msg) {
+        life--;
+        rm.className = 'g-say bad';
+        rm.innerHTML = msg;
+        hearts();
+        if (life <= 0) {
+          rq.innerHTML = '아쉽지만 하트를 다 썼습니다. 규칙을 다시 보고 도전해 보세요!';
+          buttons([{ t: '다시 도전 ↻', primary: true, f: function () { life = 3; newRound(); } }]);
+        }
+      }
+
+      function step() {
+        drawR();
+
+        if (phase === 'low') {
+          // do low++ while (low<=right && A[low] < pv)
+          rq.innerHTML = '피벗은 <b>' + pv + '</b>. 왼손이 <b>' + low + '번</b>에 있습니다. ' +
+            (fresh ? '왼손을 먼저 한 칸 옮기세요.' : '여기서 <b>멈춰야 할까요?</b>');
+          if (fresh) {
+            rm.className = 'g-say';
+            rm.innerHTML = '코드가 <span class="k">do low++ while(...)</span> 이므로 ' +
+              '<b>무조건 한 칸 먼저 옮기고</b> 나서 판단합니다.';
+            buttons([{ t: '왼손 한 칸 →', primary: true,
+                       f: function () { low++; fresh = false; step(); } }]);
+            return;
+          }
+          var mustStopLow = (low >= A.length) || (A[low] >= pv);
+          rm.className = 'g-say';
+          rm.innerHTML = '왼손이 가리키는 값은 <b>' + (low < A.length ? A[low] : '(끝)') +
+            '</b>. 피벗 ' + pv + ' 보다 <b>큰가요?</b>';
+          buttons([
+            { t: '계속 간다 →', f: function () {
+                if (mustStopLow) {
+                  wrong(low >= A.length
+                    ? '배열 끝을 넘어갔습니다. <b>더 갈 곳이 없으면 멈춰야</b> 합니다.'
+                    : '<b>' + A[low] + '</b> 은 피벗 ' + pv + ' 보다 <b>크거나 같습니다.</b> ' +
+                      '왼손은 이런 값을 만나면 <b>멈춰야</b> 합니다. 이 값은 오른쪽으로 가야 하니까요.');
+                } else { low++; step(); }
+              } },
+            { t: '여기서 멈춘다 ✋', primary: true, f: function () {
+                if (!mustStopLow) {
+                  wrong('<b>' + A[low] + '</b> 은 피벗 ' + pv + ' 보다 <b>작습니다.</b> ' +
+                        '작은 값은 왼쪽에 있어도 되니 <b>그냥 지나쳐야</b> 합니다.');
+                } else { phase = 'high'; fresh = true; step(); }
+              } }
+          ]);
+          return;
+        }
+
+        if (phase === 'high') {
+          rq.innerHTML = '이번엔 오른손 차례입니다. 오른손이 <b>' + high + '번</b>에 있습니다.';
+          if (fresh) {
+            rm.className = 'g-say';
+            rm.innerHTML = '오른손도 <span class="k">do high-- while(...)</span> 이므로 ' +
+              '<b>먼저 한 칸 옮기고</b> 판단합니다.';
+            buttons([{ t: '← 오른손 한 칸', primary: true,
+                       f: function () { high--; fresh = false; step(); } }]);
+            return;
+          }
+          var mustStopHigh = (high < 0) || (A[high] <= pv);
+          rm.className = 'g-say';
+          rm.innerHTML = '오른손이 가리키는 값은 <b>' + (high >= 0 ? A[high] : '(끝)') +
+            '</b>. 피벗 ' + pv + ' 보다 <b>작은가요?</b>';
+          buttons([
+            { t: '← 계속 간다', f: function () {
+                if (mustStopHigh) {
+                  wrong('<b>' + A[high] + '</b> 은 피벗 ' + pv + ' 보다 <b>작거나 같습니다.</b> ' +
+                        '오른손은 이런 값을 만나면 <b>멈춰야</b> 합니다. 이 값은 왼쪽으로 가야 하니까요.');
+                } else { high--; step(); }
+              } },
+            { t: '여기서 멈춘다 ✋', primary: true, f: function () {
+                if (!mustStopHigh) {
+                  wrong('<b>' + A[high] + '</b> 은 피벗 ' + pv + ' 보다 <b>큽니다.</b> ' +
+                        '큰 값은 오른쪽에 있어도 되니 <b>그냥 지나쳐야</b> 합니다.');
+                } else { phase = 'decide'; fresh = false; step(); }
+              } }
+          ]);
+          return;
+        }
+
+        if (phase === 'decide') {
+          var crossed = (low >= high);
+          rq.innerHTML = '두 손이 모두 멈췄습니다. 왼손 <b>' + low + '번</b>, 오른손 <b>' + high +
+            '번</b>. 이제 무엇을 할까요?';
+          rm.className = 'g-say';
+          rm.innerHTML = '아직 <b>엇갈리지 않았다면</b>(왼손 &lt; 오른손) 둘을 교환합니다. ' +
+            '<b>엇갈렸다면</b> 가르기가 끝난 것입니다.';
+          buttons([
+            { t: '둘을 교환한다 ⇄', f: function () {
+                if (crossed) {
+                  wrong('왼손(' + low + ') 이 오른손(' + high + ') 을 <b>지나쳤습니다.</b> ' +
+                        '엇갈린 뒤에 교환하면 오히려 순서가 망가집니다. 여기서는 <b>가르기를 끝내야</b> 합니다.');
+                } else {
+                  var x = A[low], y = A[high];
+                  A[low] = y; A[high] = x;
+                  phase = 'low';
+                  fresh = true;
+                  drawR();
+                  rq.innerHTML = '교환 완료!';
+                  rm.className = 'g-say good';
+                  rm.innerHTML = '왼쪽에 있던 큰 값 <b>' + x + '</b> 와 오른쪽에 있던 작은 값 <b>' + y +
+                    '</b> 가 자리를 바꿨습니다. 이제 두 손을 다시 움직입니다.';
+                  buttons([{ t: '계속 →', primary: true, f: step }]);
+                }
+              } },
+            { t: '가르기를 끝낸다 ✓', primary: true, f: function () {
+                if (!crossed) {
+                  wrong('아직 <b>엇갈리지 않았습니다.</b> 왼손(' + low + ') 이 오른손(' + high +
+                        ') 보다 앞에 있으니, 두 값을 <b>교환해야</b> 합니다.');
+                } else { phase = 'final'; step(); }
+              } }
+          ]);
+          return;
+        }
+
+        if (phase === 'final') {
+          rq.innerHTML = '마지막입니다. <b>피벗 ' + pv + ' 를 어디로</b> 보내야 할까요?';
+          rm.className = 'g-say';
+          rm.innerHTML = '피벗은 <b>오른손이 멈춘 자리</b>로 갑니다. 그 자리가 피벗의 최종 위치입니다.';
+          buttons([
+            { t: '왼손 자리(' + low + '번)로', f: function () {
+                wrong('아닙니다. 왼손 자리에는 <b>피벗보다 큰 값</b>이 있습니다. ' +
+                      '피벗은 <b>오른손이 멈춘 ' + high + '번</b>으로 가야 합니다.');
+              } },
+            { t: '오른손 자리(' + high + '번)로', primary: true, f: function () {
+                var t = A[0]; A[0] = A[high]; A[high] = t;
+                fixedAt = high;
+                cleared = (cleared || 0) + 1;
+                rs.textContent = cleared;
+                drawR();
+                rq.innerHTML = '가르기 성공! 🎉';
+                rm.className = 'g-say good';
+                rm.innerHTML = '피벗 <b>' + pv + '</b> 가 <b>' + high + '번 자리</b>에 확정되었습니다. ' +
+                  '왼쪽 [' + A.slice(0, high).join(' ') + '] 은 모두 작고, ' +
+                  '오른쪽 [' + A.slice(high + 1).join(' ') + '] 은 모두 큽니다. ' +
+                  '이제 양쪽을 각각 다시 퀵 정렬하면 됩니다.';
+                buttons([{ t: '새 배열로 도전 ↻', primary: true, f: newRound }]);
+              } }
+          ]);
+          return;
+        }
+      }
+
+      life = 3;
     })();
 
     /* ---------- 카드에서 시뮬레이터로 보내기 ---------- */
