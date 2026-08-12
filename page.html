@@ -2551,18 +2551,27 @@
               <button type="button" data-alg="bubble">버블 정렬</button>
               <button type="button" data-alg="shell">셸 정렬</button>
               <button type="button" data-alg="quick">퀵 정렬</button>
+              <button type="button" data-alg="heap">힙 정렬</button>
               <button type="button" data-alg="merge">합병 정렬</button>
               <button type="button" data-alg="radix">기수 정렬</button>
+            </div>
+          </div>
+          <div class="sim-top" id="ls-pivot" style="display:none">
+            <div class="chips">
+              <span class="lbl">피벗 고르기</span>
+              <button type="button" data-p="left" class="on">맨 왼쪽 값</button>
+              <button type="button" data-p="mid3">왼쪽·중간·오른쪽의 중간값</button>
             </div>
           </div>
           <div class="sim-top">
             <div class="chips" id="ls-data">
               <span class="lbl">자료</span>
-              <button type="button" data-set="7,4,9,6,3,8,7,5" class="on">학습지 ①</button>
-              <button type="button" data-set="71,49,92,55,38,82,72,53">학습지 ②</button>
-              <button type="button" data-set="4,5,9,3,6,8,7,1">학습지 ③</button>
-              <button type="button" data-set="8,2,7,3,5">기수 ① 한 자리</button>
-              <button type="button" data-set="28,93,39,81,62,72,38,26">기수 ② 두 자리</button>
+              <button type="button" data-set="7,4,9,6,3,8,7,5" class="on">학습지 1-①</button>
+              <button type="button" data-set="71,49,92,55,38,82,72,53">학습지 1-②</button>
+              <button type="button" data-set="4,5,9,3,6,8,7,1">학습지 1-③</button>
+              <button type="button" data-set="5,7,4,9,8,5,6,3">학습지 2-④</button>
+              <button type="button" data-set="123,398,210,19,528,3,513,129,220,294">학습지 2-⑤</button>
+              <button type="button" data-set="8,2,7,3,5">슬라이드 기수 예제</button>
               <button type="button" data-set="random">무작위</button>
             </div>
           </div>
@@ -5245,6 +5254,52 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         return out;
       }
 
+      /* 힙 정렬 — 최대 힙을 만든 뒤, 뿌리(가장 큰 값)를 맨 뒤로 보내며 확정합니다. */
+      function heap(src) {
+        var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
+        var n = a.length;
+
+        function snap(marks, msg, lm) { out.push(F(a, cmp, swp, marks, done, msg, lm)); }
+
+        function down(i, size) {
+          while (true) {
+            var l = 2 * i + 1, r = 2 * i + 2, big = i;
+            var m = {}; m[i] = 'key';
+            if (l < size) m[l] = 'cmp';
+            if (r < size) m[r] = 'cmp';
+            if (l >= size) { snap(m, i + '번은 자식이 없습니다. 여기서 멈춥니다.'); return; }
+            snap(m, i + '번(' + a[i] + ') 과 자식들을 비교합니다.');
+            if (l < size) { cmp++; if (a[l] > a[big]) big = l; }
+            if (r < size) { cmp++; if (a[r] > a[big]) big = r; }
+            if (big === i) { snap(m, a[i] + ' 가 자식보다 크므로 그대로 둡니다.'); return; }
+            var x = a[i], y = a[big];
+            a[i] = y; a[big] = x; swp++;
+            var m2 = {}; m2[i] = 'swap'; m2[big] = 'swap';
+            snap(m2, '자식 ' + y + ' 가 더 크므로 ' + x + ' 와 교환 — 큰 값을 위로 올립니다.');
+            i = big;
+          }
+        }
+
+        snap({}, '시작 — 먼저 배열 전체를 최대 힙으로 만듭니다.', true);
+        for (var i = Math.floor(n / 2) - 1; i >= 0; i--) {
+          snap({}, i + '번을 뿌리로 하는 작은 힙부터 정리합니다.', true);
+          down(i, n);
+        }
+        snap({}, '최대 힙 완성 — 맨 앞(0번)이 가장 큰 값입니다.', true);
+
+        for (var sz = n - 1; sz > 0; sz--) {
+          var top = a[0], last = a[sz];
+          a[0] = last; a[sz] = top; swp++;
+          done.push(sz);
+          var m3 = {}; m3[0] = 'swap'; m3[sz] = 'swap';
+          snap(m3, '가장 큰 값 ' + top + ' 를 맨 뒤(' + sz + '번)로 보내 확정합니다.', true);
+          down(0, sz);
+        }
+        done.push(0);
+        snap({}, '정렬 완료! 비교 ' + cmp + '번, 교환 ' + swp + '번', true);
+        return out;
+      }
+
       function selection(src) {
         var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
         out.push(F(a, cmp, swp, {}, done, '시작 — 아직 확정된 자리가 없습니다.'));
@@ -5365,11 +5420,30 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         return out;
       }
 
-      function quick(src) {
+      function quick(src, mode) {
         var a = src.slice(), out = [], cmp = 0, swp = 0, done = [];
-        out.push(F(a, cmp, swp, {}, done, '시작 — 피벗을 기준으로 나누고 각각을 다시 퀵 정렬합니다.'));
+        out.push(F(a, cmp, swp, {}, done,
+          mode === 'mid3'
+            ? '시작 — 왼쪽·중간·오른쪽 세 값의 중간값을 피벗으로 씁니다.'
+            : '시작 — 맨 왼쪽 값을 피벗으로 씁니다.', true));
 
         function partition(left, right) {
+          if (mode === 'mid3' && right - left >= 2) {
+            var mid = Math.floor((left + right) / 2);
+            var trio = [[a[left], left], [a[mid], mid], [a[right], right]]
+                       .sort(function (x, y) { return x[0] - y[0]; });
+            var pk = trio[1][1];
+            var mk = {}; mk[left] = 'cmp'; mk[mid] = 'cmp'; mk[right] = 'cmp'; mk[pk] = 'pivot';
+            cmp += 3;
+            out.push(F(a, cmp, swp, mk, done,
+              '세 값 ' + a[left] + ', ' + a[mid] + ', ' + a[right] +
+              ' 중 중간값 ' + a[pk] + ' 를 피벗으로 고릅니다.', true));
+            if (pk !== left) {
+              var tv = a[left]; a[left] = a[pk]; a[pk] = tv; swp++;
+              var mk2 = {}; mk2[left] = 'pivot'; mk2[pk] = 'swap';
+              out.push(F(a, cmp, swp, mk2, done, '고른 피벗을 맨 왼쪽으로 옮깁니다.'));
+            }
+          }
           var pivot = a[left], low = left, high = right + 1;
           var m = {}; m[left] = 'pivot';
           out.push(F(a, cmp, swp, m, done, '구간 [' + left + '~' + right + '] 의 피벗 = ' + pivot, true));
@@ -5415,7 +5489,8 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       }
 
       var ALG = { selection: selection, insertion: insertion, bubble: bubble, shell: shell,
-                  quick: quick, merge: merge, radix: radix };
+                  quick: quick, heap: heap, merge: merge, radix: radix };
+      var pivotMode = 'left';
 
       function draw() {
         var f = frames[cur];
@@ -5464,9 +5539,11 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
 
       function build() {
         stop();
-        frames = ALG[alg](base);
+        frames = (alg === 'quick') ? quick(base, pivotMode) : ALG[alg](base);
         cur = 0;
         draw();
+        var pv = document.getElementById('ls-pivot');
+        if (pv) pv.style.display = (alg === 'quick') ? '' : 'none';
       }
 
       function step(d) {
@@ -5535,6 +5612,15 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           document.querySelectorAll('#ls-algs button').forEach(function (x) { x.classList.remove('on'); });
           b.classList.add('on');
           alg = b.getAttribute('data-alg');
+          build();
+        });
+      });
+
+      document.querySelectorAll('#ls-pivot button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('#ls-pivot button').forEach(function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          pivotMode = b.getAttribute('data-p');
           build();
         });
       });
