@@ -1139,6 +1139,27 @@
   .fl h4 { margin: 0 0 8px; font-size: 16.5px; font-weight: 800; }
   .fl p { margin: 0; font-size: 14.3px; color: var(--ink-2); max-width: none; }
 
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+    padding: 13px 22px;
+    border-radius: var(--r);
+    background: var(--sort);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: transform .16s, filter .16s;
+  }
+
+  .cta:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .cta span { font-family: var(--mono); font-size: 15px; }
+
   tr.hit td { background: var(--sort-soft); }
   td.mk { font-family: var(--mono); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
   td.ev { font-weight: 700; color: var(--sort); white-space: nowrap; }
@@ -1221,8 +1242,8 @@
   <div class="topbar-in">
     <span class="brand">DS · 2026 2학기</span>
     <nav class="tabs" aria-label="페이지">
-      <a href="#/overview"><span class="tn">01</span>2학기 수업 안내</a>
-      <a href="#/task1"><span class="tn">02</span>수행평가 1 · 정렬 알고리즘 설계</a>
+      <a href="#/overview" data-go="overview"><span class="tn">01</span>2학기 수업 안내</a>
+      <a href="#/task1" data-go="task1"><span class="tn">02</span>수행평가 1 · 정렬 알고리즘 설계</a>
     </nav>
   </div>
 </header>
@@ -1466,8 +1487,11 @@
         </div>
 
         <h3>다음에 할 일</h3>
-        <p>첫 평가가 4주차입니다. 위 탭에서 <strong>「수행평가 1 · 정렬 알고리즘 설계」</strong> 페이지로 가면
-          과제 내용, 채점기준표 100점 전문, AI 활용 프롬프트가 모두 있습니다. 지금 한 번 읽어 두세요.</p>
+        <p>첫 평가가 4주차입니다. 수행평가 1 안내 페이지에 과제 내용, 채점기준표 100점 전문,
+          AI 활용 프롬프트가 모두 있습니다. 지금 한 번 읽어 두세요.</p>
+        <button class="cta" type="button" data-goto="task1">
+          수행평가 1 · 정렬 알고리즘 설계 보러 가기 <span>→</span>
+        </button>
       </section>
 
       <footer>
@@ -2070,29 +2094,65 @@
 
 <script>
   (function () {
-    /* ---------- 페이지 전환 ---------- */
+    /* ---------- 페이지 전환 ----------
+       iframe(about:srcdoc) 안에서는 해시 링크가 동작하지 않으므로
+       주소 해시에 의존하지 않고 클릭 이벤트로 직접 전환한다. */
     var pages = [].slice.call(document.querySelectorAll('.page'));
     var tabs = [].slice.call(document.querySelectorAll('.tabs a'));
     var names = pages.map(function (p) { return p.getAttribute('data-page'); });
 
-    function route(initial) {
-      var h = (location.hash || '').replace(/^#\//, '');
-      if (names.indexOf(h) < 0) {
-        // 같은 페이지 안의 섹션 앵커(#goal 등)면 페이지를 바꾸지 않는다
-        if (!initial) return;
-        h = names[0];
-      }
+    function show(name, moveTop) {
+      if (names.indexOf(name) < 0) name = names[0];
       pages.forEach(function (p) {
-        p.classList.toggle('on', p.getAttribute('data-page') === h);
+        p.classList.toggle('on', p.getAttribute('data-page') === name);
       });
       tabs.forEach(function (a) {
-        a.classList.toggle('on', a.getAttribute('href') === '#/' + h);
+        a.classList.toggle('on', a.getAttribute('data-go') === name);
       });
-      if (!initial) window.scrollTo({ top: 0, behavior: 'auto' });
+      if (moveTop) {
+        try { history.replaceState(null, '', '#/' + name); } catch (e) { /* srcdoc 환경 */ }
+        try { window.scrollTo(0, 0); } catch (e) { /* noop */ }
+        try {
+          document.querySelector('.topbar').scrollIntoView({ block: 'start' });
+        } catch (e) { /* noop */ }
+      }
     }
 
-    window.addEventListener('hashchange', function () { route(false); });
-    route(true);
+    tabs.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        show(a.getAttribute('data-go'), true);
+      });
+    });
+
+    // 페이지 안에서 다른 페이지로 보내는 링크
+    document.querySelectorAll('[data-goto]').forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        show(b.getAttribute('data-goto'), true);
+      });
+    });
+
+    // 일반 브라우저에서 해시로 직접 들어온 경우
+    var h0 = (location.hash || '').replace(/^#\//, '');
+    show(names.indexOf(h0) >= 0 ? h0 : names[0], false);
+
+    window.addEventListener('hashchange', function () {
+      var n = (location.hash || '').replace(/^#\//, '');
+      if (names.indexOf(n) >= 0) show(n, false);
+    });
+
+    /* ---------- 차례 이동 (해시 없이 스크롤) ---------- */
+    document.querySelectorAll('.rail a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (!id || id.charAt(0) !== '#') return;
+        var el = document.querySelector(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
     /* ---------- 프롬프트 복사 ---------- */
     document.querySelectorAll('.prompt').forEach(function (box) {
