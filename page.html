@@ -996,7 +996,7 @@
 <header class="hero">
   <div class="hero-in">
     <div>
-      <p class="kicker"><i>2026학년도 2학기</i><i>3학년 자료구조</i><i>수행평가 1</i></p>
+      <p class="kicker"><i>2026학년도 2학기</i><i>3학년 자료구조</i><i>수행평가 1 · 정렬 알고리즘 설계</i></p>
       <h1>비선형구조–알고리즘<span class="b">연결고리 발견하기</span></h1>
       <p class="lede">
         배열과 리스트로는 풀리지 않는 문제를 하나 골라 <strong>트리나 그래프로 다시 설계</strong>하고,
@@ -1119,7 +1119,7 @@
       </div>
 
       <div class="item">
-        <div class="item-h"><span class="n">2</span><h4>자료구조 비교 및 추상화 분석</h4><span class="pts">평가요소 ②③ · 40점</span></div>
+        <div class="item-h"><span class="n">2</span><h4>자료구조 비교 및 추상화 분석</h4><span class="pts">평가요소 ②③ · 30점</span></div>
         <div class="item-b">
           <div class="verb">
             <span class="vf">안내 원문</span>
@@ -1144,7 +1144,7 @@
       </div>
 
       <div class="item">
-        <div class="item-h"><span class="n">3</span><h4>탐색(Searching) 및 알고리즘 적용 시나리오</h4><span class="pts">평가요소 ④ · 20점</span></div>
+        <div class="item-h"><span class="n">3</span><h4>탐색(Searching) 및 알고리즘 적용 시나리오</h4><span class="pts">평가요소 ④ · 15점</span></div>
         <div class="item-b">
           <div class="verb">
             <span class="vf">안내 원문</span>
@@ -1160,7 +1160,7 @@
       </div>
 
       <div class="item big">
-        <div class="item-h"><span class="n">4</span><h4>데이터 정렬(Sorting) 및 최적화 아이디어 제안</h4><span class="pts">평가요소 ⑤ · 30점 · 최대</span></div>
+        <div class="item-h"><span class="n">4</span><h4>데이터 정렬(Sorting) 및 최적화 아이디어 제안</h4><span class="pts">평가요소 ⑤⑥ · 45점 · 최대</span></div>
         <div class="item-b">
           <div class="verb">
             <span class="vf">안내 원문</span>
@@ -1168,10 +1168,12 @@
               찾아낸 결과물이나 탐색 후보군을 사용자 편의(예: 거리순, 평점순, 정확도순 등)에 맞게
               정렬하려면 어떤 기준과 정렬 원리가 적용되어야 하는지 설명해 보세요.</p>
           </div>
-          <div class="tip"><b>배점이 가장 큰 항목입니다</b>
-            <p>정렬 기준 하나만 쓰고 끝내지 마세요. <strong>값이 같을 때 무엇으로 순서를 정할지</strong>(2차 기준),
-              고른 정렬 알고리즘의 <strong>시간 복잡도</strong>가 왜 이 데이터에 적합한지까지 쓰세요.
-              상위 몇 개만 필요하다면 전체 정렬이 정말 필요한지 되짚어 보세요.</p></div>
+          <div class="tip"><b>100점 중 45점 — 여기에 가장 힘을 쏟으세요</b>
+            <p>이 수행평가의 영역명이 <strong>‘정렬 알고리즘 설계’</strong>입니다.
+              정렬 기준 하나만 쓰고 끝내면 절반도 못 받습니다.
+              <strong>값이 같을 때 무엇으로 순서를 정할지</strong>(2차 기준, 20점),
+              고른 정렬 알고리즘의 <strong>평균·최악 시간 복잡도</strong>가 왜 이 데이터에 적합한지(25점)까지 쓰세요.
+              상위 몇 개만 필요하다면 전체 정렬이 정말 필요한지도 되짚어 보세요.</p></div>
         </div>
       </div>
     </section>
@@ -1179,19 +1181,22 @@
     <!-- 03 -->
     <section id="rubric">
       <div class="sh"><span class="sh-n">03 / 채점</span><h2>채점기준표 100점</h2></div>
-      <p class="note">평가요소 5개. 막대 길이가 배점입니다. 정렬 항목이 가장 큽니다.
-        성취기준 [자료구조03-01] · [자료구조03-02] · [자료구조04-02] · [자료구조04-03]에 근거합니다.</p>
+      <p class="note">평가요소 6개. 막대 길이가 배점입니다. 이 수행평가의 영역명이
+        <strong>‘정렬 알고리즘 설계’</strong>이므로 정렬 항목(⑤⑥)이 45점으로 절반 가까이를 차지합니다.
+        성취기준 [자료구조03-01] · [자료구조03-02] · [자료구조04-02]에 근거합니다.</p>
 
       <div class="weights">
         <div class="w"><div class="lab"><span>①</span><b>탐구 주제 선정 및 문제 인식</b></div><div class="num">10점</div>
-          <div class="track"><div class="val" style="width:33.3%"></div></div></div>
-        <div class="w"><div class="lab"><span>②</span><b>선형구조의 한계 분석과 비선형 구조 전환 논증</b></div><div class="num">20점</div>
-          <div class="track"><div class="val" style="width:66.6%"></div></div></div>
-        <div class="w"><div class="lab"><span>③</span><b>비선형 구조의 추상화 — 구조 선택·노드·간선 정의</b></div><div class="num">20점</div>
-          <div class="track"><div class="val" style="width:66.6%"></div></div></div>
-        <div class="w"><div class="lab"><span>④</span><b>탐색 알고리즘 적용 및 논거 제시</b></div><div class="num">20점</div>
-          <div class="track"><div class="val" style="width:66.6%"></div></div></div>
-        <div class="w max"><div class="lab"><span>⑤</span><b>정렬 기준 설정 및 정렬 알고리즘의 원리 적용</b></div><div class="num">30점</div>
+          <div class="track"><div class="val" style="width:40%"></div></div></div>
+        <div class="w"><div class="lab"><span>②</span><b>선형구조의 한계 분석과 비선형 구조 전환 논증</b></div><div class="num">15점</div>
+          <div class="track"><div class="val" style="width:60%"></div></div></div>
+        <div class="w"><div class="lab"><span>③</span><b>비선형 구조의 추상화 — 구조 선택·노드·간선 정의</b></div><div class="num">15점</div>
+          <div class="track"><div class="val" style="width:60%"></div></div></div>
+        <div class="w"><div class="lab"><span>④</span><b>탐색 방법 적용 및 논거 제시</b></div><div class="num">15점</div>
+          <div class="track"><div class="val" style="width:60%"></div></div></div>
+        <div class="w max"><div class="lab"><span>⑤</span><b>정렬 기준 설계</b></div><div class="num">20점</div>
+          <div class="track"><div class="val" style="width:80%"></div></div></div>
+        <div class="w max"><div class="lab"><span>⑥</span><b>정렬 알고리즘 선택과 복잡도 근거</b></div><div class="num">25점</div>
           <div class="track"><div class="val" style="width:100%"></div></div></div>
       </div>
 
@@ -1208,38 +1213,46 @@
             <tr><td>탐구 주제를 제시하려고 시도함.</td><td class="pt">2</td></tr>
 
             <tr class="top grp">
-              <td class="el" rowspan="5">② 선형구조의 한계 분석과 비선형 구조 전환 논증<small>양식 2 · 만점 20</small></td>
-              <td>배열·리스트로 처리할 때의 한계를 탐색 비용, 관계 표현의 불가능성, 삽입·삭제 비용 등 두 가지 이상의 구체적 근거로 지적하고, 다대다 관계 표현의 필요성으로 완결성 있게 연결함.</td><td class="pt">20</td></tr>
-            <tr><td>선형구조의 한계를 구체적 근거를 들어 정확히 설명하고 비선형 구조의 필요성과 논리적으로 연결함.</td><td class="pt">16</td></tr>
-            <tr><td>선형구조의 한계를 한 가지 근거를 들어 설명하고 비선형 구조의 필요성을 제시함.</td><td class="pt">12</td></tr>
-            <tr><td>선형구조로 처리하기 어렵다는 점을 일반적인 수준에서 진술함.</td><td class="pt">8</td></tr>
-            <tr><td>선형 구조와 비선형 구조의 차이를 제시하려고 시도함.</td><td class="pt">4</td></tr>
+              <td class="el" rowspan="5">② 선형구조의 한계 분석과 비선형 구조 전환 논증<small>양식 2 · 만점 15</small></td>
+              <td>배열·리스트로 처리할 때의 한계를 탐색 비용, 관계 표현의 불가능성, 삽입·삭제 비용 등 두 가지 이상의 구체적 근거로 지적하고, 다대다 관계 표현의 필요성으로 완결성 있게 연결함.</td><td class="pt">15</td></tr>
+            <tr><td>선형구조의 한계를 구체적 근거를 들어 정확히 설명하고 비선형 구조의 필요성과 논리적으로 연결함.</td><td class="pt">12</td></tr>
+            <tr><td>선형구조의 한계를 한 가지 근거를 들어 설명하고 비선형 구조의 필요성을 제시함.</td><td class="pt">9</td></tr>
+            <tr><td>선형구조로 처리하기 어렵다는 점을 일반적인 수준에서 진술함.</td><td class="pt">6</td></tr>
+            <tr><td>선형 구조와 비선형 구조의 차이를 제시하려고 시도함.</td><td class="pt">3</td></tr>
 
             <tr class="top grp">
-              <td class="el" rowspan="5">③ 비선형 구조의 추상화 — 구조 선택·노드·간선 정의<small>양식 2 · 만점 20</small></td>
-              <td>트리·그래프의 선택이 문제의 관계 구조와 정확히 일치하며, 노드와 간선의 의미를 추상화 수준에서 명확히 정의하고 가중치·방향성의 필요 여부를 근거와 함께 판단함.</td><td class="pt">20</td></tr>
-            <tr><td>구조 유형을 타당하게 선택하고 노드·간선의 의미와 가중치 여부를 정확히 정의함.</td><td class="pt">16</td></tr>
-            <tr><td>구조 유형을 선택하고 노드와 간선의 의미를 올바르게 정의함.</td><td class="pt">12</td></tr>
-            <tr><td>구조 유형을 선택하고 노드와 간선을 부분적으로 정의함.</td><td class="pt">8</td></tr>
-            <tr><td>비선형 구조의 구성 요소를 제시하려고 시도함.</td><td class="pt">4</td></tr>
+              <td class="el" rowspan="5">③ 비선형 구조의 추상화 — 구조 선택·노드·간선 정의<small>양식 2 · 만점 15</small></td>
+              <td>트리·그래프의 선택이 문제의 관계 구조와 정확히 일치하며, 노드와 간선의 의미를 추상화 수준에서 명확히 정의하고 가중치·방향성의 필요 여부를 근거와 함께 판단함.</td><td class="pt">15</td></tr>
+            <tr><td>구조 유형을 타당하게 선택하고 노드·간선의 의미와 가중치 여부를 정확히 정의함.</td><td class="pt">12</td></tr>
+            <tr><td>구조 유형을 선택하고 노드와 간선의 의미를 올바르게 정의함.</td><td class="pt">9</td></tr>
+            <tr><td>구조 유형을 선택하고 노드와 간선을 부분적으로 정의함.</td><td class="pt">6</td></tr>
+            <tr><td>비선형 구조의 구성 요소를 제시하려고 시도함.</td><td class="pt">3</td></tr>
 
             <tr class="top grp">
-              <td class="el" rowspan="5">④ 탐색 알고리즘 적용 및 논거 제시<small>양식 3 · 만점 20</small></td>
-              <td>문제 조건(최단성, 가중치 유무, 탐색 목적)에 근거하여 탐색 방식을 선택하고, 다른 탐색 방식과 비교하여 그 선택이 타당한 이유를 논증함.</td><td class="pt">20</td></tr>
-            <tr><td>적합한 탐색 방식을 선택하고 알고리즘의 동작 원리에 근거하여 이유를 정확히 설명함.</td><td class="pt">16</td></tr>
-            <tr><td>탐색 방식을 선택하고 그 이유를 자신이 설계한 자료구조와 연결하여 설명함.</td><td class="pt">12</td></tr>
-            <tr><td>탐색 방식을 선택하고 간단한 이유를 진술함.</td><td class="pt">8</td></tr>
-            <tr><td>탐색 방식을 제시하려고 시도함.</td><td class="pt">4</td></tr>
+              <td class="el" rowspan="5">④ 탐색 방법 적용 및 논거 제시<small>양식 3 · 만점 15</small></td>
+              <td>문제 조건(최단성, 가중치 유무, 탐색 목적)에 근거하여 탐색 방법을 선택하고, 다른 탐색 방법과 비교하여 그 선택이 타당한 이유를 논증함.</td><td class="pt">15</td></tr>
+            <tr><td>적합한 탐색 방법을 선택하고 그 동작 원리에 근거하여 이유를 정확히 설명함.</td><td class="pt">12</td></tr>
+            <tr><td>탐색 방법을 선택하고 그 이유를 자신이 설계한 자료구조와 연결하여 설명함.</td><td class="pt">9</td></tr>
+            <tr><td>탐색 방법을 선택하고 간단한 이유를 진술함.</td><td class="pt">6</td></tr>
+            <tr><td>탐색 방법을 제시하려고 시도함.</td><td class="pt">3</td></tr>
 
             <tr class="top grp">
-              <td class="el" rowspan="5">⑤ 정렬 기준 설정 및 정렬 알고리즘의 원리 적용<small>양식 4 · 만점 30</small></td>
-              <td>사용자 관점의 1차·2차 정렬 기준을 설계하고, 자료의 규모와 특성에 맞는 정렬 알고리즘을 시간 복잡도를 근거로 선택하며, 안정 정렬의 필요성 또는 상위 k개 부분 추출 등 최적화 아이디어를 제안함.</td><td class="pt">30</td></tr>
-            <tr><td>정렬 기준을 명확히 설정하고, 적절한 정렬 알고리즘을 시간 복잡도를 근거로 선택하여 그 원리를 정확히 설명함.</td><td class="pt">24</td></tr>
-            <tr><td>정렬 기준을 설정하고 적절한 정렬 알고리즘을 선택하여 동작 원리를 설명함.</td><td class="pt">18</td></tr>
-            <tr><td>정렬 기준을 제시하고 정렬 알고리즘의 이름과 기본 개념을 제시함.</td><td class="pt">12</td></tr>
-            <tr><td>정렬이 필요한 이유를 제시하려고 시도함.</td><td class="pt">6</td></tr>
+              <td class="el" rowspan="5">⑤ 정렬 기준 설계<small>양식 4 · 만점 20</small></td>
+              <td>사용자 관점에서 1차 정렬 기준을 설정하고, 값이 같을 때를 대비한 2차 기준까지 설계하여 두 기준의 우선순위와 그 필요성을 근거를 들어 설명함.</td><td class="pt">20</td></tr>
+            <tr><td>사용자 목적에 부합하는 1차·2차 정렬 기준을 설정하고 그 이유를 명확히 설명함.</td><td class="pt">16</td></tr>
+            <tr><td>서비스 목적에 맞는 정렬 기준을 설정하고 그 이유를 제시함.</td><td class="pt">12</td></tr>
+            <tr><td>정렬 기준을 한 가지 제시함.</td><td class="pt">8</td></tr>
+            <tr><td>정렬이 필요한 상황을 제시하려고 시도함.</td><td class="pt">4</td></tr>
 
-            <tr class="sum"><td class="el">합 계</td><td>평가 요소 5개</td><td class="pt">100</td></tr>
+            <tr class="top grp">
+              <td class="el" rowspan="5">⑥ 정렬 알고리즘 선택과 복잡도 근거<small>양식 4 · 만점 25</small></td>
+              <td>자료의 규모와 특성에 맞는 정렬 알고리즘을 평균·최악 시간 복잡도를 근거로 선택하고, 안정 정렬의 필요성 또는 상위 k개 부분 추출 등 최적화 방안을 자신의 문제 상황과 연결하여 제안함.</td><td class="pt">25</td></tr>
+            <tr><td>적절한 정렬 알고리즘을 시간 복잡도를 근거로 선택하고 그 동작 원리를 정확히 설명함.</td><td class="pt">20</td></tr>
+            <tr><td>적절한 정렬 알고리즘을 선택하고 동작 원리와 시간 복잡도를 제시함.</td><td class="pt">15</td></tr>
+            <tr><td>정렬 알고리즘의 이름과 기본 개념을 제시함.</td><td class="pt">10</td></tr>
+            <tr><td>정렬 알고리즘을 제시하려고 시도함.</td><td class="pt">5</td></tr>
+
+            <tr class="sum"><td class="el">합 계</td><td>평가 요소 6개</td><td class="pt">100</td></tr>
           </tbody>
         </table>
       </div>
@@ -1472,12 +1485,13 @@
             <button class="copy" type="button">복사</button></div>
           <pre>아래는 내가 직접 쓴 보고서야. 채점기준에 맞춰 고칠 곳을 찾아 줘.
 
-[채점기준]
+[채점기준]  (총 100점, 영역명 '정렬 알고리즘 설계')
 ① 탐구 주제 선정 및 문제 인식 (10점)
-② 선형구조의 한계 분석과 비선형 구조 전환 논증 (20점)
-③ 비선형 구조의 추상화 - 구조 선택, 노드와 간선 정의 (20점)
-④ 탐색 알고리즘 적용 및 논거 제시 (20점)
-⑤ 정렬 기준 설정 및 정렬 알고리즘의 원리 적용 (30점)
+② 선형구조의 한계 분석과 비선형 구조 전환 논증 (15점)
+③ 비선형 구조의 추상화 - 구조 선택, 노드와 간선 정의 (15점)
+④ 탐색 방법 적용 및 논거 제시 (15점)
+⑤ 정렬 기준 설계 - 1차 기준과 2차 기준 (20점)
+⑥ 정렬 알고리즘 선택과 복잡도 근거 (25점)
 
 [내 보고서]
 (여기에 내가 쓴 전문을 붙여넣기)
