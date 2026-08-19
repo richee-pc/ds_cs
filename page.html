@@ -2625,6 +2625,18 @@
   .tw tbody tr.ex td { background: var(--surface-2); color: var(--muted); }
   .tw tbody tr.ex td.mk { color: var(--muted); }
 
+  /* ---- 판(버전) 표시 : 위쪽 띠와 맨 아래 서명 두 곳에 찍힌다 ---- */
+
+  .kicker i.ver { border-color: rgba(255, 255, 255, .3); opacity: .8; }
+
+  .sig .ver {
+    margin: -7px 0 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--muted);
+  }
+
 </style>
 
 <header class="topbar">
@@ -6186,6 +6198,50 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
        (선생님 미리보기: 왼쪽 위 'DS · 2026 2학기' 를 5번 연속 클릭)
        ===================================================================== */
     var SHOW_TASK2 = true;
+
+    /* =====================================================================
+       이 파일의 판(버전)
+
+         안내문을 고칠 때마다 아래 두 줄만 바꾸면
+         화면 위쪽 띠와 맨 아래 서명 두 곳에 자동으로 찍힙니다.
+
+         배포된 주소를 열었을 때 이 날짜가 바뀌어 있으면
+         새 판이 올라간 것이고, 그대로면 아직 예전 판입니다.
+         (브라우저가 캐시를 물고 있으면 Ctrl+Shift+R 로 강력 새로고침)
+       ===================================================================== */
+    var PAGE_DATE = '2026-08-19';
+    var PAGE_NOTE = '수행평가 2 개정';
+
+    /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
+
+         true  → 탭을 열자마자 오른쪽 끝에 '판 2026-08-19' 이 보인다 (지금 상태)
+                 라벨이 한 줄 늘어나 표제부가 30px 정도 내려간다.
+         false → 맨 아래 서명 줄에만 적힌다. 화면은 예전 그대로. */
+    var VER_ON_TOP = true;
+
+    (function () {
+      var full = PAGE_DATE + ' · ' + PAGE_NOTE;
+
+      /* 각 탭 표제부의 라벨 줄 맨 뒤 — 탭을 열자마자 눈에 들어온다 */
+      if (VER_ON_TOP) {
+        document.querySelectorAll('.page .kicker').forEach(function (k) {
+          var i = document.createElement('i');
+          i.className = 'ver';
+          i.textContent = '판 ' + PAGE_DATE;
+          k.appendChild(i);
+        });
+      }
+
+      /* 맨 아래 서명 — 설명까지 함께 */
+      document.querySelectorAll('footer .sig').forEach(function (sig) {
+        var p = document.createElement('p');
+        p.className = 'ver';
+        p.textContent = '판 ' + full;
+        sig.appendChild(p);
+      });
+
+      try { console.log('[자료구조 안내 페이지] 판 ' + full); } catch (e) { /* 무시 */ }
+    })();
 
     /* ---------- 페이지 전환 ----------
        iframe(about:srcdoc) 안에서는 해시 링크가 동작하지 않으므로
