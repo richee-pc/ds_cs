@@ -26,6 +26,8 @@
 
 
 
+
+
   :root {
     --ground: #ecefed;
     --surface: #ffffff;
@@ -2457,6 +2459,7 @@
     border-radius: 3px;
   }
 
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
   .cta {
     display: inline-flex;
     align-items: center;
@@ -2835,11 +2838,17 @@
         </div>
 
         <h3>다음에 할 일</h3>
-        <p>첫 평가가 4주차입니다. 수행평가 1 안내 페이지에 과제 내용, 채점기준표 100점 전문,
-          AI 활용 프롬프트가 모두 있습니다. 지금 한 번 읽어 두세요.</p>
-        <button class="cta" type="button" data-goto="task1">
-          수행평가 1 · 정렬 알고리즘 설계 보러 가기 <span>→</span>
-        </button>
+        <p>첫 평가가 <strong>4주차</strong>, 두 번째 평가가 <strong>7주차</strong>입니다.
+          두 안내 페이지에 과제 내용, 채점기준표 100점 전문, AI 활용 프롬프트가 모두 있습니다.
+          지금 한 번 읽어 두세요.</p>
+        <div class="cta-row">
+          <button class="cta" type="button" data-goto="task1">
+            수행평가 1 · 정렬 알고리즘 설계 <span>→</span>
+          </button>
+          <button class="cta" type="button" data-goto="task2">
+            수행평가 2 · 탐색 알고리즘 설계 <span>→</span>
+          </button>
+        </div>
       </section>
 
       <footer>
@@ -5689,13 +5698,13 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
     /* =====================================================================
        수행평가 2 「탐색 알고리즘 설계」 공개 여부
 
-         false → 탭이 보이지 않고 학생은 들어갈 수 없음 (지금 상태)
-         true  → 탭이 나타나고 상단의 '비공개' 띠가 사라짐
+         true  → 탭이 나타나고 상단의 '비공개' 띠가 사라짐 (지금 상태)
+         false → 탭이 보이지 않고 학생은 들어갈 수 없음
 
-       공개할 때가 되면 아래 한 줄만 true 로 바꾸면 됩니다.
+       다시 감추려면 아래 한 줄만 false 로 바꾸면 됩니다.
        (선생님 미리보기: 왼쪽 위 'DS · 2026 2학기' 를 5번 연속 클릭)
        ===================================================================== */
-    var SHOW_TASK2 = false;
+    var SHOW_TASK2 = true;
 
     /* ---------- 페이지 전환 ----------
        iframe(about:srcdoc) 안에서는 해시 링크가 동작하지 않으므로
