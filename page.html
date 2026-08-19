@@ -2557,6 +2557,74 @@
     }
     .vz-path { stroke-dashoffset: 0; }
   }
+  /* =====================================================================
+     수행평가 2 — 주제 카드 · 자가 채점 · 예시 행
+     ===================================================================== */
+
+  .tcards { display: grid; gap: 10px; grid-template-columns: 1fr; margin: 14px 0 0; }
+  @media (min-width: 720px)  { .tcards { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1180px) { .tcards { grid-template-columns: repeat(3, 1fr); } }
+
+  .tcard {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--edge);
+    border-radius: var(--r);
+    background: var(--surface);
+    padding: 14px 16px;
+  }
+
+  .tcard h5 { margin: 0 0 9px; font-size: 15px; font-weight: 800; }
+  .tcard dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 5px 11px; font-size: 13.4px; }
+  .tcard dt { color: var(--muted); font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; padding-top: 3px; }
+  .tcard dd { margin: 0; color: var(--ink-2); line-height: 1.55; }
+  .tcard dd b { color: var(--ink); font-weight: 700; }
+
+  .tcard .fit {
+    display: inline-block;
+    margin-top: 11px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--edge);
+    border: 1px solid var(--line-2);
+    border-radius: 99px;
+    padding: 3px 11px;
+  }
+
+  .selfscore {
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--surface);
+    padding: 6px 20px 18px;
+    margin: 18px 0 0;
+  }
+
+  .ss-row { border-top: 1px solid var(--line); padding: 14px 0 13px; }
+  .ss-row:first-child { border-top: 0; }
+  .ss-row > b { display: block; font-size: 14.6px; font-weight: 800; margin: 0 0 9px; }
+  .ss-row > b em { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-left: 8px; }
+  .ss-row .chips button { text-align: left; }
+
+  .ss-out {
+    border-top: 2px solid var(--edge);
+    margin-top: 4px;
+    padding-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 9px 16px;
+  }
+
+  .ss-out .tot { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--edge); line-height: 1; }
+  .ss-out .tot small { font-size: 15px; font-weight: 700; color: var(--muted); margin-left: 3px; }
+  .ss-out .band { font-size: 13px; font-weight: 800; border: 1px solid var(--line-2); border-radius: 99px; padding: 4px 12px; color: var(--muted); }
+  .ss-out .band.a { color: var(--edge); border-color: var(--edge); }
+  .ss-out .band.b { color: var(--sort); border-color: var(--sort); }
+  .ss-out .band.c { color: var(--warn); border-color: var(--warn); }
+  .ss-out .msg { flex: 1 1 260px; font-size: 13.4px; color: var(--ink-2); margin: 0; max-width: none; }
+
+  .tw tbody tr.ex td { background: var(--surface-2); color: var(--muted); }
+  .tw tbody tr.ex td.mk { color: var(--muted); }
+
 </style>
 
 <header class="topbar">
@@ -4371,6 +4439,37 @@
         </div>
       </section>
 
+      <section id="se-task2">
+        <div class="sh"><span class="sh-n">07 / 연결</span><h2>이 수업이 그대로 수행평가 2가 됩니다</h2></div>
+        <p class="note"><strong>9/14~9/18 수업 시간</strong>에 수행평가 2 「탐색 알고리즘 설계」를 봅니다.
+          새로 공부할 내용은 없습니다. 위에서 배운 것을 <strong>내 주제에 옮겨 적으면</strong> 됩니다.</p>
+
+        <div class="tw">
+          <table>
+            <thead><tr><th scope="col">이 페이지에서 배운 것</th><th scope="col">수행평가 2에서 쓰는 곳</th></tr></thead>
+            <tbody>
+              <tr><td class="el">01 탐색이란 &mdash; 탐색키 &middot; 탐색에 쓰는 자료구조</td>
+                <td>양식 1 &mdash; 무엇을 키로 삼고 어떤 구조에 담을지</td></tr>
+              <tr class="top"><td class="el">03 순차 탐색 &middot; 이진 탐색 &mdash; 조건과 효율</td>
+                <td>양식 2 &mdash; 왜 다른 방법이 아니라 이 방법인지</td></tr>
+              <tr class="top"><td class="el">02 시뮬레이터 &mdash; 단계 &middot; 비교 횟수 &middot; 남은 범위</td>
+                <td>양식 3 &mdash; 실행 결과로 채우는 단계 표</td></tr>
+              <tr><td class="el">05 한눈에 비교 &mdash; O(n) 과 O(log n)</td>
+                <td>양식 4 &mdash; 실측값과 이론값을 맞춰 보기</td></tr>
+              <tr><td class="el">04 해싱 &mdash; 사물함에 번호를 계산해서 넣기</td>
+                <td>양식 1 &middot; 2 &mdash; 해시 테이블을 고를 때의 근거</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cut-note"><b>8주차에 배우는 것은 평가 범위가 아닙니다</b>
+          색인 순차 탐색 &middot; 보간 탐색 &middot; 균형 이진 탐색 트리는
+          <strong>수행평가가 끝난 뒤(9/21~9/23)</strong> 배웁니다. 이번 평가에서는 몰라도 됩니다.</div>
+
+        <button class="cta" type="button" data-goto="task2" style="margin-top:14px">
+          수행평가 2 안내 페이지 열기 <span>&rarr;</span></button>
+      </section>
+
       <footer>
         <div class="sig">
           <a class="repo" href="https://github.com/richee-pc/ds_cs" target="_blank" rel="noopener noreferrer">
@@ -4992,8 +5091,9 @@
           프로그래밍을 잘 못해도 괜찮습니다.
         </p>
         <dl class="facts">
-          <div class="fact"><dt>평가 시기</dt><dd>9월 3주 <em>9/14~9/18</em></dd></div>
+          <div class="fact"><dt>평가 시기</dt><dd>학기 7주차 <em>9/14~9/18</em></dd></div>
           <div class="fact"><dt>만점 / 반영</dt><dd>100점 <em>35%</em></dd></div>
+          <div class="fact"><dt>진행 방식</dt><dd>수업 중 <em>2차시 · 개인별</em></dd></div>
         </dl>
       </div>
 
@@ -5028,8 +5128,9 @@
       <p class="rail-t">차례</p>
       <ol>
         <li><a href="#t2-goal">과제의 목적</a></li>
-        <li><a href="#t2-form">작성 양식 4항목</a></li>
-        <li><a href="#t2-rubric">채점기준표</a></li>
+        <li><a href="#t2-flow">2차시 진행 흐름</a></li>
+        <li><a href="#t2-form">작성 양식 5항목</a></li>
+        <li><a href="#t2-rubric">채점기준표 · 자가 채점</a></li>
         <li><a href="#t2-ai">AI 활용 규칙</a></li>
         <li><a href="#t2-prompts">복사용 프롬프트</a></li>
         <li><a href="#t2-check">제출 전 점검</a></li>
@@ -5075,12 +5176,113 @@
             설치도 필요 없습니다 — 구글 계정만 있으면 <strong>Google Colab</strong>에서 바로 실행됩니다.
           </p>
         </div>
+
+        <h3>수업에서 배운 것이 그대로 과제가 됩니다</h3>
+        <p class="note">따로 공부해야 할 새 내용은 없습니다. <strong>6주차 · 7주차 수업만으로</strong> 다섯 항목이 모두 채워집니다.</p>
+        <div class="tw">
+          <table>
+            <thead><tr>
+              <th scope="col">언제 배웠나</th><th scope="col">수업에서 배운 내용</th><th scope="col">과제에서 쓰는 곳</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="mk">1주<br>8/5~8/7</td>
+                <td>알고리즘의 효율 &middot; <b>시간 복잡도와 빅오 표기</b></td>
+                <td class="el">양식 4 &mdash; 실측값을 O 표기와 맞춰 보기</td></tr>
+              <tr class="top"><td class="mk">6주<br>9/7~9/11</td>
+                <td>탐색의 개념과 <b>탐색키</b> &middot; 탐색에 쓰는 자료구조(배열 &middot; 리스트 &middot; 트리)</td>
+                <td class="el">양식 1 &mdash; 무엇을 키로 삼고 어떤 구조에 담을지</td></tr>
+              <tr class="top"><td class="mk">6주<br>9/7~9/11</td>
+                <td><b>순차 탐색</b> O(n) &middot; 개선된 순차 탐색 &middot; <b>이진 탐색</b> O(log n)과 정렬 전제</td>
+                <td class="el">양식 2 &mdash; 왜 이 방법인가<br>양식 3 &mdash; 코드 A·B 실행</td></tr>
+              <tr><td class="mk">7주<br>9/14~9/18</td>
+                <td><b>해싱</b>과 해시 함수 &middot; 충돌과 오버플로우 &middot; 충돌 해결 네 가지</td>
+                <td class="el">양식 1 &middot; 2 &mdash; 해시 테이블을 고를 때의 근거</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cut-note"><b>색인 순차 탐색 &middot; 보간 탐색 &middot; AVL 트리는 이번 과제의 범위가 아닙니다</b>
+          이 세 가지는 <strong>8주차(9/21~9/23)</strong>, 그러니까 수행평가가 끝난 뒤에 배웁니다.
+          이미 알고 있어서 쓰고 싶다면 써도 되지만 <strong>가산점은 없습니다.</strong>
+          채점기준은 <strong>순차 탐색과 이진 탐색의 조건 &middot; 효율을 비교</strong>하는 것을 기준으로 삼습니다.</div>
+
+        <button class="cta" type="button" data-goto="search" data-anchor="se-algo" style="margin-top:14px">
+          탐색 알고리즘 수업 탭에서 다시 보기 <span>&rarr;</span></button>
+      </section>
+
+      <section id="t2-flow">
+        <div class="sh"><span class="sh-n">02 / 진행</span><h2>수업 시간 2차시 안에 끝냅니다</h2></div>
+        <p class="note">기한을 두고 집에서 만들어 오는 과제가 아닙니다.
+          <strong>수업 중에 개인별로</strong> 진행하고 그 시간 안에 마무리합니다.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="mk">0</div>
+            <h4>평가 전 &middot; 준비물만 확인하세요</h4>
+            <p><strong>구글 계정으로 로그인되는 기기</strong> 하나면 됩니다. 설치할 프로그램은 없습니다.
+              기기가 없으면 미리 말해 주세요 &mdash; 컴퓨터실을 씁니다.
+              6주차 <strong>학습지(순차 &middot; 이진 &middot; 보간)</strong> 를 손으로 풀어 두었다면 양식 3을 훨씬 빨리 씁니다.</p>
+          </div>
+          <div class="step">
+            <div class="mk">1</div>
+            <h4>1차시 &middot; 주제를 정하고 코드 A·B 를 돌립니다</h4>
+            <p><strong>양식 1</strong>(주제와 자료의 특성 &middot; 15점)과 <strong>양식 2</strong>(탐색 방법 선택 &middot; 25점)를 먼저 쓰고,
+              Colab 노트북을 열어 <strong>코드 A·B 에 내 데이터를 넣고 실행</strong>합니다.
+              출력 화면을 붙여넣고 단계 표를 채우면 <strong>양식 3</strong>(25점)까지 끝납니다.</p>
+          </div>
+          <div class="step">
+            <div class="mk">2</div>
+            <h4>2차시 &middot; 코드 C 를 돌리고 정리해서 냅니다</h4>
+            <p><strong>코드 C</strong> 를 실행해 자료 크기별 비교 횟수를 표에 옮기고 해석을 씁니다(<strong>양식 4</strong> &middot; 25점).
+              마지막으로 출처와 AI 활용 범위를 적으면(<strong>양식 5</strong> &middot; 10점) 100점이 모두 채워집니다.
+              내기 전에 <strong>07 자기점검</strong> 을 한 번 훑어보세요.</p>
+          </div>
+          <div class="step">
+            <div class="mk">3</div>
+            <h4>8주차 &middot; 피드백을 받고 다시 도전할 수 있습니다</h4>
+            <p>9/21~9/23 수업에서 <strong>평가 요소별 강점과 보완점을 서면으로</strong> 돌려줍니다.
+              도달하지 못한 경우에는 <strong>보완 제출 기회</strong>가 있습니다.
+              1차 정기고사(10/2~)보다 <strong>2주 앞서 끝내</strong> 시험 준비와 겹치지 않도록 잡아 둔 일정입니다.</p>
+          </div>
+        </div>
+
+        <h3>평가 개요 한눈에</h3>
+        <div class="tw">
+          <table>
+            <thead><tr><th scope="col">항목</th><th scope="col">내용</th></tr></thead>
+            <tbody>
+              <tr><td class="el">평가 영역</td><td>탐색 알고리즘 설계 &mdash; 9월 &middot; 100점 만점 &middot; 반영비율 <b>35%</b></td></tr>
+              <tr><td class="el">평가 유형</td><td>실험 &middot; 실습 및 프로젝트 (탐색 프로그램 실행과 설계 탐구)</td></tr>
+              <tr class="top"><td class="el">주체 / 방식</td><td>교사 평가 &middot; <b>개인별 &middot; 수업 중 실시</b></td></tr>
+              <tr><td class="el">횟수 / 점수 부여</td><td>1회 &middot; 원점수(합산) &mdash; 취득한 점수를 그대로 부여</td></tr>
+              <tr class="top"><td class="el">성취기준</td>
+                <td>[자료구조04-01] 실생활에서 발생하는 문제를 해결하는 과정을 단계적으로 분석하는 방법을 이해하고 활용한다.<br>
+                  [자료구조04-03] 주어진 자료를 효과적으로 탐색하는 데 사용되는 알고리즘을 이해하고 탐색 프로그램을 구현한다.</td></tr>
+              <tr><td class="el">AI 사용 범위</td><td>자료 검색 및 전문 학술 자료의 <b>요약에 한함</b></td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section id="t2-form">
-        <div class="sh"><span class="sh-n">02 / 양식</span><h2>작성 양식</h2></div>
+        <div class="sh"><span class="sh-n">03 / 양식</span><h2>작성 양식 5항목</h2></div>
         <p class="note">점선 상자 안이 작성할 내용입니다. 아래 주황색 상자는 채점기준표의 어느 요소와
-          몇 점으로 연결되는지 알려 줍니다.</p>
+          몇 점으로 연결되는지 알려 줍니다. <strong>다섯 항목을 다 채우면 100점이 모두 채워집니다.</strong></p>
+
+        <div class="tw">
+          <table>
+            <thead><tr><th scope="col">양식</th><th scope="col">쓰는 내용</th>
+              <th scope="col">평가요소</th><th scope="col">배점</th></tr></thead>
+            <tbody>
+              <tr><td class="mk">1</td><td>탐구 주제 명칭 및 자료의 특성 분석</td><td class="el">&#9312;</td><td class="pt">15</td></tr>
+              <tr class="top"><td class="mk">2</td><td>탐색 방법 선택 및 근거</td><td class="el">&#9313;</td><td class="pt">25</td></tr>
+              <tr class="top"><td class="mk">3</td><td>코드 실행 및 시뮬레이션 &mdash; 단계 표</td><td class="el">&#9314;</td><td class="pt">25</td></tr>
+              <tr class="top"><td class="mk">4</td><td>실행 결과로 확인한 효율 &mdash; 실측 표와 해석</td><td class="el">&#9315;</td><td class="pt">25</td></tr>
+              <tr><td class="mk">5</td><td>참고 자료 출처와 AI 활용 기록</td><td class="el">&#9316;</td><td class="pt">10</td></tr>
+              <tr class="sum"><td class="el">합 계</td><td>다섯 항목</td><td></td><td class="pt">100</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="item">
           <div class="item-h"><span class="n">1</span><h4>탐구 주제 명칭 및 자료의 특성 분석</h4><span class="pts">평가요소 ① · 15점</span></div>
@@ -5105,6 +5307,84 @@
               </div>
               <p style="margin-top:14px">[선택 이유] 왜 그 자료 구조인가요?</p>
             </div>
+
+            <h3 style="margin:22px 0 0">주제가 안 떠오를 때 &mdash; 여섯 가지 예시</h3>
+            <p class="note" style="margin-top:8px">그대로 골라도 되고 직접 정해도 됩니다.
+              중요한 것은 주제 이름이 아니라 <strong>키 &middot; 규모 &middot; 정렬 여부 &middot; 변동</strong> 네 가지를 스스로 채우는 일입니다.
+              아래 &lsquo;어울리는 구조&rsquo;는 <strong>정답이 아니라 예시</strong>이니, 근거는 반드시 직접 쓰세요.</p>
+
+            <div class="tcards">
+              <div class="tcard">
+                <h5>학교 도서관 도서 검색</h5>
+                <dl>
+                  <dt>KEY</dt><dd>도서명(또는 청구기호)으로 <b>그 책의 위치</b>를 찾음</dd>
+                  <dt>규모</dt><dd>수만 권</dd>
+                  <dt>정렬</dt><dd><b>청구기호순으로 이미 정렬</b></dd>
+                  <dt>변동</dt><dd>신간 입고는 가끔</dd>
+                </dl>
+                <span class="fit">이진 탐색 &middot; 배열</span>
+              </div>
+
+              <div class="tcard">
+                <h5>음원 사이트 곡 검색</h5>
+                <dl>
+                  <dt>KEY</dt><dd>곡 제목으로 <b>음원 정보</b>를 찾음</dd>
+                  <dt>규모</dt><dd>수백만 곡</dd>
+                  <dt>정렬</dt><dd>정렬할 수는 있음</dd>
+                  <dt>변동</dt><dd><b>신곡이 매일 추가</b></dd>
+                </dl>
+                <span class="fit">해시 테이블</span>
+              </div>
+
+              <div class="tcard">
+                <h5>학생 명렬표에서 이름 찾기</h5>
+                <dl>
+                  <dt>KEY</dt><dd>학번(또는 이름)으로 <b>학생 정보</b>를 찾음</dd>
+                  <dt>규모</dt><dd>수백 명 &mdash; <b>작음</b></dd>
+                  <dt>정렬</dt><dd>학번순으로 정렬</dd>
+                  <dt>변동</dt><dd>학기 중 거의 고정</dd>
+                </dl>
+                <span class="fit">이진 탐색 &middot; 순차도 충분</span>
+              </div>
+
+              <div class="tcard">
+                <h5>게임 아이템 시세 조회</h5>
+                <dl>
+                  <dt>KEY</dt><dd>아이템 이름으로 <b>현재 시세</b>를 찾음</dd>
+                  <dt>규모</dt><dd>수천 종</dd>
+                  <dt>정렬</dt><dd>이름순 정렬 가능</dd>
+                  <dt>변동</dt><dd>값은 자주 바뀌나 <b>목록은 고정</b></dd>
+                </dl>
+                <span class="fit">이진 탐색 &middot; 해시 테이블</span>
+              </div>
+
+              <div class="tcard">
+                <h5>택배 송장 조회</h5>
+                <dl>
+                  <dt>KEY</dt><dd>송장번호로 <b>배송 상태</b>를 찾음</dd>
+                  <dt>규모</dt><dd>하루 수백만 건</dd>
+                  <dt>정렬</dt><dd><b>정렬돼 있지 않음</b></dd>
+                  <dt>변동</dt><dd>끊임없이 추가 &middot; 삭제</dd>
+                </dl>
+                <span class="fit">해시 테이블</span>
+              </div>
+
+              <div class="tcard">
+                <h5>사물함 &middot; 좌석 배정 조회</h5>
+                <dl>
+                  <dt>KEY</dt><dd>학번으로 <b>배정된 번호</b>를 찾음</dd>
+                  <dt>규모</dt><dd>수백 명</dd>
+                  <dt>정렬</dt><dd>필요 없음</dd>
+                  <dt>변동</dt><dd>연초에 한 번 정해짐</dd>
+                </dl>
+                <span class="fit">해시 테이블 h(k)=k mod M</span>
+              </div>
+            </div>
+
+            <div class="cut-note"><b>사물함 예시는 수업에서 이미 봤습니다</b>
+              7주차 해싱 수업의 <strong>&lsquo;사물함에 번호를 계산해서 넣기&rsquo;</strong> 가 바로 이 주제입니다.
+              그때 나온 <strong>충돌</strong>과 <strong>충돌 해결책</strong>까지 근거로 쓰면 훨씬 단단해집니다.</div>
+
             <div class="tip"><b>상위 수준으로 가려면</b>
               <p>서비스 이름만 적으면 낮은 점수입니다. <strong>키가 무엇이고 무엇을 찾는지</strong>를
                 한 문장으로 특정하고, <strong>자료의 규모와 정렬 여부</strong>를 근거로 자료 구조를 고른 이유까지 쓰세요.</p></div>
@@ -5130,6 +5410,37 @@
                 다른 탐색 방법과 비교해서 설명해 보세요.<br>
                 (정렬 여부 / 자료의 규모 / 추가·삭제 빈도를 근거로 들어 보세요.)</p>
             </div>
+
+            <h3 style="margin:22px 0 0">무엇을 근거로 고르는가</h3>
+            <p class="note" style="margin-top:8px">아래 네 줄 중 <strong>내 자료가 어디에 해당하는지</strong> 찾고,
+              오른쪽 문장을 <strong>내 주제의 말로 바꿔</strong> 쓰면 그대로 근거가 됩니다.</p>
+            <div class="tw">
+              <table>
+                <thead><tr><th scope="col">내 자료가 이렇다면</th>
+                  <th scope="col">고를 방법</th><th scope="col">근거로 쓸 말</th></tr></thead>
+                <tbody>
+                  <tr><td>정렬돼 있지 않고 <b>한 번만</b> 찾는다</td><td class="el">순차 탐색</td>
+                    <td>정렬에 드는 O(n log n) 이 탐색으로 아끼는 양보다 크다</td></tr>
+                  <tr class="top"><td>정렬돼 있거나, 한 번 정렬해 두고 <b>여러 번</b> 찾는다</td><td class="el">이진 탐색</td>
+                    <td>한 번 정렬해 두면 이후 모든 검색이 O(log n) 으로 끝난다</td></tr>
+                  <tr><td>추가 &middot; 삭제가 잦아 정렬을 유지하기 어렵다</td><td class="el">해싱</td>
+                    <td>평균 O(1) 로 직접 접근한다. 대신 <b>순서 &middot; 범위 검색은 못 한다</b></td></tr>
+                  <tr><td>자료가 <b>수십 건</b> 정도로 적다</td><td class="el">순차 탐색으로 충분</td>
+                    <td>규모가 작으면 O(n) 과 O(log n) 의 차이가 체감되지 않는다</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="cut-note"><b>여기가 25점의 갈림길입니다</b>
+              <strong>정렬 비용까지 따진 한 문장</strong>이 있으면 최상위, 없으면 한 단계 아래입니다.
+              한 번만 찾을 거라면 <strong>정렬 O(n log n) + 이진 O(log n)</strong> 보다
+              그냥 <strong>순차 O(n)</strong> 이 쌉니다.
+              반대로 <strong>여러 번 반복해서 찾는다면</strong> 정렬해 두는 쪽이 금방 이깁니다 &mdash;
+              &ldquo;몇 번이나 찾을 것인가&rdquo;가 판단의 기준입니다.</div>
+
+            <button class="cta" type="button" data-goto="search" data-anchor="se-sim" style="margin:14px 0 4px">
+              수업 탭 시뮬레이터에서 두 방법 비교해 보기 <span>&rarr;</span></button>
+
             <div class="tip"><b>상위 수준으로 가려면</b>
               <p>“이진 탐색을 쓴다”로 끝내면 절반도 못 받습니다.
                 <strong>“왜 순차 탐색이 아니라 이진 탐색인가”</strong>에 답해야 합니다.
@@ -5153,10 +5464,16 @@
                 ⑤ 실행 결과를 보고 아래 표를 직접 채우기</p>
               <p style="margin-top:12px">[탐색 과정 표]</p>
               <div class="tw" style="margin-top:8px">
-                <table style="min-width:420px">
+                <table style="min-width:520px">
                   <thead><tr><th scope="col">단계</th><th scope="col">비교한 값</th>
                     <th scope="col">남은 탐색 범위</th><th scope="col">판단</th></tr></thead>
                   <tbody>
+                    <tr class="ex"><td class="mk">예시 1</td><td>23 (가운데)</td>
+                      <td>0~15 (16개) &rarr; 8~15 (8개)</td><td>28 &gt; 23 이므로 오른쪽 절반만 남김</td></tr>
+                    <tr class="ex"><td class="mk">예시 2</td><td>31 (가운데)</td>
+                      <td>8~15 (8개) &rarr; 8~10 (3개)</td><td>28 &lt; 31 이므로 왼쪽 절반만 남김</td></tr>
+                    <tr class="ex"><td class="mk">예시 3</td><td>28 (가운데)</td>
+                      <td>8~10 (3개)</td><td>같음 &rarr; 찾음. 비교 3번</td></tr>
                     <tr><td class="mk">1</td><td></td><td></td><td></td></tr>
                     <tr><td class="mk">2</td><td></td><td></td><td></td></tr>
                     <tr><td class="mk">3</td><td></td><td></td><td></td></tr>
@@ -5164,6 +5481,9 @@
                   </tbody>
                 </table>
               </div>
+              <p class="note" style="margin-top:10px">회색 세 줄은 <strong>6주차 학습지 1번 자료</strong>
+                (8 11 12 15 16 19 20 23 25 28 29 31 33 35 38 40 &middot; 키 28)를 이진 탐색으로 푼 예시입니다.
+                손으로 푼 답과 같은지 먼저 맞춰 보고, 그 아래에 <strong>내 데이터의 실행 결과</strong>를 채우세요.</p>
             </div>
 
             <div class="prompt">
@@ -5244,10 +5564,20 @@ def binary_search(data, target):
 binary_search(data, target)</pre>
             </div>
 
+            <div class="cut-note"><b>25점과 20점을 가르는 단 하나 &mdash; &lsquo;없는 값&rsquo;</b>
+              채점기준의 만점 문장에는 <strong>&ldquo;찾는 값이 없는 경우까지 실행하여&rdquo;</strong> 가 들어 있습니다.
+              있는 값만 찾아 보면 아무리 잘 정리해도 그 아래 단계입니다.
+              <strong>target 에 자료에 없는 값을 넣고 한 번 더 실행</strong>해서
+              순차 탐색은 n번을 다 세고, 이진 탐색은 low &gt; high 가 되어 멈추는 것을 확인하고 붙여넣으세요.
+              <strong>10초면 끝나는 일입니다.</strong></div>
+
+            <button class="cta" type="button" data-goto="search" data-anchor="se-sim" style="margin:14px 0 4px">
+              단계 표 채우는 법을 시뮬레이터로 먼저 익히기 <span>&rarr;</span></button>
+
             <div class="tip"><b>실행 결과가 곧 근거입니다</b>
               <p>출력된 화면을 <strong>그대로 붙여넣고</strong>, 그 결과를 보며 표를 채우세요.
                 실행 결과 없이 표만 있으면 상위 수준으로 올라가지 못합니다.
-                <strong>없는 값을 찾을 때의 결과</strong>까지 넣으면 확실합니다.</p></div>
+                표의 <strong>남은 탐색 범위</strong> 칸은 수업 시뮬레이터의 &lsquo;남은 범위&rsquo; 와 같은 값입니다.</p></div>
           </div>
         </div>
 
@@ -5259,17 +5589,24 @@ binary_search(data, target)</pre>
               <p>4. 아래 <strong>코드 C</strong>를 실행하여 자료 크기별 비교 횟수를 표로 기록하세요.</p>
               <p style="margin-top:12px">[실측 결과 표]</p>
               <div class="tw" style="margin-top:8px">
-                <table style="min-width:420px">
-                  <thead><tr><th scope="col">자료 크기</th><th scope="col">순차 탐색<br>평균 비교 횟수</th>
-                    <th scope="col">이진 탐색<br>평균 비교 횟수</th><th scope="col">몇 배 차이?</th></tr></thead>
+                <table style="min-width:560px">
+                  <thead><tr><th scope="col">자료 크기<br>n</th><th scope="col">순차 탐색<br>평균 비교 횟수</th>
+                    <th scope="col">이진 탐색<br>평균 비교 횟수</th><th scope="col">몇 배 차이?</th>
+                    <th scope="col">log&#8322;(n)<br>이론값</th></tr></thead>
                   <tbody>
-                    <tr><td class="mk">10</td><td></td><td></td><td></td></tr>
-                    <tr><td class="mk">1,000</td><td></td><td></td><td></td></tr>
-                    <tr><td class="mk">100,000</td><td></td><td></td><td></td></tr>
-                    <tr><td class="mk">1,000,000</td><td></td><td></td><td></td></tr>
+                    <tr><td class="mk">10</td><td></td><td></td><td></td><td class="pt">3.3</td></tr>
+                    <tr><td class="mk">100</td><td></td><td></td><td></td><td class="pt">6.6</td></tr>
+                    <tr><td class="mk">1,000</td><td></td><td></td><td></td><td class="pt">10.0</td></tr>
+                    <tr><td class="mk">10,000</td><td></td><td></td><td></td><td class="pt">13.3</td></tr>
+                    <tr><td class="mk">100,000</td><td></td><td></td><td></td><td class="pt">16.6</td></tr>
+                    <tr><td class="mk">1,000,000</td><td></td><td></td><td></td><td class="pt">19.9</td></tr>
                   </tbody>
                 </table>
               </div>
+              <p class="note" style="margin-top:10px">여섯 줄은 <strong>코드 C 가 출력하는 여섯 줄과 정확히 같습니다.</strong>
+                출력된 순서대로 옮겨 적으면 됩니다.
+                맨 오른쪽 칸은 미리 채워 두었으니 <strong>이진 탐색 실측값과 나란히 놓고 비교</strong>하세요 &mdash;
+                이 두 열이 비슷하다는 것을 확인하는 것이 이 항목의 핵심입니다.</p>
               <p style="margin-top:14px">[결과 해석]<br>
                 · 내가 고른 방법의 <strong>최선·평균·최악 시간 복잡도</strong>는 무엇인가요?
                   각각 어떤 상황인지 내 주제로 예를 들어 보세요.<br>
@@ -5332,6 +5669,37 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           </div>
         </div>
 
+        <div class="item">
+          <div class="item-h"><span class="n">5</span><h4>참고 자료 출처와 AI 활용 기록</h4><span class="pts">평가요소 ⑤ · 10점</span></div>
+          <div class="item-b">
+            <div class="verb">
+              <span class="vf">작성 양식</span>
+              <p>5. 참고 자료 및 인공지능 활용 기록</p>
+              <p style="margin-top:12px">[참고 자료]<br>
+                &middot; 교과서 &middot; 수업 자료 : (예 &mdash; 자료구조 chapter 5 수업 자료, 탐색 한 장 정리 유인물)<br>
+                &middot; 그 밖의 자료 : 제목 &middot; 만든 곳 &middot; 주소 &middot; 확인한 날짜</p>
+              <p style="margin-top:12px">[인공지능 활용 기록]<br>
+                &middot; 어떤 도구를 썼나요?<br>
+                &middot; <strong>어느 항목에</strong> 썼나요? (양식 1 / 2 / 3 / 4 중)<br>
+                &middot; <strong>무엇을 얻었고, 그것을 어떻게 고쳐서 썼나요?</strong><br>
+                &middot; 쓰지 않았다면 <strong>&ldquo;활용하지 않음&rdquo;</strong> 이라고 적으세요. 비워 두면 감점입니다.</p>
+            </div>
+
+            <div class="cut-note"><b>10점짜리인데 두세 줄이면 끝납니다</b>
+              예 &mdash; &ldquo;탐색 방법 비교표를 AI에게 받아 참고함(양식 2).
+              해시 테이블이 범위 검색에 불리하다는 점을 수업 자료로 확인한 뒤,
+              내 주제는 이름 범위로도 찾아야 하므로 이진 탐색으로 판단을 바꿔 직접 작성함.
+              실행 결과와 표는 모두 내가 직접 실행한 것임.&rdquo;</div>
+
+            <div class="tip"><b>상위 수준으로 가려면</b>
+              <p>⑤번은 <strong>글의 구성</strong>도 함께 봅니다.
+                <strong>양식 1 &rarr; 2 &rarr; 3 &rarr; 4 &rarr; 5 순서</strong>로, 항목마다 번호와 제목을 달아 정리하세요.
+                <strong>전문 용어를 정확히</strong> 쓰는 것도 채점 대상입니다 &mdash;
+                &lsquo;탐색키&rsquo;, &lsquo;시간 복잡도&rsquo;, &lsquo;충돌&rsquo; 같은 말을 수업에서 배운 뜻 그대로 쓰세요.
+                출처와 AI 기록이 <strong>있으면 감점되지 않고, 없으면 감점됩니다.</strong></p></div>
+          </div>
+        </div>
+
         <h3>실습 노트북 · 복사할 필요 없이 바로 실행</h3>
         <p>코드 A·B·C가 모두 들어 있는 <strong>Colab 노트북</strong>을 준비했습니다.
           아래 버튼을 누르면 바로 열립니다. 열자마자 <strong>[드라이브에 사본 저장]</strong> 을 눌러 내 사본을 만드세요.</p>
@@ -5351,7 +5719,7 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       </section>
 
       <section id="t2-rubric">
-        <div class="sh"><span class="sh-n">03 / 채점</span><h2>채점기준표 100점</h2></div>
+        <div class="sh"><span class="sh-n">04 / 채점</span><h2>채점기준표 100점</h2></div>
         <p class="note">평가요소 5개. <strong>단계적 표현(③)과 복잡도 분석(④)이 합쳐 50점</strong>으로 절반입니다.
           성취기준 [자료구조04-01] · [자료구조04-03]에 근거합니다.</p>
 
@@ -5430,10 +5798,100 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           <div class="sp"><h5>효율 비교</h5>
             <span class="no">“더 빠르다”</span> → <span class="yes">실측한 “100만 건에서 50만 번 대 약 20번”</span></div>
         </div>
+
+        <h3>성취기준별 성취수준</h3>
+        <p class="note">점수가 아니라 <strong>무엇을 할 수 있으면 그 수준인지</strong>를 적어 둔 것입니다.
+          평가 운영 계획서의 원문 그대로입니다.</p>
+        <div class="goals" style="grid-template-columns:1fr">
+          <div class="goal">
+            <span class="g-k">성취수준 A</span>
+            <h4>자료의 특성으로 고르고, 실측으로 검증하고, 기준까지 제시한다</h4>
+            <p>자료의 <strong>정렬 여부와 구조적 특성을 근거로 최적의 탐색 알고리즘을 선택</strong>하고,
+              탐색 프로그램을 실행하여 과정을 단계별로 정확히 표현하며,
+              <strong>실측한 비교 횟수를 이론적 시간 복잡도와 비교</strong>하여
+              자료 규모에 따른 선택 기준을 제시할 수 있다.</p>
+          </div>
+          <div class="goal">
+            <span class="g-k">성취수준 B</span>
+            <h4>두 방법의 조건과 효율을 비교해 고르고, 실행해서 설명한다</h4>
+            <p><strong>순차 탐색과 이진 탐색의 조건과 효율을 비교</strong>하여 적합한 탐색 알고리즘을 선택하고,
+              탐색 프로그램을 실행하여 그 과정과 시간 복잡도를 논리적으로 설명할 수 있다.</p>
+          </div>
+          <div class="goal">
+            <span class="g-k">성취수준 C</span>
+            <h4>기초 개념을 알고, 실행해서 과정을 제시한다</h4>
+            <p>탐색 알고리즘의 기초 개념을 파악하고, 탐색 프로그램을 실행하여
+              그 과정을 제시하며 효율에 대한 기본 내용을 설명할 수 있다.</p>
+          </div>
+        </div>
+
+        <h3>지금 내 글은 몇 점일까 · 자가 채점</h3>
+        <p class="note">각 요소에서 <strong>내 글이 실제로 도달한 줄</strong>을 눌러 보세요.
+          위쪽 채점기준표를 그대로 옮긴 것이라 <strong>선생님이 매기는 방식과 같습니다.</strong>
+          점수를 미리 알려 주는 장치가 아니라, <strong>어디를 더 써야 하는지</strong> 찾는 장치입니다.</p>
+
+        <div class="selfscore" id="t2-score">
+          <div class="ss-row">
+            <b>① 탐색 문제 상황 분석 및 자료 구조 선정 <em>15점 만점</em></b>
+            <div class="chips">
+              <button type="button" data-pt="15">15 · 상황을 구체적으로 분석 + 정렬 여부·구조적 특성을 근거로 선정</button>
+              <button type="button" data-pt="12">12 · 상황을 분석하고 구조를 선정해 이유를 설명</button>
+              <button type="button" data-pt="9">9 · 상황을 파악하고 구조를 선정</button>
+              <button type="button" data-pt="6">6 · 상황 제시 + 구조 일부만</button>
+              <button type="button" data-pt="3">3 · 시도함</button>
+            </div>
+          </div>
+          <div class="ss-row">
+            <b>② 탐색 알고리즘 선택과 적용 근거 <em>25점 만점</em></b>
+            <div class="chips">
+              <button type="button" data-pt="25">25 · 정렬 여부와 규모를 근거로 + 다른 방법과 비교해 논증</button>
+              <button type="button" data-pt="20">20 · 적합한 방법을 고르고 동작 원리로 정확히 설명</button>
+              <button type="button" data-pt="15">15 · 고른 이유를 자료의 특성과 연결해 설명</button>
+              <button type="button" data-pt="10">10 · 고르고 간단한 이유만</button>
+              <button type="button" data-pt="5">5 · 시도함</button>
+            </div>
+          </div>
+          <div class="ss-row">
+            <b>③ 탐색 프로그램 실행과 과정의 단계적 표현 <em>25점 만점</em></b>
+            <div class="chips">
+              <button type="button" data-pt="25">25 · 내 자료로 실행 + <b>없는 값까지</b> 실행 + 단계·비교값·범위 표</button>
+              <button type="button" data-pt="20">20 · 내 자료로 실행 + 주요 단계를 표로</button>
+              <button type="button" data-pt="15">15 · 실행 결과와 기본 단계만</button>
+              <button type="button" data-pt="10">10 · 실행하고 결과 일부만</button>
+              <button type="button" data-pt="5">5 · 시도함</button>
+            </div>
+          </div>
+          <div class="ss-row">
+            <b>④ 실행 결과 기반 효율 분석과 시간 복잡도 비교 <em>25점 만점</em></b>
+            <div class="chips">
+              <button type="button" data-pt="25">25 · 크기별 실측 표 + 이론값과 일치 확인 + 규모별 선택 기준 제시</button>
+              <button type="button" data-pt="20">20 · 실측 표 + 시간 복잡도와 연결해 두 방법 비교</button>
+              <button type="button" data-pt="15">15 · 실측 결과와 시간 복잡도를 함께 제시</button>
+              <button type="button" data-pt="10">10 · 실측 또는 복잡도 중 하나만</button>
+              <button type="button" data-pt="5">5 · 시도함</button>
+            </div>
+          </div>
+          <div class="ss-row">
+            <b>⑤ 탐구 결과의 표현 및 공유 <em>10점 만점</em></b>
+            <div class="chips">
+              <button type="button" data-pt="10">10 · 논리적 구성 + 용어 정확 + 출처와 AI 활용 범위 모두 밝힘</button>
+              <button type="button" data-pt="8">8 · 구성 체계 + 용어 적절 + 출처 밝힘</button>
+              <button type="button" data-pt="6">6 · 기본 구성 + 주제 중심 서술</button>
+              <button type="button" data-pt="4">4 · 부분적으로만 정리</button>
+              <button type="button" data-pt="2">2 · 시도함</button>
+            </div>
+          </div>
+
+          <div class="ss-out">
+            <span class="tot" data-tot>0<small>/ 100</small></span>
+            <span class="band" data-band>아직 고르지 않음</span>
+            <p class="msg" data-msg>다섯 줄을 모두 고르면 예상 점수와 성취도가 나옵니다.</p>
+          </div>
+        </div>
       </section>
 
       <section id="t2-ai">
-        <div class="sh"><span class="sh-n">04 / AI</span><h2>AI 활용 규칙</h2></div>
+        <div class="sh"><span class="sh-n">05 / AI</span><h2>AI 활용 규칙</h2></div>
         <p class="note">수행평가 1과 같습니다. <strong>재료를 얻고 → 검토하고 → 내 말로 다시 쓰는</strong> 순서를 지키세요.</p>
 
         <div class="rules">
@@ -5464,10 +5922,25 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           AI가 만들어 준 그럴듯한 숫자를 옮겨 적으면 두 항목 모두 최하점입니다.
           출력 화면을 그대로 붙여넣으면 아무 문제 없습니다 — 돌리기만 하면 되는 일입니다.
         </div>
+
+        <h3>평가 운영 계획서에 적힌 규정</h3>
+        <div class="cut-note"><b>원문 그대로</b>
+          &ldquo;인공지능(AI) 활용은 <strong>자료 검색 및 전문 학술 자료의 요약에 한함.</strong>
+          결과물 산출에 AI를 활용한 내용을 그대로 작성할 경우
+          <strong>해당 평가 요소의 최하점을 부여함.</strong>&rdquo;</div>
+        <p>최하점은 요소마다 다릅니다 &mdash; ①은 3점, ②③④는 5점, ⑤는 2점입니다.
+          ③④에서 최하점을 받으면 <strong>50점 중 10점</strong>만 남습니다.
+          반대로 <strong>직접 실행하고 기록만 남기면 아무 문제가 없습니다.</strong></p>
+
+        <h3>보고서 끝에 반드시 적을 것</h3>
+        <p><strong>양식 5</strong>가 바로 그 자리입니다.
+          참고 자료의 출처와 <strong>AI를 어디에 어떻게 썼는지</strong>를 두세 줄로 적으면 됩니다.
+          쓰지 않았다면 <strong>&ldquo;활용하지 않음&rdquo;</strong> 이라고 적으세요.
+          이 기록이 있으면 감점되지 않고, 없으면 ⑤번에서 감점됩니다.</p>
       </section>
 
       <section id="t2-prompts">
-        <div class="sh"><span class="sh-n">05 / 프롬프트</span><h2>복사해서 바로 쓰는 프롬프트</h2></div>
+        <div class="sh"><span class="sh-n">06 / 프롬프트</span><h2>복사해서 바로 쓰는 프롬프트</h2></div>
         <p class="note">순서대로 쓰세요. <strong>P0을 먼저 붙여 넣어야</strong> 나머지가 원하는 형식으로 답합니다.</p>
 
         <div class="prompt">
@@ -5652,11 +6125,11 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
       </section>
 
       <section id="t2-check">
-        <div class="sh"><span class="sh-n">06 / 점검</span><h2>제출 전 자기점검</h2></div>
+        <div class="sh"><span class="sh-n">07 / 점검</span><h2>제출 전 자기점검</h2></div>
         <p class="note">굵게 표시된 부분이 상위 수준으로 올라가는 지점입니다.</p>
 
         <div class="meter">
-          <span>점검</span><span class="bar"><span class="fill" data-fill></span></span><span class="n" data-cnt>0 / 8</span>
+          <span>점검</span><span class="bar"><span class="fill" data-fill></span></span><span class="n" data-cnt>0 / 12</span>
         </div>
 
         <div data-list>
@@ -5667,15 +6140,23 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           <label class="check"><input type="checkbox">
             <span><b>양식 2</b>탐색 방법을 고르면서 <strong>다른 방법과 비교해서</strong> 설명했다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 2</b><strong>정렬에 드는 비용</strong>까지 따져 보았다.</span></label>
+            <span><b>양식 2</b><strong>정렬에 드는 비용</strong>과 <strong>몇 번이나 찾을 것인지</strong>까지 따져 보았다.</span></label>
           <label class="check"><input type="checkbox">
             <span><b>양식 3</b>코드 A·B에 <strong>내 데이터를 넣어 실행</strong>하고 출력 화면을 붙여넣었다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 3</b>실행 결과를 보고 <strong>단계 표</strong>를 채웠고, <strong>없는 값</strong>도 실행해 봤다.</span></label>
+            <span><b>양식 3</b>단계 표에 <strong>비교한 값 · 남은 범위 · 판단</strong>이 모두 들어 있다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>양식 4</b>코드 C를 실행해 <strong>자료 크기별 비교 횟수</strong>를 표에 기록했다.</span></label>
+            <span><b>양식 3</b>자료에 <strong>없는 값</strong>으로도 한 번 더 실행해 결과를 붙여넣었다.</span></label>
           <label class="check"><input type="checkbox">
-            <span><b>공통</b>참고 자료 출처와 <strong>AI를 어디에 어떻게 썼는지</strong> 적었다.</span></label>
+            <span><b>양식 4</b>코드 C를 실행해 <strong>여섯 줄을 표에 그대로</strong> 옮겼다.</span></label>
+          <label class="check"><input type="checkbox">
+            <span><b>양식 4</b>이진 탐색 실측값을 <strong>log₂(n)과 나란히 비교</strong>하고 일치하는지 썼다.</span></label>
+          <label class="check"><input type="checkbox">
+            <span><b>양식 4</b>자료가 커질 때 <strong>무엇을 골라야 하는지</strong> 기준을 한 문장으로 제시했다.</span></label>
+          <label class="check"><input type="checkbox">
+            <span><b>양식 5</b>참고 자료의 <strong>출처</strong>를 적었다.</span></label>
+          <label class="check"><input type="checkbox">
+            <span><b>양식 5</b><strong>AI를 어디에 어떻게 썼는지</strong>(또는 “활용하지 않음”) 적었다.</span></label>
         </div>
       </section>
 
@@ -5772,10 +6253,22 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
     });
 
     // 페이지 안에서 다른 페이지로 보내는 링크
+    //   data-anchor 가 있으면 그 페이지의 해당 절까지 스크롤한다.
+    //   아직 열지 않은 페이지(수행평가 2 비공개)로 가는 버튼은 숨긴다.
     document.querySelectorAll('[data-goto]').forEach(function (b) {
+      var want = b.getAttribute('data-goto');
+      if (names.indexOf(want) < 0) { b.style.display = 'none'; return; }
       b.addEventListener('click', function (e) {
         e.preventDefault();
-        show(b.getAttribute('data-goto'), true);
+        show(want, true);
+        var anc = b.getAttribute('data-anchor');
+        if (!anc) return;
+        var el = document.getElementById(anc);
+        if (!el) return;
+        setTimeout(function () {
+          try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          catch (e2) { el.scrollIntoView(); }
+        }, 80);
       });
     });
 
@@ -7156,6 +7649,74 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         if (mq.addEventListener) mq.addEventListener('change', onResize);
         else if (mq.addListener) mq.addListener(onResize);
       });
+    })();
+
+    /* ---------- 수행평가 2 · 자가 채점 ----------
+       채점기준표의 다섯 요소를 그대로 옮겨 두고, 학생이 고른 수준을 더해
+       예상 점수와 성취도(A/B/C)를 보여 준다. 가장 많이 남은 요소를 짚어 준다. */
+    (function () {
+      var box = document.getElementById('t2-score');
+      if (!box) return;
+
+      var rows = [].slice.call(box.querySelectorAll('.ss-row'));
+      var elTot = box.querySelector('[data-tot]');
+      var elBand = box.querySelector('[data-band]');
+      var elMsg = box.querySelector('[data-msg]');
+      if (!rows.length || !elTot || !elBand || !elMsg) return;
+
+      var NAME = ['① 자료 분석', '② 방법 선택', '③ 실행과 단계 표', '④ 효율 분석', '⑤ 표현과 기록'];
+      var MAXP = [15, 25, 25, 25, 10];
+      var picked = rows.map(function () { return null; });
+
+      function sync() {
+        var sum = 0, n = 0, low = -1, gapMax = 0;
+        picked.forEach(function (p, i) {
+          if (p === null) return;
+          n += 1;
+          sum += p;
+          var gap = (MAXP[i] || 0) - p;
+          if (gap > gapMax) { gapMax = gap; low = i; }
+        });
+
+        elTot.innerHTML = sum + '<small>/ 100</small>';
+
+        if (n < rows.length) {
+          elBand.textContent = n + ' / ' + rows.length + ' 고름';
+          elBand.className = 'band';
+          elMsg.textContent = '다섯 줄을 모두 고르면 예상 점수와 성취도가 나옵니다.';
+          return;
+        }
+
+        var g = sum >= 80 ? 'a' : (sum >= 60 ? 'b' : 'c');
+        elBand.textContent = '성취도 ' + g.toUpperCase();
+        elBand.className = 'band ' + g;
+
+        if (low < 0) {
+          elMsg.textContent = '다섯 요소 모두 만점입니다. 내기 전에 07 자기점검만 한 번 훑어보세요.';
+        } else {
+          elMsg.innerHTML = '지금 가장 많이 남은 곳은 <b>' + NAME[low] + '</b> — 여기서만 ' +
+            gapMax + '점을 더 올릴 수 있습니다. 위 채점기준표에서 <b>한 줄 위</b>의 문장을 읽고 그 부분을 보강하세요.';
+        }
+      }
+
+      rows.forEach(function (row, i) {
+        var btns = [].slice.call(row.querySelectorAll('button[data-pt]'));
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var was = btn.classList.contains('on');
+            btns.forEach(function (x) { x.classList.remove('on'); });
+            if (was) {
+              picked[i] = null;                       /* 다시 누르면 선택 해제 */
+            } else {
+              btn.classList.add('on');
+              picked[i] = parseInt(btn.getAttribute('data-pt'), 10);
+            }
+            sync();
+          });
+        });
+      });
+
+      sync();
     })();
 
     /* ---------- 프롬프트 복사 ---------- */
