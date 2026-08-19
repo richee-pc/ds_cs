@@ -27,10 +27,18 @@ st.markdown(
       header[data-testid="stHeader"] { display: none; }
       [data-testid="stToolbar"] { display: none; }
       [data-testid="stDecoration"] { display: none; }
-      .block-container { padding: 0 !important; max-width: 100% !important; }
+      .block-container,
+      [data-testid="stMainBlockContainer"] { padding: 0 !important; max-width: 100% !important; }
       [data-testid="stAppViewContainer"] > .main { padding: 0 !important; }
-      iframe[title="streamlit.components.v1.html"] {
+
+      /* 안내 페이지가 화면을 세로로도 가득 채우게 한다.
+         Streamlit 판에 따라 iframe 에 붙는 표시가 달라서 둘 다 걸어 둔다.
+         dvh 는 휴대폰 주소창이 접혔다 펴질 때의 높이 변화까지 반영한다. */
+      iframe[title="streamlit.components.v1.html"],
+      [data-testid="stCustomComponentV1"],
+      [data-testid="stIFrame"] {
         height: 100vh !important;
+        height: 100dvh !important;
         width: 100% !important;
         border: none;
       }

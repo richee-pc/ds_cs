@@ -3479,12 +3479,28 @@
                   .ml{font-family:var(--mono);font-size:9px;fill:#7b8794}
                   .ma{stroke:#9aa5b1;stroke-width:1;fill:none;marker-end:url(#ar)}
                 
-  /* ── 넓은 화면에서 본문 폭 확장 (반드시 마지막에) ── */
+  /* ── 넓은 화면에서 본문 폭 확장 (반드시 마지막에) ──
+
+       1900px 부터는 고정 px 대신 비율로 넓힌다.
+       교실 프로젝터·대형 모니터에서 양옆이 비지 않게 하기 위한 것이고,
+       본문 단락은 p { max-width: 68ch } 로 읽기 좋은 길이를 유지하므로
+       실제로 넓어지는 것은 표·카드·시뮬레이터·코드 상자뿐이다.
+
+       body 에 zoom 이 걸려 있어 vw 는 어긋난다. 반드시 % 를 쓸 것.  */
+
   @media (min-width: 1400px) {
     .shell, .topbar-in, .hero-in, .draft-in { max-width: 1290px; }
   }
   @media (min-width: 1700px) {
     .shell, .topbar-in, .hero-in, .draft-in { max-width: 1420px; }
+  }
+  @media (min-width: 1900px) {
+    .shell, .topbar-in, .hero-in, .draft-in { max-width: 92%; }
+    .shell { grid-template-columns: 230px minmax(0, 1fr); }
+  }
+  @media (min-width: 2400px) {
+    .shell, .topbar-in, .hero-in, .draft-in { max-width: 94%; }
+    .shell { grid-template-columns: 250px minmax(0, 1fr); }
   }
 
 
@@ -6177,8 +6193,20 @@ target = "..."
          새 판이 올라간 것이고, 그대로면 아직 예전 판입니다.
          (브라우저가 캐시를 물고 있으면 Ctrl+Shift+R 로 강력 새로고침)
        ===================================================================== */
+    /* 이 파일은 <body> 안에 넣는 조각이라 자체 <head> 가 없다.
+       아티팩트·Streamlit 로 열면 감싸는 쪽이 viewport 메타를 넣어 주지만,
+       HTML 파일을 그대로 열면 없어서 휴대폰에서 980px 로 렌더된다.
+       없을 때만 직접 넣어 어떤 화면에서든 폭에 맞게 한다. */
+    (function () {
+      if (document.querySelector('meta[name="viewport"]')) return;
+      var m = document.createElement('meta');
+      m.name = 'viewport';
+      m.content = 'width=device-width, initial-scale=1';
+      (document.head || document.documentElement).appendChild(m);
+    })();
+
     var PAGE_DATE = '2026-08-19';
-    var PAGE_NOTE = '프롬프트를 시작·마무리 2개로 통합';
+    var PAGE_NOTE = '넓은 화면 가득 채우기';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
