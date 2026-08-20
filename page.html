@@ -2739,6 +2739,85 @@
   .prompt .fold .fold-b { padding: 0; }
   .prompt .fold .fold-b pre { border-top: 1px solid var(--line); }
 
+  /* =====================================================================
+     프롬프트 채우기 — 여기에 적으면 프롬프트 본문이 실시간으로 바뀐다
+     ===================================================================== */
+
+  .fillin {
+    border-top: 1px solid var(--line);
+    background: var(--edge-soft);
+    padding: 14px 16px 15px;
+  }
+
+  .fi-t {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--edge);
+    margin: 0 0 11px;
+    max-width: none;
+  }
+
+  .fi-row { display: grid; grid-template-columns: 1fr; gap: 5px; margin-bottom: 10px; }
+
+  @media (min-width: 620px) {
+    .fi-row { grid-template-columns: minmax(150px, auto) minmax(0, 1fr); gap: 4px 14px; align-items: center; }
+  }
+
+  .fi-row label { font-size: 13.6px; font-weight: 700; color: var(--ink-2); }
+
+  .fi-row input,
+  .fi-row select {
+    font-family: inherit;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 5px;
+    padding: 8px 11px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .fi-row input:focus,
+  .fi-row select:focus { outline: 2px solid var(--edge); outline-offset: -1px; border-color: var(--edge); }
+  .fi-row input::placeholder { color: var(--muted); }
+
+  .fi-hint { font-size: 12.8px; color: var(--ink-2); margin: 0; max-width: none; }
+  .fi-hint b { color: var(--edge); }
+
+  .fi-done {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--edge);
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+
+  .fi-done.on { opacity: 1; }
+
+  .fi-clear {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .06em;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line-2);
+    border-radius: 99px;
+    padding: 4px 11px;
+    cursor: pointer;
+    float: right;
+    margin: -2px 0 0;
+  }
+
+  .fi-clear:hover { color: var(--warn); border-color: var(--warn); }
+
+  /* 프롬프트 본문에서 내가 채운 자리 — 눈에 띄게 */
+  .slot { color: var(--edge); font-weight: 700; }
+  .slot:empty::before { content: "(비어 있음)"; color: var(--muted); font-weight: 400; }
+
 </style>
 
 <header class="topbar">
@@ -5049,20 +5128,38 @@
       <div class="prompt hot">
         <div class="prompt-h"><span class="k">&#9312; 시작</span><span class="t">양식 1~4 재료를 한 번에 받기</span>
           <button class="copy" type="button">복사</button></div>
+
+        <div class="fillin">
+          <button class="fi-clear" type="button" data-clear>지우기</button>
+          <p class="fi-t">여기에 적으면 아래 프롬프트에 그대로 들어갑니다<span class="fi-done" data-done>저장됨</span></p>
+
+          <div class="fi-row">
+            <label for="t1-topic">주제 (서비스나 상황)</label>
+            <input id="t1-topic" type="text" data-fill="t1-topic"
+                   placeholder="예 — 배달 앱 맛집 추천 / 지하철 환승 안내 / 인스타 팔로우 추천">
+          </div>
+          <div class="fi-row">
+            <label for="t1-want">찾거나 순서를 매기고 싶은 것</label>
+            <input id="t1-want" type="text" data-fill="t1-want"
+                   placeholder="예 — 가까운 맛집을 평점 순으로 보여 주기">
+          </div>
+
+          <p class="fi-hint"><b>아직 못 정했으면 비워 두세요.</b>
+            비워 두고 복사하면 AI가 주제 후보 3개를 먼저 제안해 줍니다.</p>
+        </div>
         <details class="fold">
 <summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
 <div class="fold-b"><pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
 나는 '비선형구조-알고리즘 연결고리 발견하기' 라는 탐구 보고서를 쓰고 있어.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[내 정보 — 이 세 줄만 채워서 보내면 돼]
+[내 정보]
 
-  주제(서비스나 상황) :
-  그 안에서 찾거나 순서를 매기고 싶은 것 :
-  아직 못 정했으면 여기에 '모름' 이라고 쓰기 :
+  주제(서비스나 상황) : <span class="slot" data-slot="t1-topic"></span>
+  찾거나 순서를 매기고 싶은 것 : <span class="slot" data-slot="t1-want"></span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-'모름' 이라고 적혀 있으면, 먼저 주제 후보 3개를 근거와 함께 제안하고
+위 칸이 비어 있으면, 먼저 주제 후보 3개를 근거와 함께 제안하고
 내가 하나를 고를 때까지 기다려 줘. 고른 뒤에 아래를 진행해.
 
 아래 네 항목의 '재료' 를 순서대로 한 번에 정리해 줘.
@@ -6246,23 +6343,63 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         <div class="prompt hot">
           <div class="prompt-h"><span class="k">&#9312; 시작</span><span class="t">양식 1~5 재료 + 실습 데이터를 한 번에 받기</span>
             <button class="copy" type="button">복사</button></div>
+
+          <div class="fillin">
+            <button class="fi-clear" type="button" data-clear>지우기</button>
+            <p class="fi-t">여기에 적으면 아래 프롬프트에 그대로 들어갑니다<span class="fi-done" data-done>저장됨</span></p>
+
+            <div class="fi-row">
+              <label for="t2-topic">주제</label>
+              <input id="t2-topic" type="text" data-fill="t2-topic"
+                     placeholder="예 — 학교 도서관 도서 검색 / 음원 곡 검색 / 택배 송장 조회">
+            </div>
+            <div class="fi-row">
+              <label for="t2-size">자료가 대략 몇 건</label>
+              <select id="t2-size" data-fill="t2-size">
+                <option value="">모르겠어요 (AI가 판단)</option>
+                <option value="수십 건">수십 건</option>
+                <option value="수천 건">수천 건</option>
+                <option value="수십만 건">수십만 건</option>
+              </select>
+            </div>
+            <div class="fi-row">
+              <label for="t2-sorted">미리 정렬되어 있나</label>
+              <select id="t2-sorted" data-fill="t2-sorted">
+                <option value="">모르겠어요 (AI가 판단)</option>
+                <option value="정렬됨">정렬되어 있음</option>
+                <option value="정렬 안 됨">정렬 안 되어 있음</option>
+                <option value="정렬할 수 있음">지금은 아니지만 정렬할 수 있음</option>
+              </select>
+            </div>
+            <div class="fi-row">
+              <label for="t2-churn">자주 추가 &middot; 삭제되나</label>
+              <select id="t2-churn" data-fill="t2-churn">
+                <option value="">모르겠어요 (AI가 판단)</option>
+                <option value="거의 없음">거의 없음</option>
+                <option value="자주 있음">자주 있음</option>
+              </select>
+            </div>
+
+            <p class="fi-hint"><b>모르는 칸은 그냥 두세요.</b>
+              비워 두면 AI가 판단해서 채우고 그 근거까지 알려 줍니다.
+              주제까지 비우면 후보 3개를 먼저 제안해 줍니다.</p>
+          </div>
           <details class="fold">
 <summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
 <div class="fold-b"><pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
 나는 '탐색 알고리즘 설계' 라는 탐구 보고서를 쓰고 있어.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[내 정보 — 이 네 줄만 채워서 보내면 돼]
- (모르겠으면 '모름' 이라고 쓰면 돼)
+[내 정보]
 
-  주제 :
-  자료가 대략 몇 건 :        (수십 / 수천 / 수십만)
-  미리 정렬되어 있나 :       (정렬됨 / 안 됨 / 정렬할 수 있음)
-  자주 추가·삭제되나 :       (거의 없음 / 자주 있음)
+  주제 : <span class="slot" data-slot="t2-topic"></span>
+  자료가 대략 몇 건 : <span class="slot" data-slot="t2-size"></span>
+  미리 정렬되어 있나 : <span class="slot" data-slot="t2-sorted"></span>
+  자주 추가·삭제되나 : <span class="slot" data-slot="t2-churn"></span>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-주제가 '모름' 이면 후보 3개를 근거와 함께 제안하고 내가 고를 때까지
-기다려 줘. 나머지 칸이 '모름' 이면 네가 판단해서 채우고,
+주제 칸이 비어 있으면 후보 3개를 근거와 함께 제안하고 내가 고를 때까지
+기다려 줘. 나머지 칸이 비어 있으면 네가 판단해서 채우고,
 어떤 근거로 그렇게 봤는지 알려 줘. 그 다음 아래를 진행해.
 
 먼저 [실습 데이터] 를 주고, 이어서 다섯 항목의 '재료' 를 정리해 줘.
@@ -6471,7 +6608,7 @@ target = "..."
     })();
 
     var PAGE_DATE = '2026-08-19';
-    var PAGE_NOTE = '30초 요약 · 쉬운 말 · 접기 정리';
+    var PAGE_NOTE = '프롬프트 입력칸 자동 채우기';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
@@ -8034,6 +8171,71 @@ target = "..."
       });
 
       sync();
+    })();
+
+    /* ---------- 프롬프트 채우기 ----------
+       입력칸에 적으면 프롬프트 본문의 같은 이름 슬롯이 즉시 바뀐다.
+       복사 기능은 pre.textContent 를 읽으므로 따로 손댈 필요가 없다.
+       적은 내용은 이 브라우저에만 저장되어 다시 열어도 남아 있다. */
+    (function () {
+      var fields = [].slice.call(document.querySelectorAll('[data-fill]'));
+      if (!fields.length) return;
+
+      var KEY = 'ds-fill-';
+
+      function paint(f) {
+        var name = f.getAttribute('data-fill');
+        var v = (f.value || '').trim();
+        document.querySelectorAll('[data-slot="' + name + '"]').forEach(function (s) {
+          s.textContent = v;
+        });
+      }
+
+      function flash(f) {
+        var box = f.closest('.fillin');
+        if (!box) return;
+        var tag = box.querySelector('[data-done]');
+        if (!tag) return;
+        tag.classList.add('on');
+        clearTimeout(tag.__t);
+        tag.__t = setTimeout(function () { tag.classList.remove('on'); }, 1200);
+      }
+
+      /* 공용 컴퓨터에서 앞사람 내용이 남지 않도록 */
+      document.querySelectorAll('[data-clear]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var box = btn.closest('.fillin');
+          if (!box) return;
+          box.querySelectorAll('[data-fill]').forEach(function (f) {
+            f.value = '';
+            paint(f);
+            try { localStorage.removeItem(KEY + f.getAttribute('data-fill')); } catch (e) { /* 무시 */ }
+          });
+          btn.textContent = '지웠습니다';
+          setTimeout(function () { btn.textContent = '지우기'; }, 1200);
+        });
+      });
+
+      fields.forEach(function (f) {
+        var name = f.getAttribute('data-fill');
+        try {
+          var saved = localStorage.getItem(KEY + name);
+          if (saved) f.value = saved;
+        } catch (e) { /* 무시 */ }
+
+        paint(f);
+
+        f.addEventListener('input', function () {
+          paint(f);
+          try { localStorage.setItem(KEY + name, f.value); } catch (e) { /* 무시 */ }
+          flash(f);
+        });
+        f.addEventListener('change', function () {
+          paint(f);
+          try { localStorage.setItem(KEY + name, f.value); } catch (e) { /* 무시 */ }
+          flash(f);
+        });
+      });
     })();
 
     /* ---------- 프롬프트 복사 ---------- */
