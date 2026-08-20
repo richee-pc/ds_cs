@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v3
+ * 자료구조 수행평가 양식 생성기  v4
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,7 +16,7 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 3;
+var VER = 4;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 문서 틀 시작 ===';
@@ -138,7 +138,7 @@ var 글꼴이름 = {
 };
 
 function 모양기본_() {
-  return { theme: 'teal', font: '본고딕', size: '보통', cover: true, toc: false, guide: true };
+  return { theme: 'teal', font: '본고딕', size: '보통', cover: true, toc: false, guide: true, material: true };
 }
 
 
@@ -260,11 +260,12 @@ function makeDoc(info) {
     if (!info.name) return { ok: false, error: '이름을 넣어 주세요.' };
 
     var 모양 = info.style || 모양기본_();
-    var 조각 = info.pasted ? 틀뽑기_(info.pasted) : null;
+    var 조각 = info.pasted ? 쪼개기_(info.pasted) : { 틀: null, 재료: [] };
     var 경고 = '';
 
-    if (info.pasted && !조각) {
-      경고 = '붙여넣은 글에서 [문서 틀] 표시를 찾지 못해 기본 양식으로 만들었습니다.';
+    if (info.pasted && !조각.틀) {
+      경고 = '[문서 틀] 표시를 찾지 못해 기본 양식으로 만들었습니다. '
+           + '붙여넣은 내용은 뒤쪽 «참고 재료» 에 그대로 넣었습니다.';
     }
 
     var 이름 = 파일이름_(info, spec);
@@ -276,25 +277,61 @@ function makeDoc(info) {
     try { f.moveTo(폴더_()); } catch (e) { /* 이동 실패해도 문서는 있다 */ }
     if (교사이메일) { try { f.addEditor(교사이메일); } catch (e) { /* 넘어간다 */ } }
 
-    return { ok: true, url: f.getUrl(), name: 이름, warn: 경고,
-             from: 조각 ? '제미나이가 준 틀' : '기본 양식' };
+    var 어디서 = 조각.틀 ? '제미나이가 준 틀' : '기본 양식';
+    if (모양.material !== false && 조각.재료.length) 어디서 += ' + 참고 재료';
+
+    return { ok: true, url: f.getUrl(), name: 이름, warn: 경고, from: 어디서 };
 
   } catch (err) {
     return { ok: false, error: String(err) };
   }
 }
 
-/** 붙여넣은 글에서 === 문서 틀 시작/끝 === 사이만 뽑아 줄 배열로 */
-function 틀뽑기_(text) {
-  var a = text.indexOf(시작표);
-  if (a < 0) return null;
-  var b = text.indexOf(끝표, a);
-  var 안 = text.substring(a + 시작표.length, b < 0 ? text.length : b);
-  var 줄 = 안.replace(/\r/g, '').split('\n');
-  // 앞뒤 빈 줄 걷어내기
-  while (줄.length && !줄[0].trim()) 줄.shift();
-  while (줄.length && !줄[줄.length - 1].trim()) 줄.pop();
-  return 줄.length ? 줄 : null;
+/** 앞뒤 빈 줄 걷어내기 */
+function 다듬기_(줄) {
+  var r = 줄.slice();
+  while (r.length && !r[0].trim()) r.shift();
+  while (r.length && !r[r.length - 1].trim()) r.pop();
+  return r;
+}
+
+/**
+ * 붙여넣은 글을 « 문서 틀 » 과 « 재료 » 로 쪼갠다.
+ *
+ *   틀   === 문서 틀 시작 === ~ === 문서 틀 끝 === 사이
+ *   재료 그 바깥의 나머지 전부 (개념 정리, 실습 데이터, 확인할 것 …)
+ *
+ * 제미나이가 표시를 **굵게** 하거나 ``` 로 감싸는 일이 잦아서
+ * 표시를 찾을 때는 그런 꾸밈을 걷어내고 본다.
+ */
+function 쪼개기_(text) {
+  var 원본 = String(text || '').replace(/\r/g, '').split('\n');
+  if (!원본.join('').trim()) return { 틀: null, 재료: [] };
+
+  // 표시를 찾기 위한 «민낯» 사본
+  var 민낯 = 원본.map(function (l) {
+    return l.replace(/\*\*/g, '').replace(/`/g, '').replace(/^#+\s*/, '').trim();
+  });
+
+  var a = -1, b = -1;
+  for (var i = 0; i < 민낯.length; i++) {
+    if (a < 0 && /문서\s*틀\s*시작/.test(민낯[i])) { a = i; continue; }
+    if (a >= 0 && b < 0 && /문서\s*틀\s*끝/.test(민낯[i])) { b = i; break; }
+  }
+
+  // 시작 표시가 없으면 «[문서 틀]» 같은 제목 줄이라도 찾아 본다
+  if (a < 0) {
+    for (var j = 0; j < 민낯.length; j++) {
+      if (/^\[?문서\s*틀\]?/.test(민낯[j])) { a = j; break; }
+    }
+  }
+
+  if (a < 0) return { 틀: null, 재료: 다듬기_(원본) };
+  if (b < 0) b = 원본.length;
+
+  var 틀 = 다듬기_(원본.slice(a + 1, b));
+  var 재료 = 다듬기_(원본.slice(0, a).concat(원본.slice(b + 1)));
+  return { 틀: 틀.length ? 틀 : null, 재료: 재료 };
 }
 
 function 파일이름_(info, spec) {
@@ -373,23 +410,45 @@ function 문서_(spec, 이름, info, 모양, 조각) {
   }
 
   // ---- 본문 ----
-  if (조각) {
-    붙인틀_문서_(body, 조각, 글, c, ff, 본문크기, 모양);
+  if (조각 && 조각.틀) {
+    옮기기_문서_(body, 조각.틀, 글, c, ff, 본문크기, 모양);
   } else {
     기본틀_문서_(body, spec, 글, c, 모양);
   }
 
-  글('— 여기까지 —', { color: c.빈칸 });
+  글('— 여기까지가 제출할 내용입니다 —', { color: c.빈칸 });
+
+  // ---- 참고 재료 (제미나이 답변의 나머지) ----
+  if (모양.material !== false && 조각 && 조각.재료 && 조각.재료.length) {
+    body.appendHorizontalRule();
+    글('참고 재료 · 제미나이가 준 것', { heading: DocumentApp.ParagraphHeading.HEADING1, color: c.안내 });
+    글('이 아래는 제출물이 아닙니다. 여기 있는 내용을 그대로 옮겨 적으면 최하점입니다. '
+       + '읽고 이해한 다음 위쪽 【 】 자리에 내 문장으로 쓰고, 제출 전에 이 부분을 지우세요.',
+       { color: c.안내, italic: true });
+    글('');
+    옮기기_문서_(body, 조각.재료, 글, c, ff, 본문크기, 모양, true);
+  }
   doc.saveAndClose();
   return doc.getId();
 }
 
-/** 제미나이가 준 줄들을 문서로 옮긴다 */
-function 붙인틀_문서_(body, 줄들, 글, c, ff, 본문크기, 모양) {
-  var i = 0;
+/**
+ * 제미나이가 준 줄들을 문서로 옮긴다.
+ * 참고 는 « 참고 재료 » 를 옮길 때 true — 제목을 한 단계씩 낮춰 본문과 섞이지 않게 한다.
+ */
+function 옮기기_문서_(body, 줄들, 글, c, ff, 본문크기, 모양, 참고) {
+  var i = 0, 코드중 = false;
   while (i < 줄들.length) {
     var raw = 줄들[i];
     var t = raw.trim();
+
+    // ``` 로 감싼 코드 덩어리는 손대지 않고 고정폭으로 그대로 옮긴다
+    if (/^```/.test(t)) { 코드중 = !코드중; i++; continue; }
+    if (코드중) {
+      var cp = body.appendParagraph(raw === '' ? ' ' : raw);
+      cp.setFontFamily('Consolas').setFontSize(본문크기 - 1).setForegroundColor(c.작은제목);
+      i++; continue;
+    }
 
     // 표 — 연달아 오는 | ... | 줄을 모아 한 번에
     var 칸 = 표줄_(raw);
@@ -416,13 +475,24 @@ function 붙인틀_문서_(body, 줄들, 글, c, ff, 본문크기, 모양) {
 
     if (!t) { 글(''); }
     else if (t.indexOf('# ') === 0) {
-      글(t.substring(2).trim(), { heading: DocumentApp.ParagraphHeading.TITLE, color: c.큰제목, size: 본문크기 + 11 });
+      글(t.substring(2).trim(), 참고
+        ? { heading: DocumentApp.ParagraphHeading.HEADING2, color: c.작은제목 }
+        : { heading: DocumentApp.ParagraphHeading.TITLE, color: c.큰제목, size: 본문크기 + 11 });
     }
     else if (t.indexOf('## ') === 0) {
-      글(t.substring(3).trim(), { heading: DocumentApp.ParagraphHeading.HEADING1, color: c.큰제목 });
+      글(t.substring(3).trim(), 참고
+        ? { heading: DocumentApp.ParagraphHeading.HEADING2, color: c.작은제목 }
+        : { heading: DocumentApp.ParagraphHeading.HEADING1, color: c.큰제목 });
     }
     else if (t.indexOf('### ') === 0) {
       글(t.substring(4).trim(), { heading: DocumentApp.ParagraphHeading.HEADING2, color: c.작은제목 });
+    }
+    else if (/^\[.+\]/.test(t)) {
+      // [항목 1] · [실습 데이터] 같은 재료 제목
+      글(t, { heading: DocumentApp.ParagraphHeading.HEADING2, color: c.작은제목 });
+    }
+    else if (t.indexOf('●') === 0) {
+      글(t, { bold: true, color: c.작은제목 });
     }
     else if (t.indexOf('▸') === 0) {
       글(t, { heading: DocumentApp.ParagraphHeading.HEADING3, color: c.작은제목 });
@@ -488,12 +558,22 @@ function 슬라이드_(spec, 이름, info, 모양, 조각) {
     표지.remove();
   }
 
-  var 장 = 조각 ? 장나누기_(조각) : 기본장_(spec, 모양);
+  var 장 = (조각 && 조각.틀) ? 장나누기_(조각.틀) : 기본장_(spec, 모양);
   장.forEach(function (s) {
     var slide = pres.appendSlide(SlidesApp.PredefinedLayout.TITLE_AND_BODY);
     글넣기_(slide, SlidesApp.PlaceholderType.TITLE, s.제목, ff, c.큰제목);
     글넣기_(slide, SlidesApp.PlaceholderType.BODY, s.내용.join('\n'), ff, null);
   });
+
+  // 참고 재료는 뒤에 «제출 전 삭제» 장표로 붙인다
+  if (모양.material !== false && 조각 && 조각.재료 && 조각.재료.length) {
+    묶기_(조각.재료, 13).forEach(function (덩어리, n) {
+      var slide = pres.appendSlide(SlidesApp.PredefinedLayout.TITLE_AND_BODY);
+      글넣기_(slide, SlidesApp.PlaceholderType.TITLE,
+              '참고 재료 ' + (n + 1) + ' · 제출 전 삭제', ff, c.안내);
+      글넣기_(slide, SlidesApp.PlaceholderType.BODY, 덩어리.join('\n'), ff, null);
+    });
+  }
 
   pres.saveAndClose();
   return pres.getId();
@@ -514,6 +594,17 @@ function 장나누기_(줄들) {
     }
   });
   return 장.length ? 장 : [{ 제목: '내용', 내용: 줄들 }];
+}
+
+/** 줄 배열을 n 줄씩 나눈다 */
+function 묶기_(줄들, n) {
+  var 결과 = [], 지금 = [];
+  줄들.forEach(function (l) {
+    지금.push(l);
+    if (지금.length >= n) { 결과.push(지금); 지금 = []; }
+  });
+  if (지금.length) 결과.push(지금);
+  return 결과;
 }
 
 function 기본장_(spec, 모양) {
@@ -671,6 +762,12 @@ function 화면_() {
 '   <button data-v="1">넣기</button>',
 '  </div>',
 
+'  <label>제미나이가 준 참고 재료</label>',
+'  <div class="opt" id="o-material">',
+'   <button data-v="1" class="on">문서 뒤에 함께 넣기</button>',
+'   <button data-v="0">안 넣기</button>',
+'  </div>',
+
 '  <label>항목별 안내 문구 (배점·요령)</label>',
 '  <div class="opt" id="o-guide">',
 '   <button data-v="1" class="on">넣기</button>',
@@ -740,7 +837,7 @@ function 화면_() {
 '  var fo = "";',
 '  cfg.글꼴.forEach(function(f,i){ fo += \'<button data-v="\'+f+\'"\'+(i===0?\' class="on"\':\'\')+\'>\'+f+\'</button>\'; });',
 '  $("o-font").innerHTML = fo;',
-'  ["o-kind","o-theme","o-font","o-size","o-cover","o-toc","o-guide"].forEach(고르기묶음);',
+'  ["o-kind","o-theme","o-font","o-size","o-cover","o-toc","o-guide","o-material"].forEach(고르기묶음);',
 '}).설정보내기();',
 '',
 '$("b1").addEventListener("click", function(){',
@@ -815,7 +912,8 @@ function 화면_() {
 '        size:  고른값("o-size"),',
 '        cover: 고른값("o-cover") === "1",',
 '        toc:   고른값("o-toc") === "1",',
-'        guide: 고른값("o-guide") === "1"',
+'        guide: 고른값("o-guide") === "1",',
+'        material: 고른값("o-material") === "1"',
 '      }',
 '    });',
 '});',
