@@ -2637,6 +2637,108 @@
     color: var(--muted);
   }
 
+  /* =====================================================================
+     쉽게 보기 — 30초 요약 · 쉬운 말 한 줄 · 낱말 풀이 · 접기
+     ===================================================================== */
+
+  .tldr { display: grid; gap: 12px; grid-template-columns: 1fr; margin: 0 0 6px; }
+  @media (min-width: 760px)  { .tldr { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1180px) { .tldr { grid-template-columns: repeat(4, 1fr); } }
+
+  .td-c {
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--edge);
+    border-radius: var(--r);
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+
+  .td-c h4 {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--edge);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .td-c h4 i { font-style: normal; font-size: 19px; line-height: 1; }
+  .td-c p { margin: 0; font-size: 15.5px; line-height: 1.78; max-width: none; }
+  .td-c p + p { margin-top: 9px; }
+  .td-c b { font-weight: 800; color: var(--ink); }
+  .td-c .big { font-size: 26px; font-weight: 800; color: var(--edge); line-height: 1.15; display: block; margin-bottom: 4px; }
+
+  .words { display: grid; gap: 8px; grid-template-columns: 1fr; margin: 12px 0 0; }
+  @media (min-width: 760px) { .words { grid-template-columns: repeat(2, 1fr); } }
+
+  .word {
+    display: grid;
+    grid-template-columns: minmax(86px, auto) 1fr;
+    gap: 4px 13px;
+    align-items: baseline;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--surface);
+    padding: 11px 14px;
+  }
+
+  .word b { color: var(--edge); font-weight: 800; font-size: 14px; }
+  .word span { color: var(--ink-2); font-size: 14.4px; line-height: 1.65; }
+
+  .ez {
+    background: var(--edge-soft);
+    border-radius: 7px;
+    padding: 10px 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 14px;
+    max-width: none;
+  }
+
+  .ez b {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    color: var(--edge);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .fold {
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--surface);
+    margin: 14px 0 0;
+  }
+
+  .fold > summary {
+    cursor: pointer;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--edge);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fold > summary::-webkit-details-marker { display: none; }
+  .fold > summary::before { content: "\25B8"; font-size: 12px; }
+  .fold[open] > summary::before { content: "\25BE"; }
+  .fold > summary:hover { text-decoration: underline; }
+  .fold .fold-b { padding: 0 16px 16px; }
+  .fold .fold-b .tw { margin-top: 0; }
+
+  /* 프롬프트 상자 안에서는 접기가 테두리 없이 조용히 들어간다.
+     복사 버튼은 늘 보이고, 본문만 필요할 때 펼친다. */
+
+  .prompt .fold { border: 0; border-radius: 0; background: transparent; margin: 0; }
+  .prompt .fold > summary { padding: 11px 16px 12px; font-size: 12.5px; }
+  .prompt .fold .fold-b { padding: 0; }
+  .prompt .fold .fold-b pre { border-top: 1px solid var(--line); }
+
 </style>
 
 <header class="topbar">
@@ -4583,6 +4685,7 @@
   <nav class="rail" aria-label="차례">
     <p class="rail-t">차례</p>
     <ol>
+      <li><a href="#tldr">30초 요약</a></li>
       <li><a href="#goal">과제의 목적</a></li>
       <li><a href="#form">작성 양식 4항목</a></li>
       <li><a href="#rubric">채점기준표</a></li>
@@ -4593,6 +4696,54 @@
   </nav>
 
   <main>
+
+    <section id="tldr">
+      <div class="sh"><span class="sh-n">00 / 요약</span><h2>30초 요약 &mdash; 딱 이것만 알면 됩니다</h2></div>
+
+      <div class="tldr">
+        <div class="td-c">
+          <h4><i>&#10067;</i>무엇을 하나요?</h4>
+          <p>내가 잘 아는 <b>앱이나 서비스</b>를 하나 고릅니다.
+            그 안의 정보를 <b>그림(트리 &middot; 그래프)</b>으로 다시 그려 보고,
+            거기서 <b>어떻게 찾고 어떤 순서로 줄 세울지</b>를 글로 설명합니다.</p>
+          <p><b>코딩은 하지 않습니다.</b> 생각을 글로 쓰는 과제입니다.</p>
+        </div>
+        <div class="td-c">
+          <h4><i>&#128197;</i>언제 하나요?</h4>
+          <p><span class="big">8/24 ~ 8/28</span>
+            8월 4주 <b>수업 시간</b>에 합니다. 집에서 만들어 오는 숙제가 아닙니다.</p>
+        </div>
+        <div class="td-c">
+          <h4><i>&#128196;</i>무엇을 내나요?</h4>
+          <p><span class="big">질문 4개</span>
+            아래 <b>작성 양식 1~4번</b>에 답을 쓴 보고서 한 편.
+            질문마다 무엇을 쓰면 되는지 다 적어 두었습니다.</p>
+        </div>
+        <div class="td-c">
+          <h4><i>&#128175;</i>점수는요?</h4>
+          <p><span class="big">100점</span>
+            학기 성적의 <b>35%</b>. 그중 <b>4번(줄 세우기) 하나가 45점</b>이라
+            거기에 힘을 쏟는 게 가장 이득입니다.</p>
+        </div>
+      </div>
+
+      <div class="easy">
+        <h5>이 과제를 한 문장으로</h5>
+        <p><b>&ldquo;내가 좋아하는 서비스를 하나 골라, 그 안의 정보를 그림으로 그리고,
+          거기서 무엇을 어떻게 찾고 어떤 순서로 보여 줄지 설명하기&rdquo;</b></p>
+      </div>
+
+      <h3>어려운 말, 쉬운 말</h3>
+      <p class="note">이 다섯 낱말만 알면 아래 내용이 다 읽힙니다.</p>
+      <div class="words">
+        <div class="word"><b>선형 구조</b><span>한 줄로 늘어선 것. 줄 서기, 사물함 번호처럼 <b>앞뒤만</b> 있습니다.</span></div>
+        <div class="word"><b>비선형 구조</b><span>한 줄이 아닌 것. <b>여러 갈래로 이어진</b> 지하철 노선도나 가족 관계도처럼요.</span></div>
+        <div class="word"><b>트리</b><span>가지처럼 <b>위에서 아래로</b> 갈라지는 그림. 조직도, 폴더 구조.</span></div>
+        <div class="word"><b>그래프</b><span>점들이 <b>서로 얽혀</b> 이어진 그림. 지하철 노선도, 친구 관계.</span></div>
+        <div class="word"><b>노드 / 간선</b><span>노드는 <b>점</b>(역, 사람), 간선은 <b>점을 잇는 줄</b>(노선, 친구 사이).</span></div>
+        <div class="word"><b>시간 복잡도</b><span>자료가 많아질 때 <b>일이 얼마나 늘어나는지</b>를 나타낸 것. O(n) 같은 표기.</span></div>
+      </div>
+    </section>
 
     <!-- 01 -->
     <section id="goal">
@@ -4628,6 +4779,7 @@
       <div class="item">
         <div class="item-h"><span class="n">1</span><h4>탐구 주제 명칭 및 선정 이유</h4><span class="pts">평가요소 ① · 10점</span></div>
         <div class="item-b">
+          <p class="ez"><b>쉽게 말하면</b>어떤 서비스를 고를지 정하고, <b>그 안에서 무엇이 불편한지</b> 한 문장으로 쓰는 칸입니다. 서비스 이름만 쓰면 점수가 낮습니다.</p>
           <div class="verb">
             <span class="vf">안내 원문</span>
             <p>1. 탐구 주제 명칭 및 선정 이유<br>
@@ -4643,6 +4795,7 @@
       <div class="item">
         <div class="item-h"><span class="n">2</span><h4>자료구조 비교 및 추상화 분석</h4><span class="pts">평가요소 ②③ · 30점</span></div>
         <div class="item-b">
+          <p class="ez"><b>쉽게 말하면</b><b>&ldquo;한 줄로는 왜 안 되는지&rdquo;</b>를 설명하고, 그 정보를 <b>트리나 그래프 그림</b>으로 바꿔 점과 줄이 무엇인지 정하는 칸입니다.</p>
           <div class="verb">
             <span class="vf">안내 원문</span>
             <p>2. 자료구조 비교 및 추상화 분석<br>
@@ -4668,6 +4821,7 @@
       <div class="item">
         <div class="item-h"><span class="n">3</span><h4>탐색(Searching) 및 알고리즘 적용 시나리오</h4><span class="pts">평가요소 ④ · 15점</span></div>
         <div class="item-b">
+          <p class="ez"><b>쉽게 말하면</b>내가 그린 그림 위에서 <b>원하는 것을 어떻게 찾아갈지</b> 방법을 하나 고르고, <b>왜 그 방법인지</b> 쓰는 칸입니다.</p>
           <div class="verb">
             <span class="vf">안내 원문</span>
             <p>3. 탐색(Searching) 및 알고리즘 적용 시나리오<br>
@@ -4684,6 +4838,7 @@
       <div class="item big">
         <div class="item-h"><span class="n">4</span><h4>데이터 정렬(Sorting) 및 최적화 아이디어 제안</h4><span class="pts">평가요소 ⑤⑥ · 45점 · 최대</span></div>
         <div class="item-b">
+          <p class="ez"><b>쉽게 말하면</b>찾은 것들을 <b>어떤 순서로 보여 줄지</b> 정하는 칸입니다. <b>45점짜리라 가장 중요합니다.</b> 순서가 같을 때 무엇으로 또 나눌지까지 쓰세요.</p>
           <div class="verb">
             <span class="vf">안내 원문</span>
             <p>4. 데이터 정렬(Sorting) 및 최적화 아이디어 제안<br>
@@ -4722,7 +4877,10 @@
           <div class="track"><div class="val" style="width:100%"></div></div></div>
       </div>
 
-      <div class="tw">
+      <details class="fold">
+<summary>채점기준표 전문 보기 &mdash; 요소별로 몇 점이 어떤 수준인지 다 적혀 있습니다</summary>
+<div class="fold-b">
+<div class="tw">
         <table>
           <thead><tr><th scope="col">평가 요소</th><th scope="col">채점 기준 (수행 수준)</th><th scope="col">배점</th></tr></thead>
           <tbody>
@@ -4778,6 +4936,8 @@
           </tbody>
         </table>
       </div>
+</div>
+</details>
 
       <p class="cut"><span><b>분할점수</b> A: 80점 이상</span><span>B: 80점 미만 ~ 60점 이상</span><span>C: 60점 미만</span></p>
 
@@ -4889,7 +5049,9 @@
       <div class="prompt hot">
         <div class="prompt-h"><span class="k">&#9312; 시작</span><span class="t">양식 1~4 재료를 한 번에 받기</span>
           <button class="copy" type="button">복사</button></div>
-        <pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
+        <details class="fold">
+<summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
+<div class="fold-b"><pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
 나는 '비선형구조-알고리즘 연결고리 발견하기' 라는 탐구 보고서를 쓰고 있어.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -4945,13 +5107,16 @@
 2. 비교표까지는 괜찮지만, 내 보고서에 그대로 들어갈
    최종 표나 최종 결론은 만들지 마.
 3. 사실이 확실하지 않으면 '확인 필요' 라고 표시해 줘.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre></div>
+</details>
       </div>
 
       <div class="prompt">
         <div class="prompt-h"><span class="k">&#9313; 마무리</span><span class="t">제출 직전 · 채점기준 대조와 베낀 곳 점검</span>
           <button class="copy" type="button">복사</button></div>
-        <pre>다 썼어. 이제 마지막 점검만 해 줘.
+        <details class="fold">
+<summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
+<div class="fold-b"><pre>다 썼어. 이제 마지막 점검만 해 줘.
 
 [채점기준]  총 100점 · 영역명 '정렬 알고리즘 설계'
  ① 탐구 주제 선정 및 문제 인식                10점
@@ -4976,7 +5141,8 @@
    전부 찾아 줘. 다시 써 주지는 말고 어디인지만 알려 줘.
 4. 각 요소를 한 단계 올리려면 무엇을 더 생각해야 하는지 알려 줘.
    완성된 문장이나 표를 대신 만들어 주지는 마.
-5. 마지막에 [지금 고쳐야 할 순서] 를 3개로 정리해 줘.</pre>
+5. 마지막에 [지금 고쳐야 할 순서] 를 3개로 정리해 줘.</pre></div>
+</details>
       </div>
 
       <div class="alarm">
@@ -5091,6 +5257,7 @@
     <nav class="rail" aria-label="차례">
       <p class="rail-t">차례</p>
       <ol>
+        <li><a href="#t2-tldr">30초 요약</a></li>
         <li><a href="#t2-goal">과제의 목적</a></li>
         <li><a href="#t2-flow">2차시 진행 흐름</a></li>
         <li><a href="#t2-form">작성 양식 5항목</a></li>
@@ -5102,6 +5269,58 @@
     </nav>
 
     <main>
+
+      <section id="t2-tldr">
+        <div class="sh"><span class="sh-n">00 / 요약</span><h2>30초 요약 &mdash; 딱 이것만 알면 됩니다</h2></div>
+
+        <div class="tldr">
+          <div class="td-c">
+            <h4><i>&#10067;</i>무엇을 하나요?</h4>
+            <p>무언가를 <b>빠르게 찾는 문제</b>를 하나 고릅니다.
+              선생님이 준 <b>코드를 실행</b>해서
+              &lsquo;하나씩 찾기&rsquo;와 &lsquo;반씩 줄여 찾기&rsquo;가
+              <b>각각 몇 번 만에 찾는지</b> 직접 세어 봅니다.</p>
+            <p><b>코드는 다 만들어져 있습니다.</b> 실행 버튼만 누르면 됩니다.</p>
+          </div>
+          <div class="td-c">
+            <h4><i>&#128197;</i>언제 하나요?</h4>
+            <p><span class="big">9/14 ~ 9/18</span>
+              <b>수업 시간 2차시</b>에 합니다. 집에서 만들어 오는 숙제가 아닙니다.</p>
+          </div>
+          <div class="td-c">
+            <h4><i>&#128196;</i>무엇을 내나요?</h4>
+            <p><span class="big">질문 5개</span>
+              <b>작성 양식 1~5번</b>에 답을 쓴 보고서 + <b>실행한 화면</b>.
+              화면은 복사해서 붙여넣기만 하면 됩니다.</p>
+          </div>
+          <div class="td-c">
+            <h4><i>&#128175;</i>점수는요?</h4>
+            <p><span class="big">100점</span>
+              학기 성적의 <b>35%</b>. 그중 <b>직접 실행한 결과가 50점</b>.
+              돌려 보기만 해도 절반입니다.</p>
+          </div>
+        </div>
+
+        <div class="easy">
+          <h5>이 과제를 한 문장으로</h5>
+          <p><b>&ldquo;찾는 문제를 하나 골라, 주어진 코드를 돌려 보고,
+            두 가지 찾는 방법이 몇 번 만에 찾는지 세어서 비교하기&rdquo;</b></p>
+          <p>사전에서 낱말을 찾는다고 생각해 보세요.
+            <b>1쪽부터 한 장씩</b> 넘기는 사람과, <b>가운데를 펼쳐 절반을 버리는</b> 사람.
+            누가 빠를까요? 그 차이를 <b>숫자로 확인하는 것</b>이 이 과제입니다.</p>
+        </div>
+
+        <h3>어려운 말, 쉬운 말</h3>
+        <p class="note">이 여섯 낱말만 알면 아래 내용이 다 읽힙니다.</p>
+        <div class="words">
+          <div class="word"><b>탐색</b><span>여러 개 중에서 <b>원하는 것 하나를 찾는</b> 일.</span></div>
+          <div class="word"><b>탐색키</b><span>찾을 때 쓰는 <b>이름표</b>. 학번, 전화번호, 책 제목처럼 겹치지 않는 것.</span></div>
+          <div class="word"><b>순차 탐색</b><span><b>앞에서부터 하나씩</b> 확인. 사전을 1쪽부터 넘기는 방법.</span></div>
+          <div class="word"><b>이진 탐색</b><span><b>가운데를 보고 절반을 버리기.</b> 대신 미리 <b>순서대로 정렬</b>돼 있어야 합니다.</span></div>
+          <div class="word"><b>해싱</b><span>번호를 <b>계산해서 단번에</b> 찾아가기. 학번 나머지로 사물함을 정하는 것처럼요.</span></div>
+          <div class="word"><b>O(n) / O(log n)</b><span>자료가 100만 개일 때 <b>O(n)은 약 50만 번</b>, <b>O(log n)은 약 20번</b>. 그만큼 차이 납니다.</span></div>
+        </div>
+      </section>
 
       <section id="t2-goal">
         <div class="sh"><span class="sh-n">01 / 목적</span><h2>이 과제로 무엇을 확인하는가</h2></div>
@@ -5141,7 +5360,10 @@
           </p>
         </div>
 
-        <h3>수업에서 배운 것이 그대로 과제가 됩니다</h3>
+        <details class="fold">
+<summary>6주차 &middot; 7주차 <b>수업에서 배운 것</b>이 어느 양식이 되는지 펼쳐 보기</summary>
+<div class="fold-b">
+<h3>수업에서 배운 것이 그대로 과제가 됩니다</h3>
         <p class="note">따로 공부해야 할 새 내용은 없습니다. <strong>6주차 · 7주차 수업만으로</strong> 다섯 항목이 모두 채워집니다.</p>
         <div class="tw">
           <table>
@@ -5164,6 +5386,8 @@
             </tbody>
           </table>
         </div>
+</div>
+</details>
 
         <div class="cut-note"><b>색인 순차 탐색 &middot; 보간 탐색 &middot; AVL 트리는 이번 과제의 범위가 아닙니다</b>
           이 세 가지는 <strong>8주차(9/21~9/23)</strong>, 그러니까 수행평가가 끝난 뒤에 배웁니다.
@@ -5251,6 +5475,7 @@
         <div class="item">
           <div class="item-h"><span class="n">1</span><h4>탐구 주제 명칭 및 자료의 특성 분석</h4><span class="pts">평가요소 ① · 15점</span></div>
           <div class="item-b">
+            <p class="ez"><b>쉽게 말하면</b><b>무엇을 가지고 무엇을 찾을지</b> 정하고, 그 자료가 <b>몇 개쯤이고 순서대로 정리돼 있는지</b> 적는 칸입니다.</p>
             <div class="verb">
               <span class="vf">작성 양식</span>
               <p>1. 탐구 주제 명칭 및 선정 이유<br>
@@ -5277,7 +5502,10 @@
               중요한 것은 주제 이름이 아니라 <strong>키 &middot; 규모 &middot; 정렬 여부 &middot; 변동</strong> 네 가지를 스스로 채우는 일입니다.
               아래 &lsquo;어울리는 구조&rsquo;는 <strong>정답이 아니라 예시</strong>이니, 근거는 반드시 직접 쓰세요.</p>
 
-            <div class="tcards">
+            <details class="fold">
+<summary>주제가 안 떠오를 때 &mdash; <b>예시 6가지</b> 펼쳐 보기</summary>
+<div class="fold-b">
+<div class="tcards">
               <div class="tcard">
                 <h5>학교 도서관 도서 검색</h5>
                 <dl>
@@ -5344,6 +5572,8 @@
                 <span class="fit">해시 테이블 h(k)=k mod M</span>
               </div>
             </div>
+</div>
+</details>
 
             <div class="cut-note"><b>사물함 예시는 수업에서 이미 봤습니다</b>
               7주차 해싱 수업의 <strong>&lsquo;사물함에 번호를 계산해서 넣기&rsquo;</strong> 가 바로 이 주제입니다.
@@ -5358,6 +5588,7 @@
         <div class="item">
           <div class="item-h"><span class="n">2</span><h4>탐색 방법 선택 및 근거</h4><span class="pts">평가요소 ② · 25점</span></div>
           <div class="item-b">
+            <p class="ez"><b>쉽게 말하면</b>찾는 방법을 하나 고르고 <b>&ldquo;왜 다른 방법이 아니라 이것인지&rdquo;</b> 설명하는 칸입니다. 비교해서 쓰면 점수가 올라갑니다.</p>
             <div class="verb">
               <span class="vf">작성 양식</span>
               <p>2. 탐색 방법 선택 및 근거</p>
@@ -5416,6 +5647,7 @@
         <div class="item big">
           <div class="item-h"><span class="n">3</span><h4>코드 실행 및 시뮬레이션</h4><span class="pts">평가요소 ③ · 25점</span></div>
           <div class="item-b">
+            <p class="ez"><b>쉽게 말하면</b>코드를 <b>실행하고 나온 화면을 그대로 붙여넣는</b> 칸입니다. 그 화면을 보고 표를 채우면 끝입니다.</p>
             <div class="verb">
               <span class="vf">작성 양식</span>
               <p>3. 아래 <strong>코드 A·B</strong>를 Google Colab에서 실행하고 결과를 붙여넣으세요.</p>
@@ -5499,7 +5731,10 @@
               예 &mdash; &ldquo;실습에 넣을 연습용 데이터 20개를 AI로 생성함. 실행과 결과 정리는 직접 함.&rdquo;
               <strong>적으면 아무 문제 없고, 안 적으면 감점됩니다.</strong></div>
 
-            <div class="prompt">
+            <details class="fold">
+<summary><b>코드 A</b> 순차 탐색 &mdash; 앞에서부터 하나씩 찾는 코드 &mdash; 펼쳐 보기 <span style="font-weight:400;color:var(--muted)">(Colab 노트북에 그대로 들어 있습니다)</span></summary>
+<div class="fold-b">
+<div class="prompt">
               <div class="prompt-h"><span class="k">코드 A</span><span class="t">순차 탐색 · 한 단계씩 찾는 과정 보기</span>
                 <button class="copy" type="button">복사</button></div>
               <pre># =========================================================
@@ -5531,8 +5766,13 @@ def sequential_search(data, target):
 
 sequential_search(data, target)</pre>
             </div>
+</div>
+</details>
 
-            <div class="prompt">
+            <details class="fold">
+<summary><b>코드 B</b> 이진 탐색 &mdash; 범위를 절반씩 줄이는 코드 &mdash; 펼쳐 보기 <span style="font-weight:400;color:var(--muted)">(Colab 노트북에 그대로 들어 있습니다)</span></summary>
+<div class="fold-b">
+<div class="prompt">
               <div class="prompt-h"><span class="k">코드 B</span><span class="t">이진 탐색 · 범위가 절반씩 줄어드는 과정 보기</span>
                 <button class="copy" type="button">복사</button></div>
               <pre># =========================================================
@@ -5576,6 +5816,8 @@ def binary_search(data, target):
 
 binary_search(data, target)</pre>
             </div>
+</div>
+</details>
 
             <div class="cut-note"><b>25점과 20점을 가르는 단 하나 &mdash; &lsquo;없는 값&rsquo;</b>
               채점기준의 만점 문장에는 <strong>&ldquo;찾는 값이 없는 경우까지 실행하여&rdquo;</strong> 가 들어 있습니다.
@@ -5597,6 +5839,7 @@ binary_search(data, target)</pre>
         <div class="item big">
           <div class="item-h"><span class="n">4</span><h4>실행 결과로 확인한 효율</h4><span class="pts">평가요소 ④ · 25점</span></div>
           <div class="item-b">
+            <p class="ez"><b>쉽게 말하면</b>자료를 10개부터 100만 개까지 늘려 가며 <b>몇 번 만에 찾는지 세어 표에 옮기는</b> 칸입니다. 그 숫자로 두 방법을 비교합니다.</p>
             <div class="verb">
               <span class="vf">작성 양식</span>
               <p>4. 아래 <strong>코드 C</strong>를 실행하여 자료 크기별 비교 횟수를 표로 기록하세요.</p>
@@ -5628,7 +5871,10 @@ binary_search(data, target)</pre>
                 · 자료가 커질 때 <strong>무엇을 선택해야 하는지</strong> 기준을 제시하세요.</p>
             </div>
 
-            <div class="prompt">
+            <details class="fold">
+<summary><b>코드 C</b> 자료를 키워 가며 비교 횟수를 재는 코드 &mdash; 펼쳐 보기 <span style="font-weight:400;color:var(--muted)">(Colab 노트북에 그대로 들어 있습니다)</span></summary>
+<div class="fold-b">
+<div class="prompt">
               <div class="prompt-h"><span class="k">코드 C</span><span class="t">자료가 커지면 얼마나 차이 나는가 · 실측 실험</span>
                 <button class="copy" type="button">복사</button></div>
               <pre># =========================================================
@@ -5674,6 +5920,8 @@ for n in [10, 100, 1000, 10000, 100000, 1000000]:
 
 print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")</pre>
             </div>
+</div>
+</details>
 
             <div class="tip"><b>비교는 숫자로 하세요</b>
               <p>“이진 탐색이 더 빠르다”가 아니라 <strong>“100만 건에서 순차 탐색은 평균 약 50만 번,
@@ -5685,6 +5933,7 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         <div class="item">
           <div class="item-h"><span class="n">5</span><h4>참고 자료 출처와 AI 활용 기록</h4><span class="pts">평가요소 ⑤ · 10점</span></div>
           <div class="item-b">
+            <p class="ez"><b>쉽게 말하면</b><b>무엇을 보고 썼는지, AI를 어디에 썼는지</b> 두세 줄 적는 칸입니다. 쓰기만 하면 10점, 안 쓰면 감점입니다.</p>
             <div class="verb">
               <span class="vf">작성 양식</span>
               <p>5. 참고 자료 및 인공지능 활용 기록</p>
@@ -5750,7 +5999,10 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
             <div class="track"><div class="val" style="width:40%"></div></div></div>
         </div>
 
-        <div class="tw">
+        <details class="fold">
+<summary>채점기준표 전문 보기 &mdash; 요소별로 몇 점이 어떤 수준인지 다 적혀 있습니다</summary>
+<div class="fold-b">
+<div class="tw">
           <table>
             <thead><tr><th scope="col">평가 요소</th><th scope="col">채점 기준 (수행 수준)</th><th scope="col">배점</th></tr></thead>
             <tbody>
@@ -5798,6 +6050,8 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
             </tbody>
           </table>
         </div>
+</div>
+</details>
 
         <p class="cut"><span><b>분할점수</b> A: 80점 이상</span><span>B: 80점 미만 ~ 60점 이상</span><span>C: 60점 미만</span></p>
 
@@ -5816,7 +6070,10 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         <h3>성취기준별 성취수준</h3>
         <p class="note">점수가 아니라 <strong>무엇을 할 수 있으면 그 수준인지</strong>를 적어 둔 것입니다.
           평가 운영 계획서의 원문 그대로입니다.</p>
-        <div class="goals" style="grid-template-columns:1fr">
+        <details class="fold">
+<summary>성취수준 <b>A &middot; B &middot; C</b> 가 각각 무엇을 할 수 있는 수준인지 펼쳐 보기</summary>
+<div class="fold-b">
+<div class="goals" style="grid-template-columns:1fr">
           <div class="goal">
             <span class="g-k">성취수준 A</span>
             <h4>자료의 특성으로 고르고, 실측으로 검증하고, 기준까지 제시한다</h4>
@@ -5838,6 +6095,8 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
               그 과정을 제시하며 효율에 대한 기본 내용을 설명할 수 있다.</p>
           </div>
         </div>
+</div>
+</details>
 
         <h3>지금 내 글은 몇 점일까 · 자가 채점</h3>
         <p class="note">각 요소에서 <strong>내 글이 실제로 도달한 줄</strong>을 눌러 보세요.
@@ -5987,7 +6246,9 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         <div class="prompt hot">
           <div class="prompt-h"><span class="k">&#9312; 시작</span><span class="t">양식 1~5 재료 + 실습 데이터를 한 번에 받기</span>
             <button class="copy" type="button">복사</button></div>
-          <pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
+          <details class="fold">
+<summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
+<div class="fold-b"><pre>너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.
 나는 '탐색 알고리즘 설계' 라는 탐구 보고서를 쓰고 있어.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -6071,13 +6332,16 @@ target = "..."
 2. 내 보고서에 그대로 넣을 '완성된 문단' 은 만들지 마.
    나는 네 답변을 재료로만 쓰고, 문장은 내가 직접 쓸 거야.
 3. 사실이 확실하지 않으면 '확인 필요' 라고 표시해 줘.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre></div>
+</details>
         </div>
 
         <div class="prompt">
           <div class="prompt-h"><span class="k">&#9313; 마무리</span><span class="t">제출 직전 · 채점기준 대조와 계산 검산</span>
             <button class="copy" type="button">복사</button></div>
-          <pre>다 썼어. 이제 마지막 점검만 해 줘.
+          <details class="fold">
+<summary>프롬프트 내용 보기 <span style="font-weight:400;color:var(--muted)">(복사만 할 거면 펼치지 않아도 됩니다)</span></summary>
+<div class="fold-b"><pre>다 썼어. 이제 마지막 점검만 해 줘.
 
 [채점기준]  총 100점 · 영역명 '탐색 알고리즘 설계'
  ① 탐색 문제 상황 분석 및 자료 구조 선정        15점
@@ -6106,7 +6370,8 @@ target = "..."
    완성된 문장이나 표를 대신 만들어 주지는 마.
 6. 마지막에 [지금 고쳐야 할 순서] 를 3개로 정리해 줘.
 
-내 실행 결과의 숫자를 네가 고쳐 쓰지 마. 틀렸으면 틀렸다고만 알려 줘.</pre>
+내 실행 결과의 숫자를 네가 고쳐 쓰지 마. 틀렸으면 틀렸다고만 알려 줘.</pre></div>
+</details>
         </div>
 
           <div class="alarm">
@@ -6206,7 +6471,7 @@ target = "..."
     })();
 
     var PAGE_DATE = '2026-08-19';
-    var PAGE_NOTE = '넓은 화면 가득 채우기';
+    var PAGE_NOTE = '30초 요약 · 쉬운 말 · 접기 정리';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
