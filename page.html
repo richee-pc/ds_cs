@@ -5236,7 +5236,11 @@
 </details>
       </div>
 
-      <div class="fl" style="margin-top:16px">
+      <a class="cta" data-formmaker href="#" target="_blank" rel="noopener noreferrer"
+         style="display:none;margin:0 0 14px">
+        양식 문서 바로 만들기 <span>&rarr;</span></a>
+
+            <div class="fl" style="margin-top:16px">
         <h4>받은 [문서 틀] 을 구글 문서 &middot; 슬라이드로 옮기기</h4>
         <div class="line-by-line">
           <div class="lbl-row"><code>1</code>
@@ -6554,7 +6558,11 @@ target = "..."
 </details>
         </div>
 
-        <div class="fl" style="margin-top:16px">
+        <a class="cta" data-formmaker href="#" target="_blank" rel="noopener noreferrer"
+           style="display:none;margin:0 0 14px">
+          양식 문서 바로 만들기 <span>&rarr;</span></a>
+
+                <div class="fl" style="margin-top:16px">
           <h4>받은 [문서 틀] 을 구글 문서 &middot; 슬라이드로 옮기기</h4>
           <div class="line-by-line">
             <div class="lbl-row"><code>1</code>
@@ -6713,8 +6721,30 @@ target = "..."
       (document.head || document.documentElement).appendChild(m);
     })();
 
+    /* =====================================================================
+       수행평가 양식 생성기 주소
+
+         구글 Apps Script 로 배포한 웹 앱 주소를 여기에 넣으면
+         프롬프트 칸 아래에 «양식 문서 바로 만들기» 버튼이 나타납니다.
+         비워 두면 버튼은 보이지 않습니다.
+
+         만드는 방법은 저장소의 «양식생성_안내.md» 를 보세요.
+       ===================================================================== */
+    var 양식생성주소 = '';
+
+    (function () {
+      var btns = document.querySelectorAll('[data-formmaker]');
+      if (!btns.length) return;
+      var url = (양식생성주소 || '').trim();
+      btns.forEach(function (a) {
+        if (!url) { a.style.display = 'none'; return; }
+        a.href = url;
+        a.style.display = '';
+      });
+    })();
+
     var PAGE_DATE = '2026-08-19';
-    var PAGE_NOTE = '구글 문서·슬라이드 틀 만들기 추가';
+    var PAGE_NOTE = '양식 문서 자동 생성 연결';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
