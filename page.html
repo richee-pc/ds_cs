@@ -7978,6 +7978,7 @@ function 묶기_(줄들, n) {
       });
     })();
 
+    var PAGE_VER  = 'v16';           // 날짜만으로는 판이 구분되지 않아 번호를 함께 적는다
     var PAGE_DATE = '2026-08-21';
     var PAGE_NOTE = '결과물에 판 표시';
 
@@ -7989,14 +7990,14 @@ function 묶기_(줄들, n) {
     var VER_ON_TOP = true;
 
     (function () {
-      var full = PAGE_DATE + ' · ' + PAGE_NOTE;
+      var full = PAGE_VER + ' · ' + PAGE_DATE + ' · ' + PAGE_NOTE;
 
       /* 각 탭 표제부의 라벨 줄 맨 뒤 — 탭을 열자마자 눈에 들어온다 */
       if (VER_ON_TOP) {
         document.querySelectorAll('.page .kicker').forEach(function (k) {
           var i = document.createElement('i');
           i.className = 'ver';
-          i.textContent = '판 ' + PAGE_DATE;
+          i.textContent = '판 ' + PAGE_VER + ' · ' + PAGE_DATE;
           k.appendChild(i);
         });
       }
