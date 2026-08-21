@@ -3697,6 +3697,20 @@
   .여기서 .tiny { font-size:12.5px; color:var(--muted); margin:8px 0 0; }
   .여기서 pre.프롬 { max-height:230px; overflow:auto; background:var(--code-bg,#0f2226); color:#dbe9e6;
     padding:12px 14px; border-radius:6px; font-size:12px; line-height:1.65; white-space:pre-wrap; margin:9px 0 0; }
+
+  .여기서 .한줄 { font-size:13.5px; line-height:1.9; margin:6px 0 4px; }
+  .여기서 .한줄 strong { color:var(--accent); }
+  .여기서 ol.차례 { margin:6px 0 0; padding-left:0; list-style:none; counter-reset:ㄱ; }
+  .여기서 ol.차례 li { counter-increment:ㄱ; position:relative; padding:5px 0 5px 30px;
+    font-size:13.5px; line-height:1.75; }
+  .여기서 ol.차례 li::before { content:counter(ㄱ); position:absolute; left:0; top:6px;
+    width:20px; height:20px; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:11.5px; font-weight:800; text-align:center; line-height:20px; }
+  .여기서 ol.차례 li b { color:var(--accent); }
+  .여기서 .꼭 { border:1px solid var(--accent); border-radius:7px; padding:11px 14px; margin-top:12px; }
+  .여기서 .꼭 p { margin:0 0 6px; font-size:13px; font-weight:800; color:var(--accent); }
+  .여기서 .꼭 ul { margin:0; padding-left:17px; font-size:13px; line-height:1.8; }
+  .여기서 .꼭 li + li { margin-top:3px; }
   @media (min-width: 1400px) {
     .shell, .topbar-in, .hero-in, .draft-in { max-width: 1290px; }
   }
@@ -5165,9 +5179,12 @@
       </div>
 
       <div class="callout hot 여기서" data-task="1">
-        <h4>이 쪽에서 바로 하기 &mdash; 구글 로그인 없이</h4>
-        <p>앱스크립트가 열리지 않아도 됩니다. <strong>이 페이지 안에서 처음부터 끝까지</strong>
-          할 수 있습니다. 구글 로그인도 승인도 필요 없습니다.</p>
+        <h4>여기서 바로 하기</h4>
+        <p class="한줄"><strong>&#9312;</strong> 내 정보 넣고 프롬프트 만들기 &rarr;
+          <strong>&#9313;</strong> 제미나이에 물어보기 &rarr;
+          <strong>&#9314;</strong> 답변 붙여넣고 <strong>내 파일 받기</strong> &rarr;
+          <strong>&#9315;</strong> 그 파일에서 <strong>고쳐 쓰고 제출</strong></p>
+        <p class="tiny">구글 로그인도 승인도 필요 없습니다. 이 페이지에서 다 됩니다.</p>
         <div class="여기서-속"></div>
       </div>
 
@@ -6462,9 +6479,12 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
         </div>
 
         <div class="callout hot 여기서" data-task="2">
-          <h4>이 쪽에서 바로 하기 &mdash; 구글 로그인 없이</h4>
-          <p>앱스크립트가 열리지 않아도 됩니다. <strong>이 페이지 안에서 처음부터 끝까지</strong>
-            할 수 있습니다. 구글 로그인도 승인도 필요 없습니다.</p>
+          <h4>여기서 바로 하기</h4>
+          <p class="한줄"><strong>①</strong> 내 정보 넣고 프롬프트 만들기 &rarr;
+            <strong>②</strong> 제미나이에 물어보기 &rarr;
+            <strong>③</strong> 답변 붙여넣고 <strong>내 파일 받기</strong> &rarr;
+            <strong>④</strong> 그 파일에서 <strong>고쳐 쓰고 제출</strong></p>
+          <p class="tiny">구글 로그인도 승인도 필요 없습니다. 이 페이지에서 다 됩니다.</p>
           <div class="여기서-속"></div>
         </div>
 
@@ -8287,10 +8307,39 @@ function 묶기_(줄들, n) {
     단3.appendChild(줄3);
 
     var 끝말 = 손('p'); 끝말.className = 'tiny';
-    끝말.innerHTML = '만들어진 파일을 <strong>두 번 누르면</strong> 브라우저에서 열립니다. ' +
-      '그 안에서 글을 쓴 뒤 <strong>맨 아래 &laquo;제출 파일 만들기&raquo;</strong> 를 눌러 나온 파일을 제출하세요.';
+    끝말.innerHTML = '누르면 <b>내 이름이 붙은 파일</b>이 내려받아집니다.';
     단3.appendChild(끝말);
     속.appendChild(단3);
+
+    /* ---------- 4단계 : 받은 파일에서 할 일 ---------- */
+    var 단4 = 손('div'); 단4.className = '단';
+    var 실측있음 = spec.항목.some(function (it) { return it.실측; });
+    var 차례 = [
+      '내려받은 파일을 <b>두 번 눌러</b> 엽니다.',
+      '<b>AI 초안</b>을 읽습니다. 잘 쓴 답안이 어떤 것인지 보여 주는 글입니다.',
+      '초안 오른쪽 위 <b>«초안 복사»</b> 를 누르고, 아래 <b>«내가 고쳐 쓴 글»</b> 칸에 붙여넣습니다.',
+      '<b>«확인 · 수정할 곳»</b> 을 보면서 <b>내 문장으로 고쳐 씁니다.</b> ' +
+        '<b>채점은 이 칸만 봅니다.</b>'
+    ];
+    if (실측있음) {
+      차례.push('<b>«실행 도구»</b> 에서 직접 돌립니다. ' +
+        '<b>data 와 target 은 이미 채워져 있으니</b> «실행» 만 누르면 됩니다. ' +
+        '나온 결과를 <b>«이 결과를 그 항목에 붙여넣기»</b> 로 옮기고, <b>내 해석을 덧붙입니다.</b>');
+    }
+    차례.push('다 썼으면 <b>맨 아래 «제출 파일 만들기»</b> 를 누릅니다.');
+    차례.push('그렇게 나온 <b>«…_제출.html»</b> 파일을 선생님께 냅니다.');
+
+    단4.innerHTML = '<p class="단제목">4단계 &middot; 받은 파일에서 &mdash; 여기가 진짜 수행평가</p>' +
+      '<ol class="차례"><li>' + 차례.join('</li><li>') + '</li></ol>' +
+      '<div class="꼭"><p>꼭 지키기</p><ul>' +
+      '<li><b>«제출 파일 만들기» 를 안 누르면 빈 종이가 제출됩니다.</b> ' +
+        '파일 이름이 <b>_제출.html</b> 로 끝나는지 보세요.</li>' +
+      '<li><b>AI 초안을 그대로 두고 내면 해당 평가요소 최하점입니다.</b> 반드시 고쳐 쓰세요.</li>' +
+      (실측있음 ? '<li><b>숫자는 직접 돌려서 채웁니다.</b> AI가 지어낸 숫자를 쓰면 안 됩니다.</li>' : '') +
+      '<li><b>집에서 이어 쓰려면</b> 제출 파일을 만들어 두었다가, 새 파일을 열고 ' +
+        '<b>«이어 쓰기»</b> 로 그 파일을 불러오세요. 쓰던 글이 그대로 돌아옵니다.</li>' +
+      '</ul></div>';
+    속.appendChild(단4);
 
     /* ---------- 움직임 ---------- */
     function 값(이름) {
@@ -8414,7 +8463,7 @@ function 묶기_(줄들, n) {
     })();
 
     var PAGE_DATE = '2026-08-21';
-    var PAGE_NOTE = '이어 쓰기 · 초안 복사 · 칸 자동';
+    var PAGE_NOTE = '탭 안에 학생용 설명';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
