@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v4
+ * 자료구조 수행평가 양식 생성기  v5
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,7 +16,7 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 4;
+var VER = 5;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 문서 틀 시작 ===';
@@ -122,10 +122,10 @@ var 양식 = {
    ===================================================================== */
 
 var 테마 = {
-  teal:  { 이름: '청록', 큰제목: '#0c7d71', 작은제목: '#14504a', 안내: '#6a8a8a', 빈칸: '#b6c4c2' },
-  navy:  { 이름: '남색', 큰제목: '#1b3f8b', 작은제목: '#162f63', 안내: '#75839f', 빈칸: '#b9c1d2' },
-  plum:  { 이름: '자주', 큰제목: '#7a2f68', 작은제목: '#57204a', 안내: '#98798f', 빈칸: '#cbb8c5' },
-  mono:  { 이름: '흑백 (인쇄용)', 큰제목: '#1a1a1a', 작은제목: '#333333', 안내: '#707070', 빈칸: '#b0b0b0' }
+  teal:  { 이름: '청록', 큰제목: '#0c7d71', 작은제목: '#14504a', 안내: '#6a8a8a', 빈칸: '#b6c4c2', 본문: '#1a1a1a' },
+  navy:  { 이름: '남색', 큰제목: '#1b3f8b', 작은제목: '#162f63', 안내: '#75839f', 빈칸: '#b9c1d2', 본문: '#1a1a1a' },
+  plum:  { 이름: '자주', 큰제목: '#7a2f68', 작은제목: '#57204a', 안내: '#98798f', 빈칸: '#cbb8c5', 본문: '#1a1a1a' },
+  mono:  { 이름: '흑백 (인쇄용)', 큰제목: '#1a1a1a', 작은제목: '#333333', 안내: '#707070', 빈칸: '#b0b0b0', 본문: '#1a1a1a' }
 };
 
 var 글꼴목록 = ['본고딕', '나눔고딕', '맑은 고딕', '바탕'];
@@ -376,15 +376,18 @@ function 문서_(spec, 이름, info, 모양, 조각) {
   var ff = 글꼴이름[모양.font] || 글꼴이름['본고딕'];
   var 본문크기 = (모양.size === '크게') ? 12 : 11;
 
+  /* 구글 문서는 새 문단이 «앞 문단의 글자 서식» 을 물려받는다.
+     굵게·기울임·색을 늘 명시해 주지 않으면 ● 다음 줄이 굵어지고
+     안내 문구 다음의 표가 통째로 기울어진다. */
   function 글(text, opt) {
     opt = opt || {};
     var p = body.appendParagraph(text);
     if (opt.heading) p.setHeading(opt.heading);
     p.setFontFamily(ff);
     p.setFontSize(opt.size || 본문크기);
-    if (opt.color) p.setForegroundColor(opt.color);
-    if (opt.bold !== undefined) p.setBold(opt.bold);
-    if (opt.italic) p.setItalic(true);
+    p.setForegroundColor(opt.color || c.본문);
+    p.setBold(opt.bold === true);
+    p.setItalic(opt.italic === true);
     return p;
   }
 
@@ -404,7 +407,8 @@ function 문서_(spec, 이름, info, 모양, 조각) {
                     : spec.항목.map(function (it) { return it.번호 + '. ' + it.제목; });
     제목들.forEach(function (t) {
       var li = body.appendListItem(t);
-      li.setGlyphType(DocumentApp.GlyphType.NUMBER).setFontFamily(ff).setFontSize(본문크기);
+      li.setGlyphType(DocumentApp.GlyphType.NUMBER).setFontFamily(ff).setFontSize(본문크기)
+        .setForegroundColor(c.본문).setBold(false).setItalic(false);
     });
     글('');
   }
@@ -446,7 +450,8 @@ function 옮기기_문서_(body, 줄들, 글, c, ff, 본문크기, 모양, 참�
     if (/^```/.test(t)) { 코드중 = !코드중; i++; continue; }
     if (코드중) {
       var cp = body.appendParagraph(raw === '' ? ' ' : raw);
-      cp.setFontFamily('Consolas').setFontSize(본문크기 - 1).setForegroundColor(c.작은제목);
+      cp.setFontFamily('Consolas').setFontSize(본문크기 - 1)
+        .setForegroundColor(c.작은제목).setBold(false).setItalic(false);
       i++; continue;
     }
 
@@ -467,14 +472,17 @@ function 옮기기_문서_(body, 줄들, 글, c, ff, 본문크기, 모양, 참�
           return r;
         });
         var tb = body.appendTable(값);
+        tb.editAsText().setFontFamily(ff).setFontSize(본문크기)
+          .setForegroundColor(c.본문).setBold(false).setItalic(false);
         tb.getRow(0).editAsText().setBold(true).setForegroundColor(c.작은제목);
-        tb.editAsText().setFontFamily(ff).setFontSize(본문크기);
       }
       continue;
     }
 
     if (!t) { 글(''); }
     else if (t.indexOf('# ') === 0) {
+      // 표지를 이미 넣었으면 같은 제목이 두 번 나오므로 건너뛴다
+      if (!참고 && 모양.cover !== false) { i++; continue; }
       글(t.substring(2).trim(), 참고
         ? { heading: DocumentApp.ParagraphHeading.HEADING2, color: c.작은제목 }
         : { heading: DocumentApp.ParagraphHeading.TITLE, color: c.큰제목, size: 본문크기 + 11 });
@@ -505,7 +513,8 @@ function 옮기기_문서_(body, 줄들, 글, c, ff, 본문크기, 모양, 참�
     }
     else if (t.indexOf('- ') === 0 || t.indexOf('· ') === 0) {
       var li = body.appendListItem(t.substring(2).trim());
-      li.setGlyphType(DocumentApp.GlyphType.BULLET).setFontFamily(ff).setFontSize(본문크기);
+      li.setGlyphType(DocumentApp.GlyphType.BULLET).setFontFamily(ff).setFontSize(본문크기)
+        .setForegroundColor(c.본문).setBold(false).setItalic(false);
     }
     else if (/^-{3,}$/.test(t)) {
       body.appendHorizontalRule();
@@ -534,6 +543,8 @@ function 기본틀_문서_(body, spec, 글, c, 모양) {
       if (it.표.줄) it.표.줄.forEach(function (r) { 값.push(r.slice()); });
       else for (var i = 0; i < it.표.줄수; i++) 값.push(it.표.머리글.map(function () { return ''; }));
       var tb = body.appendTable(값);
+      tb.editAsText().setFontFamily(글꼴이름[모양.font] || 글꼴이름['본고딕'])
+        .setForegroundColor(c.본문).setBold(false).setItalic(false);
       tb.getRow(0).editAsText().setBold(true).setForegroundColor(c.작은제목);
     }
     글('');
