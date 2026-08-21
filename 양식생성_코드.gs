@@ -16,7 +16,8 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 15;
+var VER = 16;
+var 만든판 = 'v16 · 2026-08-21';   // 결과물에 찍어 둔다. 어느 판으로 만든 파일인지 한눈에 알려고.
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 답안 시작 ===';
@@ -801,6 +802,8 @@ function 웹문서HTML_(spec, 이름, info, 모양, 조각) {
   h.push('<button class="ghost" onclick="window.print()">인쇄 · PDF로 저장</button>');
   h.push('<button class="ghost" id="zap">입력 모두 지우기</button>');
   h.push('<span class="saved" id="saved"></span></div>');
+  h.push('<p class="note" style="text-align:center;margin-top:14px;opacity:.55">'
+    + '이 파일을 만든 판 &nbsp;' + 벗기기_(만든판) + '</p>');
   h.push('<p class="note" style="text-align:center;margin-top:10px">');
   h.push('<b>제출은 «제출 파일 만들기» 로 만든 파일을 내야 합니다.</b> ');
   h.push('지금 이 파일을 그대로 내면 쓴 글이 담기지 않아 <b>빈 양식</b>이 갑니다.</p>');
