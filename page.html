@@ -6796,7 +6796,7 @@ target = "..."
 
    여기를 직접 고치지 마세요. .gs 를 고치고 다시 빌드하세요. */
 
-var 만든판 = 'v16 · 2026-08-21';
+var 만든판 = 'v17 · 2026-08-21';
 
 var 시작표 = '=== 답안 시작 ===';
 
@@ -7370,6 +7370,13 @@ function 저장스크립트_() {
   j.push('    if(알림){ 알림.textContent="저장됨"; setTimeout(function(){알림.textContent="";},1200);} }catch(e){} }');
   j.push('  칸.forEach(function(t){ t.addEventListener("input", 저장); });');
   j.push('  불러오기();');
+  j.push('  // 없는 단추에 붙이려다 터지면 그 아래 줄이 전부 죽는다.');
+  j.push('  // 수행평가 1 처럼 «실행 도구» 가 없는 결과물도 있으므로 반드시 확인하고 붙인다.');
+  j.push('  function 눌리면(id, 할일){');
+  j.push('    var e = document.getElementById(id);');
+  j.push('    if (e) e.addEventListener("click", 할일);');
+  j.push('    return e; }');
+  j.push('');
   j.push('  var z = document.getElementById("zap");');
   j.push('  if(z) z.addEventListener("click", function(){');
   j.push('    if(!confirm("쓴 내용을 모두 지웁니다. 괜찮습니까?")) return;');
@@ -7416,12 +7423,12 @@ function 저장스크립트_() {
   j.push('      "<div class=\'out\'>"+글.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</div>"');
   j.push('      + "<p class=\'note\'>이진 탐색 과정을 표로 정리하면</p>" + 표 + 힌트; }');
   j.push('');
-  j.push('  document.getElementById("run").addEventListener("click", function(){ 돌리기(document.getElementById("d-t").value.trim()); });');
-  j.push('  document.getElementById("runx").addEventListener("click", function(){ 돌리기(document.getElementById("d-x").value.trim()); });');
+  j.push('  눌리면("run", function(){ 돌리기(document.getElementById("d-t").value.trim()); });');
+  j.push('  눌리면("runx", function(){ 돌리기(document.getElementById("d-x").value.trim()); });');
   j.push('');
   j.push('  // 이진 탐색이 가장 여러 단계 걸리는 값을 찾아 준다.');
   j.push('  // 가운데에 딱 걸리는 값을 고르면 한 번에 끝나 표가 한 줄뿐이라 근거가 약하다.');
-  j.push('  document.getElementById("runw").addEventListener("click", function(){');
+  j.push('  눌리면("runw", function(){');
   j.push('    var a=값들(); if(a.length<2){ alert("data 를 두 개 이상 넣어 주세요."); return; }');
   j.push('    var b=a.slice().sort(), 고른값=b[0], 최대=0;');
   j.push('    b.forEach(function(v){ var lo=0,hi=b.length-1,n=0;');
@@ -7430,7 +7437,7 @@ function 저장스크립트_() {
   j.push('      if(n>최대){ 최대=n; 고른값=v; } });');
   j.push('    document.getElementById("d-t").value=고른값; 돌리기(고른값); });');
   j.push('');
-  j.push('  document.getElementById("bench").addEventListener("click", function(){');
+  j.push('  눌리면("bench", function(){');
   j.push('    var b=this; b.disabled=true; b.textContent="재는 중...";');
   j.push('    setTimeout(function(){');
   j.push('      var 크기=[10,100,1000,10000,100000,1000000], 표="<table><tr><th>자료 크기 n</th><th>순차 탐색 평균</th><th>이진 탐색 평균</th><th>몇 배 차이</th><th>log2(n)</th></tr>";');
@@ -7450,7 +7457,7 @@ function 저장스크립트_() {
   j.push('      실행기록.push(글); 저장();');
   j.push('      b.disabled=false; b.textContent="실측 실험 실행"; }, 30); });');
   j.push('');
-  j.push('  document.getElementById("push").addEventListener("click", function(){');
+  j.push('  눌리면("push", function(){');
   j.push('    if(!마지막){ alert("먼저 실행해 주세요."); return; }');
   j.push('    var id=document.getElementById("target-sec").value, t=document.getElementById(id);');
   j.push('    if(!t) return;');
@@ -7474,7 +7481,7 @@ function 저장스크립트_() {
   j.push('  function 문단(t){ return 안전(t).split(/\\n/).map(function(l){');
   j.push('    return "<p>"+(l.trim()?l:"&nbsp;")+"</p>"; }).join(""); }');
   j.push('');
-  j.push('  document.getElementById("submit").addEventListener("click", function(){');
+  j.push('  눌리면("submit", function(){');
   j.push('    var 원본 = JSON.parse(document.getElementById("원본자료").textContent);');
   j.push('    var 빈칸 = [];');
   j.push('    var 답 = 원본.항목.map(function(it){');
@@ -7562,8 +7569,8 @@ function 저장스크립트_() {
   j.push('');
   j.push('  // ---- 이어 쓰기 : 제출 파일에서 내가 쓴 글을 되살린다 ----');
   j.push('  var 고르기 = document.getElementById("resume-f");');
-  j.push('  document.getElementById("resume").addEventListener("click", function(){ 고르기.click(); });');
-  j.push('  고르기.addEventListener("change", function(){');
+  j.push('  눌리면("resume", function(){ if (고르기) 고르기.click(); });');
+  j.push('  if (고르기) 고르기.addEventListener("change", function(){');
   j.push('    var f = 고르기.files && 고르기.files[0];');
   j.push('    if(!f) return;');
   j.push('    var r = new FileReader();');
@@ -7978,9 +7985,9 @@ function 묶기_(줄들, n) {
       });
     })();
 
-    var PAGE_VER  = 'v16';           // 날짜만으로는 판이 구분되지 않아 번호를 함께 적는다
+    var PAGE_VER  = 'v17';           // 날짜만으로는 판이 구분되지 않아 번호를 함께 적는다
     var PAGE_DATE = '2026-08-21';
-    var PAGE_NOTE = '결과물에 판 표시';
+    var PAGE_NOTE = '수행평가 1 결과물 오류 고침';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
