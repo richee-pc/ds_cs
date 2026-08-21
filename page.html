@@ -3680,6 +3680,23 @@
   #직접만들기 .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
   #직접만들기 #ht-msg { font-size:13px; font-weight:700; }
   #직접만들기 .tiny { font-size:12.5px; color:var(--muted); margin-top:9px; }
+
+  .여기서 .단 { border-top:1px solid var(--line); margin-top:14px; padding-top:14px; }
+  .여기서 .단:first-child { border-top:0; margin-top:10px; padding-top:0; }
+  .여기서 .단제목 { font-size:13px; font-weight:800; color:var(--accent); margin:0 0 8px; }
+  .여기서 .칸들 { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 10px; }
+  .여기서 .칸들 label { flex:1; min-width:120px; font-size:12.5px; font-weight:700; color:var(--muted); }
+  .여기서 input, .여기서 select, .여기서 textarea {
+    display:block; width:100%; margin-top:4px; padding:8px 10px; box-sizing:border-box;
+    border:1px solid var(--line); border-radius:6px; font:inherit; font-size:14px;
+    background:var(--card); color:var(--ink); }
+  .여기서 textarea { font-family:Consolas,monospace; font-size:12.5px; line-height:1.7; resize:vertical; }
+  .여기서 .줄 { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:9px; }
+  .여기서 .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .여기서 .말 { font-size:12.5px; font-weight:700; }
+  .여기서 .tiny { font-size:12.5px; color:var(--muted); margin:8px 0 0; }
+  .여기서 pre.프롬 { max-height:230px; overflow:auto; background:var(--code-bg,#0f2226); color:#dbe9e6;
+    padding:12px 14px; border-radius:6px; font-size:12px; line-height:1.65; white-space:pre-wrap; margin:9px 0 0; }
   @media (min-width: 1400px) {
     .shell, .topbar-in, .hero-in, .draft-in { max-width: 1290px; }
   }
@@ -5147,6 +5164,13 @@
         </div>
       </div>
 
+      <div class="callout hot 여기서" data-task="1">
+        <h4>이 쪽에서 바로 하기 &mdash; 구글 로그인 없이</h4>
+        <p>앱스크립트가 열리지 않아도 됩니다. <strong>이 페이지 안에서 처음부터 끝까지</strong>
+          할 수 있습니다. 구글 로그인도 승인도 필요 없습니다.</p>
+        <div class="여기서-속"></div>
+      </div>
+
       <details class="fold">
       <summary>웹앱을 쓸 수 없을 때 &mdash; 프롬프트를 직접 복사해서 쓰기 <span style="font-weight:400;color:var(--muted)">(위 버튼을 쓰면 이 과정이 자동입니다)</span></summary>
       <div class="fold-b">
@@ -6437,28 +6461,11 @@ print("\n이진 탐색의 비교 횟수와 log2(n) 값을 비교해 보세요.")
           </div>
         </div>
 
-        <div class="callout warn" id="직접만들기" style="margin-top:18px">
-          <h4>앱스크립트가 열리지 않을 때 &mdash; 여기서 바로 만들기</h4>
-          <p>학교 계정에 따라 앱스크립트가 막혀 있을 수 있습니다.
-            그럴 때는 <strong>구글 로그인도 승인도 없이</strong> 여기서 같은 HTML 결과물을 만들 수 있습니다.
-            위 &laquo;웹앱을 쓸 수 없을 때&raquo; 를 펼쳐 프롬프트를 복사해 제미나이에 묻고,
-            받은 답변을 아래에 통째로 붙여넣으세요.</p>
-
-          <div class="who-in">
-            <label>반 <input id="ht-cls" type="text" inputmode="numeric" placeholder="3" maxlength="2"></label>
-            <label>번호 <input id="ht-no" type="text" inputmode="numeric" placeholder="7" maxlength="2"></label>
-            <label>이름 <input id="ht-name" type="text" placeholder="홍길동" maxlength="10"></label>
-          </div>
-
-          <textarea id="ht-paste" rows="7" placeholder="제미나이 답변을 여기에 통째로 붙여넣으세요"></textarea>
-
-          <div class="ht-row">
-            <button class="btn" id="ht-go">HTML 결과물 만들기</button>
-            <button class="btn ghost" id="ht-blank">빈 양식으로 만들기</button>
-            <span id="ht-msg"></span>
-          </div>
-          <p class="tiny">만들어진 파일을 두 번 누르면 브라우저에서 열립니다.
-            그 안에서 코드를 돌리고 글을 쓴 뒤, <strong>맨 아래 &laquo;제출 파일 만들기&raquo;</strong> 를 눌러 낸 파일을 제출하세요.</p>
+        <div class="callout hot 여기서" data-task="2">
+          <h4>이 쪽에서 바로 하기 &mdash; 구글 로그인 없이</h4>
+          <p>앱스크립트가 열리지 않아도 됩니다. <strong>이 페이지 안에서 처음부터 끝까지</strong>
+            할 수 있습니다. 구글 로그인도 승인도 필요 없습니다.</p>
+          <div class="여기서-속"></div>
         </div>
 
         <details class="fold">
@@ -7370,6 +7377,120 @@ var 글꼴이름 = {
   '바탕': 'Batang'
 };
 
+function makePrompt(info) {
+  try {
+    var spec = 양식[String(info.task)];
+    if (!spec) return { ok: false, error: '수행평가 번호가 잘못되었습니다.' };
+
+    var 줄 = [];
+    줄.push("너는 고등학교 3학년 '자료구조' 과목 수행평가를 돕는 학습 도우미야.");
+    줄.push("나는 '" + spec.제목 + "' 라는 탐구 보고서를 쓰고 있어.");
+    줄.push('');
+    줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    줄.push('[내 정보]');
+    줄.push('');
+    spec.입력.forEach(function (f) {
+      줄.push('  ' + f.이름 + ' : ' + ((info[f.키] || '').trim()));
+    });
+    줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    줄.push('');
+    줄.push('빈 칸이 있으면 네가 후보를 제안하거나 판단해서 채우고,');
+    줄.push('어떤 근거로 그렇게 봤는지 알려 줘.');
+    줄.push('');
+    // 수행평가 2 는 코드에 넣을 연습용 데이터도 함께 받는다
+    if (String(info.task) === '2') {
+      줄.push('먼저 [실습 데이터] 를 주고, 이어서 항목별 « 재료 » 를 정리해 줘.');
+      줄.push('');
+      줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      줄.push('[실습 데이터]  코드에 그대로 붙여넣을 세 줄');
+      줄.push('');
+      줄.push('data = ["...", "...", ... 20개 ...]');
+      줄.push('target = "..."');
+      줄.push('# 없는 값 : "..."');
+      줄.push('');
+      줄.push('  조건');
+      줄.push('  1. 20개는 모두 같은 종류로. 글자면 전부 따옴표, 숫자면 전부 따옴표 없이.');
+      줄.push('     (섞이면 코드가 오류를 냅니다)');
+      줄.push('  2. 내 주제에 실제로 있을 법한 값으로. 겹치는 값은 없게.');
+      줄.push('  3. target 은 data 안에 실제로 있는 값 하나. 맨 앞·맨 뒤 말고 가운데쯤.');
+      줄.push("  4. '없는 값' 은 data 에 절대 없는 값으로.");
+      줄.push('  5. data 를 정렬하지 마. 코드가 알아서 정렬해.');
+      줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      줄.push('');
+    }
+
+    줄.push('아래 항목마다 « 완성된 답안 초안 » 을 써 줘.');
+    줄.push('나는 그것을 읽고 분석해서 내 문장으로 고쳐 쓸 거야.');
+    줄.push('그러니 « 잘 쓴 답안이란 이런 것 » 을 보여 주는 초안이어야 해.');
+    줄.push('');
+    줄.push('항목마다 아래 두 덩어리를 꼭 지켜 줘.');
+    줄.push('');
+    줄.push('  ### 초안');
+    줄.push('     그 항목의 만점 수준으로 완성된 문장. 3~6문장.');
+    줄.push('     시간 복잡도가 나오면 반드시 O 표기로 적어 줘.');
+    줄.push('');
+    줄.push('  ### 확인·수정할 곳');
+    줄.push('     - 내가 사실을 확인해야 하는 부분');
+    줄.push('     - 내 주제·내 자료에 맞게 반드시 바꿔야 하는 문장');
+    줄.push('     - 이 초안에서 근거가 약해 내가 보강해야 하는 곳');
+    줄.push('     세 줄 이상, 구체적으로.');
+    줄.push('');
+
+    spec.항목.forEach(function (it) {
+      줄.push('[항목 ' + it.번호 + '] ' + it.제목 + '   (' + it.배점 + ')');
+      (it.칸 || []).forEach(function (q) { 줄.push('  · ' + q); });
+      if (it.표) 줄.push('  · ' + it.표.이름 + ' 를 어떻게 채워야 하는지');
+      if (it.실측) {
+        줄.push('  ※ 이 항목은 내가 코드를 직접 돌려 나온 숫자로 채운다.');
+        줄.push('     초안에는 숫자를 지어내지 말고 〈 여기에 내 실행 결과 〉 처럼');
+        줄.push('     빈자리를 남긴 채, 그 숫자를 어떻게 해석해야 하는지를 써 줘.');
+      }
+      줄.push('');
+    });
+
+    줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    줄.push('답안 전체를 아래 표시 사이에 넣어 줘.');
+    줄.push('나는 이 부분을 그대로 복사해 «양식 만들기» 웹앱에 붙여넣을 거야.');
+    줄.push('그래서 표시와 기호를 정확히 지켜 줘야 해.');
+    줄.push('');
+    줄.push(시작표);
+    줄.push('# ' + spec.제목);
+    줄.push('## 1. 첫 항목 제목');
+    줄.push('### 초안');
+    줄.push('여기에 완성된 문장.');
+    줄.push('### 확인·수정할 곳');
+    줄.push('- 확인할 것');
+    줄.push('- 바꿔야 할 것');
+    줄.push(끝표);
+    줄.push('');
+    줄.push('기호 뜻');
+    줄.push('  #    보고서 제목 (한 번만)');
+    줄.push('  ##   항목 제목 (항목 수만큼)');
+    줄.push('  ###  초안 / 확인·수정할 곳 — 이 두 가지만');
+    줄.push('  -    목록');
+    줄.push('  | |  표. 둘째 줄은 반드시 | --- | 로');
+    줄.push('');
+    줄.push('« 내가 고쳐 쓸 자리 » 는 웹앱이 알아서 넣으니 너는 만들지 마.');
+    줄.push('');
+    줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    줄.push('지켜야 할 규칙');
+    줄.push('');
+    줄.push('1. 초안은 내가 « 고쳐 쓸 재료 » 야. 내가 그대로 내면 규정 위반이라');
+    줄.push('   최하점을 받아. 그래서 [확인·수정할 곳] 을 반드시 함께 줘.');
+    if (String(info.task) === '2') {
+      줄.push('2. 실행 결과와 실측 숫자는 절대 지어내지 마. 빈자리로 남겨 줘.');
+    } else {
+      줄.push('2. 사실이 확실하지 않으면 « 확인 필요 » 라고 표시해 줘.');
+    }
+    줄.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+    return { ok: true, prompt: 줄.join('\n') };
+
+  } catch (err) {
+    return { ok: false, error: String(err) };
+  }
+}
+
 function 모양기본_() {
   return { theme: 'teal', font: '본고딕', size: '보통', cover: true, toc: false, guide: true, material: true };
 }
@@ -7998,6 +8119,174 @@ function 묶기_(줄들, n) {
   빈것.addEventListener('click', function () { 만들기(''); });
 })();
 
+
+/* 이 페이지 안에서 처음부터 끝까지 —
+   학교 계정이 앱스크립트를 막아도 학생이 수행평가를 마칠 수 있어야 한다.
+   1단계 입력 -> 프롬프트,  3단계 붙여넣기 -> HTML 결과물. 구글은 쓰지 않는다. */
+(function () {
+  var 자리들 = document.querySelectorAll('.여기서');
+  if (!자리들.length) return;
+
+  function 손(t) { return document.createElement(t); }
+
+  Array.prototype.forEach.call(자리들, function (칸) {
+    var 번호 = 칸.getAttribute('data-task');
+    var spec = 양식[번호];
+    if (!spec) return;
+    var 속 = 칸.querySelector('.여기서-속');
+    var 만든프롬 = '';
+
+    /* ---------- 1단계 ---------- */
+    var 단1 = 손('div'); 단1.className = '단';
+    단1.innerHTML = '<p class="단제목">1단계 &middot; 내 정보를 넣고 프롬프트 만들기</p>';
+
+    var 누구 = 손('div'); 누구.className = '칸들';
+    누구.innerHTML =
+      '<label>반<input class="f-cls" type="text" inputmode="numeric" maxlength="2" placeholder="3"></label>' +
+      '<label>번호<input class="f-no" type="text" inputmode="numeric" maxlength="2" placeholder="7"></label>' +
+      '<label>이름<input class="f-name" type="text" maxlength="10" placeholder="홍길동"></label>';
+    단1.appendChild(누구);
+
+    spec.입력.forEach(function (f) {
+      var 감 = 손('div'); 감.className = '칸들';
+      var l = 손('label');
+      l.textContent = f.이름;
+      var 넣 ;
+      if (f.고르기) {
+        넣 = 손('select');
+        넣.appendChild(new Option('(모르면 비워 두세요)', ''));
+        f.고르기.forEach(function (v) { 넣.appendChild(new Option(v, v)); });
+      } else {
+        넣 = 손('input');
+        넣.type = 'text';
+        넣.placeholder = f.예 ? ('예) ' + f.예) : '';
+      }
+      넣.className = 'f-' + f.키;
+      l.appendChild(넣);
+      감.appendChild(l);
+      단1.appendChild(감);
+    });
+
+    var 줄1 = 손('div'); 줄1.className = '줄';
+    var 만들 = 손('button'); 만들.className = 'btn'; 만들.textContent = '프롬프트 만들기';
+    var 말1 = 손('span'); 말1.className = '말';
+    줄1.appendChild(만들); 줄1.appendChild(말1);
+    단1.appendChild(줄1);
+
+    var 프롬 = 손('pre'); 프롬.className = '프롬'; 프롬.style.display = 'none';
+    단1.appendChild(프롬);
+
+    var 줄2 = 손('div'); 줄2.className = '줄'; 줄2.style.display = 'none';
+    var 복사 = 손('button'); 복사.className = 'btn'; 복사.textContent = '프롬프트 복사';
+    var 제미 = 손('a'); 제미.className = 'btn ghost'; 제미.textContent = '제미나이 열기';
+    제미.href = 'https://gemini.google.com/'; 제미.target = '_blank'; 제미.rel = 'noopener';
+    제미.style.textDecoration = 'none';
+    var 말2 = 손('span'); 말2.className = '말';
+    줄2.appendChild(복사); 줄2.appendChild(제미); 줄2.appendChild(말2);
+    단1.appendChild(줄2);
+    속.appendChild(단1);
+
+    /* ---------- 2단계 ---------- */
+    var 단2 = 손('div'); 단2.className = '단';
+    단2.innerHTML = '<p class="단제목">2단계 &middot; 제미나이에 붙여넣고 답변 받기</p>' +
+      '<p class="tiny">받은 답변을 <strong>통째로</strong> 복사하세요. 앞뒤 인사말이 섞여 있어도 괜찮습니다.</p>';
+    속.appendChild(단2);
+
+    /* ---------- 3단계 ---------- */
+    var 단3 = 손('div'); 단3.className = '단';
+    단3.innerHTML = '<p class="단제목">3단계 &middot; 답변을 붙여넣고 결과물 만들기</p>';
+    var 붙 = 손('textarea'); 붙.rows = 6;
+    붙.placeholder = '제미나이 답변을 여기에 통째로 붙여넣으세요';
+    단3.appendChild(붙);
+
+    var 줄3 = 손('div'); 줄3.className = '줄';
+    var 결과 = 손('button'); 결과.className = 'btn'; 결과.textContent = 'HTML 결과물 만들기';
+    var 빈것 = 손('button'); 빈것.className = 'btn ghost'; 빈것.textContent = '빈 양식으로 만들기';
+    var 말3 = 손('span'); 말3.className = '말';
+    줄3.appendChild(결과); 줄3.appendChild(빈것); 줄3.appendChild(말3);
+    단3.appendChild(줄3);
+
+    var 끝말 = 손('p'); 끝말.className = 'tiny';
+    끝말.innerHTML = '만들어진 파일을 <strong>두 번 누르면</strong> 브라우저에서 열립니다. ' +
+      '그 안에서 글을 쓴 뒤 <strong>맨 아래 &laquo;제출 파일 만들기&raquo;</strong> 를 눌러 나온 파일을 제출하세요.';
+    단3.appendChild(끝말);
+    속.appendChild(단3);
+
+    /* ---------- 움직임 ---------- */
+    function 값(이름) {
+      var e = 칸.querySelector('.f-' + 이름);
+      return e ? String(e.value || '').trim() : '';
+    }
+    function 정보() {
+      var o = { task: 번호, cls: 값('cls'), no: 값('no'), name: 값('name') };
+      spec.입력.forEach(function (f) { o[f.키] = 값(f.키); });
+      return o;
+    }
+    function 말하기(곳, 글, 색) { 곳.textContent = 글; 곳.style.color = 색 || 'var(--muted)'; }
+
+    만들.addEventListener('click', function () {
+      var info = 정보();
+      if (!info.name) { 말하기(말1, '이름을 넣어 주세요.', '#b45309'); return; }
+      var r = makePrompt(info);
+      if (!r.ok) { 말하기(말1, r.error, '#b91c1c'); return; }
+      만든프롬 = r.prompt;
+      프롬.textContent = 만든프롬;
+      프롬.style.display = '';
+      줄2.style.display = '';
+      말하기(말1, '만들었습니다. 아래에서 복사하세요.', 'var(--accent)');
+    });
+
+    복사.addEventListener('click', function () {
+      if (!만든프롬) return;
+      function 됐다() { 말하기(말2, '복사했습니다 — 제미나이에 붙여넣으세요.', 'var(--accent)'); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(만든프롬).then(됐다, 옛방식);
+      } else { 옛방식(); }
+      function 옛방식() {
+        var t = 손('textarea');
+        t.value = 만든프롬;
+        t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); 됐다(); }
+        catch (e) { 말하기(말2, '복사가 막혔습니다. 위 글을 직접 긁어 복사하세요.', '#b45309'); }
+        t.remove();
+      }
+    });
+
+    function 내보내기(붙인글) {
+      var info = 정보();
+      if (!info.name) { 말하기(말3, '1단계에 이름을 넣어 주세요.', '#b45309'); return; }
+      var 조각 = 붙인글 ? 쪼개기_(붙인글) : { 틀: [], 재료: [] };
+      if (붙인글 && (!조각.틀 || !조각.틀.length)) {
+        말하기(말3, '답안 부분을 찾지 못했습니다. 답변을 통째로 붙여넣었는지 보세요.', '#b45309');
+        return;
+      }
+      var 이름 = '3학년 ' + (info.cls || '_') + '반 ' + (info.no || '_') + '번 '
+        + info.name + ' - ' + spec.이름표;
+      var 모양 = 모양기본_();
+      모양.kind = 'html';
+      var html;
+      try { html = 웹문서HTML_(spec, 이름, info, 모양, 조각); }
+      catch (e) { 말하기(말3, '만들지 못했습니다: ' + e.message, '#b91c1c'); return; }
+
+      var b = new Blob([html], { type: 'text/html;charset=utf-8' });
+      var a = 손('a');
+      a.href = URL.createObjectURL(b);
+      a.download = 이름 + '.html';
+      document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      말하기(말3, '만들었습니다 — 내려받기 폴더를 보세요.', 'var(--accent)');
+    }
+
+    결과.addEventListener('click', function () {
+      var 글 = 붙.value.trim();
+      if (!글) { 말하기(말3, '제미나이 답변을 붙여넣어 주세요.', '#b45309'); return; }
+      내보내기(글);
+    });
+    빈것.addEventListener('click', function () { 내보내기(''); });
+  });
+})();
+
     var SHOW_TASK2 = true;
 
     /* =====================================================================
@@ -8045,7 +8334,7 @@ function 묶기_(줄들, n) {
     })();
 
     var PAGE_DATE = '2026-08-19';
-    var PAGE_NOTE = '앱스크립트 없이도 HTML 만들기';
+    var PAGE_NOTE = '웹페이지만으로 처음부터 끝까지';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
