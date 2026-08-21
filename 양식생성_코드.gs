@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v11
+ * 자료구조 수행평가 양식 생성기  v12
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,7 +16,7 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 11;
+var VER = 12;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 답안 시작 ===';
@@ -736,9 +736,11 @@ function 웹문서_(spec, 이름, info, 모양, 조각) {
 
   // ---- 항목 ----
   var 목록 = [];
+  var 메타 = [];
   if (항목들 && 항목들.length) {
     항목들.forEach(function (it, n) {
       목록.push(it.제목);
+      메타.push({ id: 'mine' + n, 제목: it.제목, 초안: it.초안, 점검: it.점검 });
       h.push('<section>');
       h.push('<h2>' + 벗기기_(it.제목) + '</h2>');
       if (it.초안.length) {
@@ -758,6 +760,7 @@ function 웹문서_(spec, 이름, info, 모양, 조각) {
   } else {
     spec.항목.forEach(function (it, n) {
       목록.push(it.번호 + '. ' + it.제목);
+      메타.push({ id: 'mine' + n, 제목: it.번호 + '. ' + it.제목, 초안: [], 점검: (it.칸 || []) });
       h.push('<section><h2>' + 벗기기_(it.번호 + '. ' + it.제목) + '</h2>');
       if (모양.guide !== false) h.push('<p class="note">' + 벗기기_(it.배점 + ' · ' + it.안내) + '</p>');
       (it.칸 || []).forEach(function (q) { h.push('<p class="note">▸ ' + 벗기기_(q) + '</p>'); });
@@ -774,9 +777,20 @@ function 웹문서_(spec, 이름, info, 모양, 조각) {
 
   // ---- 맨 아래 ----
   h.push('<div class="bar">');
-  h.push('<button onclick="window.print()">인쇄 · PDF로 저장</button>');
+  h.push('<button id="submit">제출 파일 만들기</button>');
+  h.push('<button class="ghost" onclick="window.print()">인쇄 · PDF로 저장</button>');
   h.push('<button class="ghost" id="zap">입력 모두 지우기</button>');
   h.push('<span class="saved" id="saved"></span></div>');
+  h.push('<p class="note" style="text-align:center;margin-top:10px">');
+  h.push('<b>제출은 «제출 파일 만들기» 로 만든 파일을 내야 합니다.</b> ');
+  h.push('지금 이 파일을 그대로 내면 쓴 글이 담기지 않아 <b>빈 양식</b>이 갑니다.</p>');
+
+  // 제출 파일을 만들 때 쓸 정보를 파일 안에 심어 둔다
+  var 자료 = { 제목: spec.제목, 부제: spec.부제, 이름표: spec.이름표, 머리: 머리글_(info),
+               반: info.cls || '', 번호: info.no || '', 이름: info.name || '',
+               항목: 메타 };
+  h.push('<script type="application/json" id="원본자료">'
+    + JSON.stringify(자료).replace(/</g, '\\u003c') + '<' + '/script>');
 
   h.push('</div>' + 저장스크립트_() + '</body></html>');
 
@@ -933,12 +947,18 @@ function 저장스크립트_() {
   var j = [];
   j.push('<script>');
   j.push('(function(){');
-  j.push('  var KEY = "ds-report-" + location.pathname;');
+  j.push('  var 나 = {}; try{ 나 = JSON.parse(document.getElementById("원본자료").textContent); }catch(e){}');
+  j.push('  // 학교 공용 컴퓨터에서 다음 학생이 앞 학생의 글을 불러오지 않도록');
+  j.push('  // 파일 위치가 아니라 «누구의 무슨 평가인가» 로 열쇠를 삼는다.');
+  j.push('  var KEY = ["ds-report", 나.반||"", 나.번호||"", 나.이름||"", 나.이름표||""].join("-");');
   j.push('  var 칸 = [].slice.call(document.querySelectorAll("[data-save]"));');
   j.push('  var 알림 = document.getElementById("saved");');
   j.push('  function 불러오기(){ try{ var v = JSON.parse(localStorage.getItem(KEY)||"{}");');
+  j.push('    if(v.__실행) 실행기록 = v.__실행;');
   j.push('    칸.forEach(function(t){ if(v[t.dataset.save]) t.value = v[t.dataset.save]; }); }catch(e){} }');
+  j.push('  var 실행기록 = [];');
   j.push('  function 저장(){ try{ var v={}; 칸.forEach(function(t){ v[t.dataset.save]=t.value; });');
+  j.push('    v.__실행 = 실행기록;');
   j.push('    localStorage.setItem(KEY, JSON.stringify(v));');
   j.push('    if(알림){ 알림.textContent="저장됨"; setTimeout(function(){알림.textContent="";},1200);} }catch(e){} }');
   j.push('  칸.forEach(function(t){ t.addEventListener("input", 저장); });');
@@ -974,6 +994,7 @@ function 저장스크립트_() {
   j.push('      + "\\n\\n[이진 탐색] \'"+t+"\' 찾기 - 전체 "+a.length+"개\\n\\n"+b.줄.join("\\n")');
   j.push('      + "\\n\\n결과: "+(b.찾음?("위치 "+b.위치+"번, "):"자료에 없음, ")+"비교 횟수 "+b.수+"번";');
   j.push('    마지막 = 글;');
+  j.push('    실행기록.push(글); 저장();');
   j.push('    var 표 = "<table><tr><th>단계</th><th>비교한 값</th><th>남은 탐색 범위</th><th>판단</th></tr>";');
   j.push('    b.줄.forEach(function(l,i){ var mm=l.match(/가운데 \\[(\\d+)\\] (.*?)  -> (.*)$/);');
   j.push('      var rr=l.match(/범위 \\[(\\d+~\\d+)\\] \\((\\d+개)\\)/);');
@@ -1019,6 +1040,7 @@ function 저장스크립트_() {
   j.push('      표 += "</table>";');
   j.push('      document.getElementById("benchout").innerHTML = 표 + "<p class=\'note\'>이진 탐색 비교 횟수와 log2(n) 이 거의 같은지 보세요.</p>";');
   j.push('      마지막 = 글;');
+  j.push('      실행기록.push(글); 저장();');
   j.push('      b.disabled=false; b.textContent="실측 실험 실행"; }, 30); });');
   j.push('');
   j.push('  document.getElementById("push").addEventListener("click", function(){');
@@ -1028,6 +1050,77 @@ function 저장스크립트_() {
   j.push('    t.value = (t.value ? t.value+"\\n\\n" : "") + 마지막;');
   j.push('    t.dispatchEvent(new Event("input"));');
   j.push('    t.scrollIntoView({behavior:"smooth", block:"center"}); });');
+  j.push('');
+  j.push('  // 인쇄하면 칸 안에서 넘친 글이 잘린다. 인쇄 직전에 칸을 늘려 준다.');
+  j.push('  window.addEventListener("beforeprint", function(){');
+  j.push('    칸.forEach(function(t){ t.style.height="auto"; t.style.height=(t.scrollHeight+8)+"px"; }); });');
+  j.push('  window.addEventListener("afterprint", function(){');
+  j.push('    칸.forEach(function(t){ t.style.height=""; }); });');
+  j.push('');
+  j.push('  // ---- 제출 파일 만들기 ----');
+  j.push('  function 두자리(n){ return (n<10?"0":"")+n; }');
+  j.push('  function 이제(){ var d=new Date();');
+  j.push('    return d.getFullYear()+"-"+두자리(d.getMonth()+1)+"-"+두자리(d.getDate())');
+  j.push('      +" "+두자리(d.getHours())+":"+두자리(d.getMinutes()); }');
+  j.push('  function 안전(t){ return String(t==null?"":t)');
+  j.push('    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }');
+  j.push('  function 문단(t){ return 안전(t).split(/\\n/).map(function(l){');
+  j.push('    return "<p>"+(l.trim()?l:"&nbsp;")+"</p>"; }).join(""); }');
+  j.push('');
+  j.push('  document.getElementById("submit").addEventListener("click", function(){');
+  j.push('    var 원본 = JSON.parse(document.getElementById("원본자료").textContent);');
+  j.push('    var 빈칸 = [];');
+  j.push('    var 답 = 원본.항목.map(function(it){');
+  j.push('      var t = document.getElementById(it.id);');
+  j.push('      var 글 = t ? t.value.trim() : "";');
+  j.push('      if(!글) 빈칸.push(it.제목);');
+  j.push('      return { 제목: it.제목, 초안: it.초안||[], 점검: it.점검||[], 내글: 글, 글자수: 글.length }; });');
+  j.push('');
+  j.push('    if(빈칸.length && !confirm("아직 쓰지 않은 항목이 "+빈칸.length+"개 있습니다.\\n\\n"');
+  j.push('      + 빈칸.join("\\n") + "\\n\\n그래도 제출 파일을 만들까요?")) return;');
+  j.push('');
+  j.push('    var 낸때 = 이제();');
+  j.push('    var 자료 = { 이름표: 원본.이름표, 제목: 원본.제목, 반: 원본.반, 번호: 원본.번호,');
+  j.push('      이름: 원본.이름, 낸때: 낸때, 항목: 답, 실행기록: 실행기록 };');
+  j.push('');
+  j.push('    var o = [];');
+  j.push('    o.push("<!doctype html><html lang=\\"ko\\"><head><meta charset=\\"utf-8\\">");');
+  j.push('    o.push("<title>"+안전(원본.이름표+" 제출 - "+원본.반+"반 "+원본.번호+"번 "+원본.이름)+"</title>");');
+  j.push('    o.push("<style>body{font-family:\\"Malgun Gothic\\",system-ui,sans-serif;font-size:16px;");');
+  j.push('    o.push("line-height:1.85;max-width:860px;margin:0 auto;padding:30px 18px;color:#22312f}");');
+  j.push('    o.push("h1{color:#0f766e;font-size:1.6em;margin:0 0 6px}");');
+  j.push('    o.push("h2{color:#0f766e;font-size:1.1em;margin:26px 0 10px;padding-bottom:7px;border-bottom:1px solid #dbe7e4}");');
+  j.push('    o.push(".who{font-weight:700;margin:0 0 4px}.when{color:#6b7f7c;font-size:.85em;margin:0 0 22px}");');
+  j.push('    o.push(".mine{border-left:4px solid #0f766e;padding:2px 0 2px 15px;margin:0 0 12px}");');
+  j.push('    o.push(".mine p{margin:0 0 6px}.none{color:#b91c1c;font-weight:700}");');
+  j.push('    o.push("details{background:#f5f8f7;border-radius:6px;padding:9px 13px;margin:0 0 8px;font-size:.87em;color:#5b6b69}");');
+  j.push('    o.push("summary{cursor:pointer;color:#6b7f7c}pre{background:#0f2226;color:#dbe9e6;padding:12px 14px;");');
+  j.push('    o.push("border-radius:6px;font-size:.78em;white-space:pre-wrap;overflow-x:auto}");');
+  j.push('    o.push("@media print{details,summary{display:none}}</style></head><body>");');
+  j.push('    o.push("<h1>"+안전(원본.제목)+"</h1>");');
+  j.push('    o.push("<p class=\\"who\\">"+안전(원본.머리)+"</p>");');
+  j.push('    o.push("<p class=\\"when\\">"+안전(원본.이름표+" · 제출 파일 만든 때 "+낸때)+"</p>");');
+  j.push('    답.forEach(function(it){');
+  j.push('      o.push("<h2>"+안전(it.제목)+"</h2>");');
+  j.push('      o.push("<div class=\\"mine\\">"+(it.내글 ? 문단(it.내글)');
+  j.push('        : "<p class=\\"none\\">(쓰지 않았습니다)</p>")+"</div>");');
+  j.push('      if(it.초안.length) o.push("<details><summary>대조용 — AI 초안</summary>"');
+  j.push('        + 문단(it.초안.join("\\n")) + "</details>"); });');
+  j.push('    if(실행기록.length){');
+  j.push('      o.push("<h2>실행 기록</h2>");');
+  j.push('      실행기록.forEach(function(g){ o.push("<pre>"+안전(g)+"</pre>"); }); }');
+  j.push('    o.push("<script type=\\"application/json\\" id=\\"채점자료\\">"');
+  j.push('      + JSON.stringify(자료).replace(/</g,"\\\\u003c") + "<"+"/script>");');
+  j.push('    o.push("</body></html>");');
+  j.push('');
+  j.push('    var 이름 = 원본.반+"반_"+원본.번호+"번_"+원본.이름+"_"+원본.이름표+"_제출.html";');
+  j.push('    var b = new Blob([o.join("\\n")], {type:"text/html;charset=utf-8"});');
+  j.push('    var a = document.createElement("a");');
+  j.push('    a.href = URL.createObjectURL(b); a.download = 이름;');
+  j.push('    document.body.appendChild(a); a.click();');
+  j.push('    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);');
+  j.push('    alert("제출 파일을 만들었습니다.\\n\\n" + 이름 + "\\n\\n이 파일을 선생님께 내세요.");');
+  j.push('  });');
   j.push('})();');
   j.push('<' + '/script>');
   return j.join('\n');
