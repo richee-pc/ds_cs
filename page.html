@@ -7569,11 +7569,14 @@ function 웹문서HTML_(spec, 이름, info, 모양, 조각) {
   h.push(' .tag{display:block;font-size:.72em;letter-spacing:.08em;font-weight:700;margin:0 0 6px}');
   h.push(' .draft{background:#f7f9f9;border-radius:6px;padding:12px 15px;margin:0 0 14px;color:#4a5a58}');
   h.push(' .draft .tag{color:var(--g)}');
+  h.push(' .draft{position:relative}');
+  h.push(' .copy{position:absolute;top:9px;right:10px;font-size:.72em;padding:5px 10px;');
+  h.push('   background:#fff;color:var(--e);border:1px solid var(--e);border-radius:5px;cursor:pointer;font-weight:700}');
   h.push(' .check{margin:0 0 14px}');
   h.push(' .check .tag{color:var(--g)}');
   h.push(' .check ul{margin:0;padding-left:20px}');
   h.push(' .mine .tag{color:var(--e)}');
-  h.push(' textarea{width:100%;min-height:130px;font-family:inherit;font-size:.95em;line-height:1.8;');
+  h.push(' textarea{width:100%;min-height:130px;overflow:hidden;font-family:inherit;font-size:.95em;line-height:1.8;');
   h.push('   padding:12px 14px;border:2px solid var(--e);border-radius:6px;resize:vertical;background:#fff;color:var(--ink)}');
   h.push(' .sim{border-color:var(--e)}');
   h.push(' .sim input{width:100%;font-family:Consolas,monospace;font-size:.85em;padding:9px 11px;');
@@ -7625,6 +7628,7 @@ function 웹문서HTML_(spec, 이름, info, 모양, 조각) {
       if (it.초안.length) {
         h.push('<div class="draft"><span class="tag">' + 벗기기_(초안표) + '</span>');
         it.초안.forEach(function (l) { h.push('<p>' + 벗기기_(l) + '</p>'); });
+        h.push('<button class="copy" data-for="mine' + n + '">초안 복사</button>');
         h.push('</div>');
       }
       if (it.점검.length) {
@@ -7657,12 +7661,17 @@ function 웹문서HTML_(spec, 이름, info, 모양, 조각) {
   // ---- 맨 아래 ----
   h.push('<div class="bar">');
   h.push('<button id="submit">제출 파일 만들기</button>');
+  h.push('<button class="ghost" id="resume">이어 쓰기 — 저장한 제출 파일 불러오기</button>');
+  h.push('<input type="file" id="resume-f" accept=".html,.htm,text/html" style="display:none">');
   h.push('<button class="ghost" onclick="window.print()">인쇄 · PDF로 저장</button>');
   h.push('<button class="ghost" id="zap">입력 모두 지우기</button>');
   h.push('<span class="saved" id="saved"></span></div>');
   h.push('<p class="note" style="text-align:center;margin-top:10px">');
   h.push('<b>제출은 «제출 파일 만들기» 로 만든 파일을 내야 합니다.</b> ');
   h.push('지금 이 파일을 그대로 내면 쓴 글이 담기지 않아 <b>빈 양식</b>이 갑니다.</p>');
+  h.push('<p class="note" style="text-align:center;margin-top:6px">');
+  h.push('집에서 이어 쓰려면 <b>제출 파일을 만들어 두었다가</b>, 새 파일을 연 뒤 ');
+  h.push('<b>«이어 쓰기»</b> 로 그 파일을 불러오세요.</p>');
 
   // 제출 파일을 만들 때 쓸 정보를 파일 안에 심어 둔다
   var 자료 = { 제목: spec.제목, 부제: spec.부제, 이름표: spec.이름표, 머리: 머리글_(info),
@@ -7983,6 +7992,77 @@ function 저장스크립트_() {
   j.push('    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);');
   j.push('    alert("제출 파일을 만들었습니다.\\n\\n" + 이름 + "\\n\\n이 파일을 선생님께 내세요.");');
   j.push('  });');
+  j.push('');
+  j.push('  // ---- 칸이 글에 맞춰 늘어난다. 인쇄할 때 잘리지 않게 하려는 것이다. ----');
+  j.push('  function 키우기(t){ t.style.height="auto"; t.style.height=(t.scrollHeight+4)+"px"; }');
+  j.push('  function 모두키우기(){ 칸.forEach(키우기); }');
+  j.push('  칸.forEach(function(t){ t.addEventListener("input", function(){ 키우기(t); }); });');
+  j.push('  모두키우기();');
+  j.push('  window.addEventListener("beforeprint", 모두키우기);');
+  j.push('');
+  j.push('  // ---- AI 초안 복사 ----');
+  j.push('  function 복사하기(글, 단추){');
+  j.push('    var 본디 = 단추.textContent;');
+  j.push('    function 됐다(){ 단추.textContent = "복사됨!";');
+  j.push('      setTimeout(function(){ 단추.textContent = 본디; }, 1200); }');
+  j.push('    function 옛방식(){');
+  j.push('      var t = document.createElement("textarea");');
+  j.push('      t.value = 글; t.style.position="fixed"; t.style.opacity="0";');
+  j.push('      document.body.appendChild(t); t.select();');
+  j.push('      try { document.execCommand("copy"); 됐다(); }');
+  j.push('      catch(e){ 단추.textContent = "복사 안 됨"; ');
+  j.push('        setTimeout(function(){ 단추.textContent = 본디; }, 1500); }');
+  j.push('      t.remove(); }');
+  j.push('    if (navigator.clipboard && navigator.clipboard.writeText) {');
+  j.push('      navigator.clipboard.writeText(글).then(됐다, 옛방식);');
+  j.push('    } else { 옛방식(); } }');
+  j.push('');
+  j.push('  [].slice.call(document.querySelectorAll(".copy")).forEach(function(b){');
+  j.push('    b.addEventListener("click", function(){');
+  j.push('      var 상자 = b.parentNode;');
+  j.push('      var 글 = [].slice.call(상자.querySelectorAll("p"))');
+  j.push('        .map(function(p){ return p.textContent; }).join("\\n");');
+  j.push('      복사하기(글, b); }); });');
+  j.push('');
+  j.push('  // ---- 이어 쓰기 : 제출 파일에서 내가 쓴 글을 되살린다 ----');
+  j.push('  var 고르기 = document.getElementById("resume-f");');
+  j.push('  document.getElementById("resume").addEventListener("click", function(){ 고르기.click(); });');
+  j.push('  고르기.addEventListener("change", function(){');
+  j.push('    var f = 고르기.files && 고르기.files[0];');
+  j.push('    if(!f) return;');
+  j.push('    var r = new FileReader();');
+  j.push('    r.onload = function(){');
+  j.push('      var 자료 = null;');
+  j.push('      try {');
+  j.push('        var m = String(r.result).match(/id="채점자료">([\\s\\S]*?)<\\/scr' + 'ipt>/);');
+  j.push('        if (m) 자료 = JSON.parse(m[1].replace(/\\\\u003c/g, "<"));');
+  j.push('      } catch(e){}');
+  j.push('      if(!자료 || !자료.항목){');
+  j.push('        alert("이 파일에서는 쓴 글을 찾지 못했습니다.\\n\\n"');
+  j.push('          + "«제출 파일 만들기» 로 만든 _제출.html 파일을 골라 주세요.");');
+  j.push('        고르기.value=""; return; }');
+  j.push('      var 원본 = JSON.parse(document.getElementById("원본자료").textContent);');
+  j.push('      if(자료.이름표 && 원본.이름표 && 자료.이름표 !== 원본.이름표){');
+  j.push('        if(!confirm("다른 수행평가의 파일입니다.\\n\\n"');
+  j.push('          + "이 파일: " + 원본.이름표 + "\\n고른 파일: " + 자료.이름표');
+  j.push('          + "\\n\\n그래도 불러올까요?")){ 고르기.value=""; return; } }');
+  j.push('      var 쓴게있나 = 칸.some(function(t){ return t.value.trim(); });');
+  j.push('      if(쓴게있나 && !confirm("지금 쓴 글이 지워지고 불러온 글로 바뀝니다.\\n\\n괜찮습니까?")){');
+  j.push('        고르기.value=""; return; }');
+  j.push('      // 항목 제목으로 맞춘다. 못 맞추면 순서대로.');
+  j.push('      var 됨 = 0;');
+  j.push('      자료.항목.forEach(function(it, n){');
+  j.push('        var 자리 = null;');
+  j.push('        원본.항목.forEach(function(o){ if(o.제목 === it.제목) 자리 = o.id; });');
+  j.push('        if(!자리 && 원본.항목[n]) 자리 = 원본.항목[n].id;');
+  j.push('        var t = 자리 && document.getElementById(자리);');
+  j.push('        if(t && it.내글){ t.value = it.내글; 됨++; } });');
+  j.push('      if(자료.실행기록 && 자료.실행기록.length) 실행기록 = 자료.실행기록.slice();');
+  j.push('      저장(); 모두키우기();');
+  j.push('      alert("불러왔습니다.\\n\\n항목 " + 됨 + "개"');
+  j.push('        + (자료.낸때 ? "  (" + 자료.낸때 + " 에 만든 파일)" : ""));');
+  j.push('      고르기.value=""; };');
+  j.push('    r.readAsText(f, "utf-8"); });');
   j.push('})();');
   j.push('<' + '/script>');
   return j.join('\n');
@@ -8334,7 +8414,7 @@ function 묶기_(줄들, n) {
     })();
 
     var PAGE_DATE = '2026-08-21';
-    var PAGE_NOTE = '웹페이지만으로 처음부터 끝까지';
+    var PAGE_NOTE = '이어 쓰기 · 초안 복사 · 칸 자동';
 
     /* 판 날짜를 각 탭 맨 위 라벨 줄에도 띄울지 여부.
 
