@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v9
+ * 자료구조 수행평가 양식 생성기  v10
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,7 +16,7 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 9;
+var VER = 10;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 답안 시작 ===';
@@ -299,9 +299,10 @@ function makeDoc(info) {
     }
 
     var 이름 = 파일이름_(info, spec);
-    var id = (모양.kind === 'slide')
-      ? 슬라이드_(spec, 이름, info, 모양, 조각)
-      : 문서_(spec, 이름, info, 모양, 조각);
+    var id;
+    if (모양.kind === 'html') id = 웹문서_(spec, 이름, info, 모양, 조각);
+    else if (모양.kind === 'slide') id = 슬라이드_(spec, 이름, info, 모양, 조각);
+    else id = 문서_(spec, 이름, info, 모양, 조각);
 
     var f = DriveApp.getFileById(id);
     try { f.moveTo(폴더_()); } catch (e) { /* 이동 실패해도 문서는 있다 */ }
@@ -310,7 +311,12 @@ function makeDoc(info) {
     var 어디서 = 조각.틀 ? '제미나이가 준 틀' : '기본 양식';
     if (모양.material !== false && 조각.재료.length) 어디서 += ' + 참고 재료';
 
-    return { ok: true, url: f.getUrl(), name: 이름, warn: 경고, from: 어디서 };
+    var 결과 = { ok: true, url: f.getUrl(), name: 이름, warn: 경고, from: 어디서 };
+    if (모양.kind === 'html') {
+      결과.download = 'https://drive.google.com/uc?export=download&id=' + id;
+      결과.html = true;
+    }
+    return 결과;
 
   } catch (err) {
     return { ok: false, error: String(err) };
@@ -642,6 +648,280 @@ function 기본틀_문서_(body, spec, 글, c, 모양) {
 }
 
 
+
+
+/* =====================================================================
+   HTML 파일로 만들기
+
+     탐색 수행평가는 코드와 시뮬레이션이 들어가서 문서보다 HTML 이 맞다.
+     만들어진 파일 안에 탐색 시뮬레이터와 실측 실험이 들어 있어,
+     학생이 그 파일에서 직접 돌린 결과가 그대로 보고서가 된다.
+
+     드라이브는 HTML 을 미리보기로 보여 주지 않는다.
+     내려받아 두 번 눌러 열도록 안내한다.
+   ===================================================================== */
+
+function 웹문서_(spec, 이름, info, 모양, 조각) {
+  var c = 테마[모양.theme] || 테마.teal;
+  var ff = 글꼴이름[모양.font] || 글꼴이름['본고딕'];
+  var 크기 = (모양.size === '크게') ? 17 : 16;
+  var 항목들 = (조각 && 조각.틀) ? 항목쪼개기_(조각.틀) : null;
+  var 실측있음 = spec.항목.some(function (it) { return it.실측; });
+
+  var h = [];
+  h.push('<!doctype html>');
+  h.push('<html lang="ko"><head><meta charset="utf-8">');
+  h.push('<meta name="viewport" content="width=device-width, initial-scale=1">');
+  h.push('<title>' + 벗기기_(이름) + '</title>');
+  h.push('<style>');
+  h.push(' :root{--e:' + c.큰제목 + ';--e2:' + c.작은제목 + ';--g:' + c.안내 + ';--ink:' + c.본문 + '}');
+  h.push(' *{box-sizing:border-box}');
+  h.push(' body{font-family:"' + ff + '","Malgun Gothic",system-ui,sans-serif;');
+  h.push('   font-size:' + 크기 + 'px;line-height:1.85;color:var(--ink);background:#f4f6f6;margin:0;padding:26px 16px 80px}');
+  h.push(' .wrap{max-width:900px;margin:0 auto}');
+  h.push(' header{border-bottom:3px solid var(--e);padding-bottom:16px;margin-bottom:22px}');
+  h.push(' h1{color:var(--e);font-size:1.7em;margin:0 0 6px}');
+  h.push(' .sub{color:var(--g);margin:0 0 10px;font-size:.85em}');
+  h.push(' .who{margin:0;font-weight:700}');
+  h.push(' .howto{background:#fff;border-left:4px solid var(--e);padding:14px 18px;margin:0 0 26px;font-size:.9em}');
+  h.push(' .howto b{color:var(--e)}');
+  h.push(' section{background:#fff;border:1px solid #e2e8e6;border-radius:8px;padding:20px 22px;margin:0 0 20px}');
+  h.push(' h2{color:var(--e);font-size:1.15em;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid #eef2f1}');
+  h.push(' .tag{display:block;font-size:.72em;letter-spacing:.08em;font-weight:700;margin:0 0 6px}');
+  h.push(' .draft{background:#f7f9f9;border-radius:6px;padding:12px 15px;margin:0 0 14px;color:#4a5a58}');
+  h.push(' .draft .tag{color:var(--g)}');
+  h.push(' .check{margin:0 0 14px}');
+  h.push(' .check .tag{color:var(--g)}');
+  h.push(' .check ul{margin:0;padding-left:20px}');
+  h.push(' .mine .tag{color:var(--e)}');
+  h.push(' textarea{width:100%;min-height:130px;font-family:inherit;font-size:.95em;line-height:1.8;');
+  h.push('   padding:12px 14px;border:2px solid var(--e);border-radius:6px;resize:vertical;background:#fff;color:var(--ink)}');
+  h.push(' .sim{border-color:var(--e)}');
+  h.push(' .sim input{width:100%;font-family:Consolas,monospace;font-size:.85em;padding:9px 11px;');
+  h.push('   border:1px solid #c8d5d1;border-radius:5px;margin:4px 0 10px}');
+  h.push(' .row{display:flex;gap:10px;flex-wrap:wrap}');
+  h.push(' .row>div{flex:1;min-width:180px}');
+  h.push(' button{font-family:inherit;font-size:.85em;font-weight:700;color:#fff;background:var(--e);');
+  h.push('   border:0;border-radius:5px;padding:10px 16px;cursor:pointer;margin:2px 4px 2px 0}');
+  h.push(' button.ghost{background:#fff;color:var(--e);border:1px solid var(--e)}');
+  h.push(' table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.85em}');
+  h.push(' th,td{border:1px solid #d8e2e0;padding:7px 10px;text-align:left}');
+  h.push(' th{background:#eef5f3;color:var(--e2);font-weight:700}');
+  h.push(' .out{font-family:Consolas,monospace;font-size:.8em;background:#0f2226;color:#dbe9e6;');
+  h.push('   padding:13px 15px;border-radius:6px;white-space:pre-wrap;margin:10px 0;max-height:320px;overflow:auto}');
+  h.push(' .note{font-size:.82em;color:var(--g);margin:6px 0 0}');
+  h.push(' .bar{position:sticky;bottom:0;background:#fff;border-top:1px solid #e2e8e6;');
+  h.push('   padding:12px 16px;margin:26px -16px -80px;text-align:center}');
+  h.push(' .saved{font-size:.8em;color:var(--e);margin-left:10px}');
+  h.push(' @media print{');
+  h.push('   body{background:#fff;padding:0;font-size:11pt}');
+  h.push('   section{border:0;border-bottom:1px solid #ccc;border-radius:0;padding:10px 0;margin:0 0 10px}');
+  h.push('   .draft,.check,.bar,.sim-ctrl{display:none}');
+  h.push('   textarea{border:1px solid #999;min-height:auto}');
+  h.push(' }');
+  h.push('</style></head><body><div class="wrap">');
+
+  // ---- 머리 ----
+  h.push('<header>');
+  h.push('<h1>' + 벗기기_(spec.제목) + '</h1>');
+  h.push('<p class="sub">' + 벗기기_(spec.부제) + '</p>');
+  h.push('<p class="who">' + 벗기기_(머리글_(info)) + '</p>');
+  h.push('</header>');
+
+  h.push('<div class="howto"><b>이 파일을 쓰는 법</b><br>');
+  h.push('① <b>AI 초안</b>을 읽습니다. ② <b>확인 · 수정할 곳</b>을 보며 무엇이 부족한지 찾습니다. ');
+  h.push('③ <b>내가 고쳐 쓴 글</b> 칸에 내 문장으로 다시 씁니다.<br>');
+  h.push('채점은 ③ 만 봅니다. 초안을 그대로 두고 내면 평가 규정에 따라 해당 평가요소 최하점입니다.<br>');
+  h.push('쓴 내용은 <b>이 브라우저에 자동으로 저장</b>되고, 맨 아래에서 <b>인쇄 · PDF 저장</b>을 할 수 있습니다.</div>');
+
+  // ---- 항목 ----
+  var 목록 = [];
+  if (항목들 && 항목들.length) {
+    항목들.forEach(function (it, n) {
+      목록.push(it.제목);
+      h.push('<section>');
+      h.push('<h2>' + 벗기기_(it.제목) + '</h2>');
+      if (it.초안.length) {
+        h.push('<div class="draft"><span class="tag">' + 벗기기_(초안표) + '</span>');
+        it.초안.forEach(function (l) { h.push('<p>' + 벗기기_(l) + '</p>'); });
+        h.push('</div>');
+      }
+      if (it.점검.length) {
+        h.push('<div class="check"><span class="tag">' + 벗기기_(점검표) + '</span><ul>');
+        it.점검.forEach(function (l) { h.push('<li>' + 벗기기_(l.replace(/^·\s*/, '')) + '</li>'); });
+        h.push('</ul></div>');
+      }
+      h.push('<div class="mine"><span class="tag">' + 벗기기_(내글표) + '</span>');
+      h.push('<textarea id="mine' + n + '" data-save="mine' + n + '" placeholder="여기에 내 문장으로 다시 쓰세요"></textarea></div>');
+      h.push('</section>');
+    });
+  } else {
+    spec.항목.forEach(function (it, n) {
+      목록.push(it.번호 + '. ' + it.제목);
+      h.push('<section><h2>' + 벗기기_(it.번호 + '. ' + it.제목) + '</h2>');
+      if (모양.guide !== false) h.push('<p class="note">' + 벗기기_(it.배점 + ' · ' + it.안내) + '</p>');
+      (it.칸 || []).forEach(function (q) { h.push('<p class="note">▸ ' + 벗기기_(q) + '</p>'); });
+      h.push('<div class="mine"><span class="tag">' + 벗기기_(내글표) + '</span>');
+      h.push('<textarea id="mine' + n + '" data-save="mine' + n + '"></textarea></div></section>');
+    });
+  }
+
+  // ---- 실행 도구 ----
+  if (실측있음) h.push(시뮬레이터_(목록));
+
+  // ---- 맨 아래 ----
+  h.push('<div class="bar">');
+  h.push('<button onclick="window.print()">인쇄 · PDF로 저장</button>');
+  h.push('<button class="ghost" id="zap">입력 모두 지우기</button>');
+  h.push('<span class="saved" id="saved"></span></div>');
+
+  h.push('</div>' + 저장스크립트_() + '</body></html>');
+
+  var 파일 = DriveApp.createFile(이름 + '.html', h.join('\n'), MimeType.HTML);
+  return 파일.getId();
+}
+
+
+/** HTML 에 그대로 넣어도 되도록 꺾쇠와 & 를 바꾼다 */
+function 벗기기_(t) {
+  return String(t == null ? '' : t)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+
+/** 파일 안에 넣을 탐색 시뮬레이터 + 실측 실험 */
+function 시뮬레이터_(목록) {
+  var h = [];
+  h.push('<section class="sim">');
+  h.push('<h2>실행 도구 — 여기서 직접 돌리세요</h2>');
+  h.push('<p class="note">제미나이에게 받은 <b>data</b> 와 <b>target</b> 을 넣고 실행하면, ');
+  h.push('단계별 과정과 비교 횟수가 나옵니다. 그 결과를 아래 버튼으로 항목에 바로 옮길 수 있습니다.</p>');
+
+  h.push('<div class="sim-ctrl">');
+  h.push('<div class="row"><div>');
+  h.push('<label><b>data</b> — 쉼표로 구분</label>');
+  h.push('<input id="d-data" value="난쟁이가 쏘아올린 작은 공, 데미안, 토지, 어린 왕자, 모비딕, 1984, 동물농장, 위대한 개츠비, 삼국지, 파우스트, 죄와 벌, 광장, 페스트, 자기 앞의 생, 싯다르타, 이방인, 호밀밭의 파수꾼, 백년의 고독, 노인과 바다, 수레바퀴 아래서">');
+  h.push('</div></div>');
+  h.push('<div class="row">');
+  h.push('<div><label><b>target</b> — 찾을 값</label><input id="d-t" value="싯다르타"></div>');
+  h.push('<div><label><b>없는 값</b> — 두 번째 실행용</label><input id="d-x" value="해리 포터와 마법사의 돌"></div>');
+  h.push('</div>');
+  h.push('<button id="run">두 방법으로 실행</button>');
+  h.push('<button class="ghost" id="runx">없는 값으로 실행</button>');
+  h.push('</div>');
+
+  h.push('<div id="simout"></div>');
+
+  h.push('<h2 style="margin-top:24px">자료를 키워 가며 비교 횟수 재기</h2>');
+  h.push('<p class="note">10개부터 100만 개까지 늘려 가며 <b>실제로 측정</b>합니다. 몇 초 걸립니다.</p>');
+  h.push('<button id="bench" class="sim-ctrl">실측 실험 실행</button>');
+  h.push('<div id="benchout"></div>');
+
+  h.push('<div class="sim-ctrl" style="margin-top:16px">');
+  h.push('<label>위 결과를 어느 항목에 넣을까요?</label>');
+  h.push('<select id="target-sec" style="width:100%;padding:9px 11px;border:1px solid #c8d5d1;border-radius:5px;font-family:inherit">');
+  목록.forEach(function (t, n) {
+    h.push('<option value="mine' + n + '">' + 벗기기_(t) + '</option>');
+  });
+  h.push('</select>');
+  h.push('<button id="push" style="margin-top:8px">이 결과를 그 항목에 붙여넣기</button>');
+  h.push('<p class="note">붙여넣은 뒤 <b>반드시 내 문장으로 해석을 덧붙이세요.</b> 숫자만 있으면 점수가 오르지 않습니다.</p>');
+  h.push('</div>');
+
+  h.push('</section>');
+  return h.join('\n');
+}
+
+
+/** 파일 안에서 도는 스크립트 — 자동 저장과 시뮬레이터 */
+function 저장스크립트_() {
+  var j = [];
+  j.push('<script>');
+  j.push('(function(){');
+  j.push('  var KEY = "ds-report-" + location.pathname;');
+  j.push('  var 칸 = [].slice.call(document.querySelectorAll("[data-save]"));');
+  j.push('  var 알림 = document.getElementById("saved");');
+  j.push('  function 불러오기(){ try{ var v = JSON.parse(localStorage.getItem(KEY)||"{}");');
+  j.push('    칸.forEach(function(t){ if(v[t.dataset.save]) t.value = v[t.dataset.save]; }); }catch(e){} }');
+  j.push('  function 저장(){ try{ var v={}; 칸.forEach(function(t){ v[t.dataset.save]=t.value; });');
+  j.push('    localStorage.setItem(KEY, JSON.stringify(v));');
+  j.push('    if(알림){ 알림.textContent="저장됨"; setTimeout(function(){알림.textContent="";},1200);} }catch(e){} }');
+  j.push('  칸.forEach(function(t){ t.addEventListener("input", 저장); });');
+  j.push('  불러오기();');
+  j.push('  var z = document.getElementById("zap");');
+  j.push('  if(z) z.addEventListener("click", function(){');
+  j.push('    if(!confirm("쓴 내용을 모두 지웁니다. 괜찮습니까?")) return;');
+  j.push('    칸.forEach(function(t){ t.value=""; }); 저장(); });');
+  j.push('');
+  j.push('  var 마지막 = "";');
+  j.push('  function 값들(){ return document.getElementById("d-data").value.split(",")');
+  j.push('    .map(function(x){return x.trim();}).filter(function(x){return x;}); }');
+  j.push('');
+  j.push('  function 순차(a, t){ var 줄=[], n=0;');
+  j.push('    for(var i=0;i<a.length;i++){ n++;');
+  j.push('      줄.push("  "+n+"단계 | 비교: "+a[i]+" | 남은 범위: "+(a.length-i-1)+"개"+(a[i]===t?"  -> 찾음!":"  -> 다름"));');
+  j.push('      if(a[i]===t) return {줄:줄, 수:n, 찾음:true, 위치:i}; }');
+  j.push('    return {줄:줄, 수:n, 찾음:false}; }');
+  j.push('');
+  j.push('  function 이진(a, t){ var b=a.slice().sort(), lo=0, hi=b.length-1, n=0, 줄=[];');
+  j.push('    while(lo<=hi){ var m=Math.floor((lo+hi)/2); n++;');
+  j.push('      var 말 = "  "+n+"단계 | 범위 ["+lo+"~"+hi+"] ("+(hi-lo+1)+"개) | 가운데 ["+m+"] "+b[m];');
+  j.push('      if(b[m]===t){ 줄.push(말+"  -> 찾음!"); return {줄:줄, 수:n, 찾음:true, 위치:m, 정렬:b}; }');
+  j.push('      if(b[m]<t){ 줄.push(말+"  -> 오른쪽 절반만 남김"); lo=m+1; }');
+  j.push('      else { 줄.push(말+"  -> 왼쪽 절반만 남김"); hi=m-1; } }');
+  j.push('    return {줄:줄, 수:n, 찾음:false, 정렬:b}; }');
+  j.push('');
+  j.push('  function 돌리기(t){ var a=값들();');
+  j.push('    if(a.length<2){ alert("data 를 두 개 이상 넣어 주세요."); return; }');
+  j.push('    var s=순차(a,t), b=이진(a,t);');
+  j.push('    var 글 = "[순차 탐색] \'"+t+"\' 찾기 - 전체 "+a.length+"개\\n\\n"+s.줄.join("\\n")');
+  j.push('      + "\\n\\n결과: "+(s.찾음?("위치 "+s.위치+"번, "):"자료에 없음, ")+"비교 횟수 "+s.수+"번"');
+  j.push('      + "\\n\\n[이진 탐색] \'"+t+"\' 찾기 - 전체 "+a.length+"개\\n\\n"+b.줄.join("\\n")');
+  j.push('      + "\\n\\n결과: "+(b.찾음?("위치 "+b.위치+"번, "):"자료에 없음, ")+"비교 횟수 "+b.수+"번";');
+  j.push('    마지막 = 글;');
+  j.push('    var 표 = "<table><tr><th>단계</th><th>비교한 값</th><th>남은 탐색 범위</th><th>판단</th></tr>";');
+  j.push('    b.줄.forEach(function(l,i){ var mm=l.match(/가운데 \\[(\\d+)\\] (.*?)  -> (.*)$/);');
+  j.push('      var rr=l.match(/범위 \\[(\\d+~\\d+)\\] \\((\\d+개)\\)/);');
+  j.push('      표 += "<tr><td>"+(i+1)+"</td><td>"+(mm?mm[2]:"")+"</td><td>"+(rr?rr[1]+" ("+rr[2]+")":"")+"</td><td>"+(mm?mm[3]:"")+"</td></tr>"; });');
+  j.push('    표 += "</table>";');
+  j.push('    document.getElementById("simout").innerHTML =');
+  j.push('      "<div class=\'out\'>"+글.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</div>"');
+  j.push('      + "<p class=\'note\'>이진 탐색 과정을 표로 정리하면</p>" + 표; }');
+  j.push('');
+  j.push('  document.getElementById("run").addEventListener("click", function(){ 돌리기(document.getElementById("d-t").value.trim()); });');
+  j.push('  document.getElementById("runx").addEventListener("click", function(){ 돌리기(document.getElementById("d-x").value.trim()); });');
+  j.push('');
+  j.push('  document.getElementById("bench").addEventListener("click", function(){');
+  j.push('    var b=this; b.disabled=true; b.textContent="재는 중...";');
+  j.push('    setTimeout(function(){');
+  j.push('      var 크기=[10,100,1000,10000,100000,1000000], 표="<table><tr><th>자료 크기 n</th><th>순차 탐색 평균</th><th>이진 탐색 평균</th><th>몇 배 차이</th><th>log2(n)</th></tr>";');
+  j.push('      var 글="자료 크기 | 순차 | 이진 | 몇 배 | log2(n)";');
+  j.push('      크기.forEach(function(n){ var arr=[]; for(var i=0;i<n;i++) arr.push(i);');
+  j.push('        var sT=0,bT=0,R=20;');
+  j.push('        for(var k=0;k<R;k++){ var t=Math.floor(Math.random()*n);');
+  j.push('          sT += t+1;');
+  j.push('          var lo=0,hi=n-1,cnt=0; while(lo<=hi){ var m=Math.floor((lo+hi)/2); cnt++;');
+  j.push('            if(arr[m]===t) break; else if(arr[m]<t) lo=m+1; else hi=m-1; } bT+=cnt; }');
+  j.push('        var s=Math.round(sT/R), bb=Math.round(bT/R), r=(s/bb).toFixed(1), lg=(Math.log(n)/Math.LN2).toFixed(1);');
+  j.push('        표 += "<tr><td>"+n.toLocaleString()+"</td><td>"+s.toLocaleString()+"</td><td>"+bb+"</td><td>"+r+"배</td><td>"+lg+"</td></tr>";');
+  j.push('        글 += "\\n"+n.toLocaleString()+" | "+s.toLocaleString()+" | "+bb+" | "+r+"배 | "+lg; });');
+  j.push('      표 += "</table>";');
+  j.push('      document.getElementById("benchout").innerHTML = 표 + "<p class=\'note\'>이진 탐색 비교 횟수와 log2(n) 이 거의 같은지 보세요.</p>";');
+  j.push('      마지막 = 글;');
+  j.push('      b.disabled=false; b.textContent="실측 실험 실행"; }, 30); });');
+  j.push('');
+  j.push('  document.getElementById("push").addEventListener("click", function(){');
+  j.push('    if(!마지막){ alert("먼저 실행해 주세요."); return; }');
+  j.push('    var id=document.getElementById("target-sec").value, t=document.getElementById(id);');
+  j.push('    if(!t) return;');
+  j.push('    t.value = (t.value ? t.value+"\\n\\n" : "") + 마지막;');
+  j.push('    t.dispatchEvent(new Event("input"));');
+  j.push('    t.scrollIntoView({behavior:"smooth", block:"center"}); });');
+  j.push('})();');
+  j.push('<' + '/script>');
+  return j.join('\n');
+}
+
 /* =====================================================================
    구글 슬라이드 만들기
    ===================================================================== */
@@ -922,6 +1202,7 @@ function 화면_() {
 '  <div class="opt" id="o-kind">',
 '   <button data-v="doc" class="on">구글 문서</button>',
 '   <button data-v="slide">구글 슬라이드</button>',
+'   <button data-v="html">HTML 파일 (코드·시뮬레이터 포함)</button>',
 '  </div>',
 
 '  <label>색</label><div class="opt" id="o-theme"></div>',
@@ -1076,10 +1357,19 @@ function 화면_() {
 '      if (r.warn) { var w = document.createElement("div"); w.textContent = r.warn; m.appendChild(w); }',
 '      m.appendChild(document.createElement("br"));',
 '      var a = document.createElement("a");',
-'      a.href = r.url; a.target = "_blank"; a.rel = "noopener";',
-'      a.textContent = "여기를 눌러 문서 열기";',
-'      m.appendChild(a);',
-'      window.open(r.url, "_blank");',
+'      if (r.html) {',
+'        a.href = r.download; a.textContent = "HTML 파일 내려받기";',
+'        var tip = document.createElement("div");',
+'        tip.style.marginTop = "8px"; tip.style.fontSize = "12.5px";',
+'        tip.textContent = "내려받은 파일을 두 번 누르면 브라우저에서 열립니다. "',
+'          + "그 안에서 코드를 돌리고 글을 쓰면 됩니다. 드라이브에도 같이 저장돼 있습니다.";',
+'        m.appendChild(a); m.appendChild(tip);',
+'      } else {',
+'        a.href = r.url; a.target = "_blank"; a.rel = "noopener";',
+'        a.textContent = "여기를 눌러 문서 열기";',
+'        m.appendChild(a);',
+'        window.open(r.url, "_blank");',
+'      }',
 '    })',
 '    .withFailureHandler(function(e){',
 '      b.disabled=false; b.textContent="문서 만들기";',
