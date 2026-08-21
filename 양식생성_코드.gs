@@ -292,10 +292,10 @@ function makeDoc(info) {
     }
 
     if (info.pasted && !조각.틀) {
-      경고 = '붙여넣은 글에서 «=== 문서 틀 시작 ===» 표시를 찾지 못했습니다. '
+      경고 = '붙여넣은 글에서 «' + 시작표 + '» 표시를 찾지 못했습니다. '
            + '그래서 본문은 기본 양식으로 만들고, 붙여넣은 내용은 '
-           + '문서 뒤쪽 «참고 재료» 에 그대로 넣었습니다. '
-           + '제미나이에 «문서 틀 부분만 다시 줘» 라고 하면 제대로 만들어집니다.';
+           + '뒤쪽 «참고 재료» 에 그대로 넣었습니다. '
+           + '제미나이에 «' + 시작표 + ' 부터 ' + 끝표 + ' 까지 다시 줘» 라고 하면 제대로 만들어집니다.';
     }
 
     var 이름 = 파일이름_(info, spec);
@@ -662,6 +662,20 @@ function 기본틀_문서_(body, spec, 글, c, 모양) {
    ===================================================================== */
 
 function 웹문서_(spec, 이름, info, 모양, 조각) {
+  var 파일 = DriveApp.createFile(이름 + '.html',
+    웹문서HTML_(spec, 이름, info, 모양, 조각), MimeType.HTML);
+  return 파일.getId();
+}
+
+
+/**
+ * HTML 본문을 짜서 글자열로 돌려준다.
+ *
+ * 드라이브에 쓰는 일과 떼어 놓았다.
+ * 이 함수는 구글 API 를 하나도 쓰지 않으므로 수업 웹페이지에서도 그대로 돈다.
+ * 학교 계정이 앱스크립트를 막아도 학생이 결과물을 만들 수 있게 하려는 것이다.
+ */
+function 웹문서HTML_(spec, 이름, info, 모양, 조각) {
   var c = 테마[모양.theme] || 테마.teal;
   var ff = 글꼴이름[모양.font] || 글꼴이름['본고딕'];
   var 크기 = (모양.size === '크게') ? 17 : 16;
@@ -789,13 +803,14 @@ function 웹문서_(spec, 이름, info, 모양, 조각) {
   var 자료 = { 제목: spec.제목, 부제: spec.부제, 이름표: spec.이름표, 머리: 머리글_(info),
                반: info.cls || '', 번호: info.no || '', 이름: info.name || '',
                항목: 메타 };
-  h.push('<script type="application/json" id="원본자료">'
+  // 여는 script 표를 통째로 두면 이 코드를 수업 웹페이지의 script 블록에 심을 때
+  // 브라우저가 escaped 상태로 넘어가 그 뒤 닫는 표가 블록을 닫지 못한다.
+  // 그래서 글자를 둘로 쪼개 둔다.
+  h.push('<scr' + 'ipt type="application/json" id="원본자료">'
     + JSON.stringify(자료).replace(/</g, '\\u003c') + '<' + '/script>');
 
   h.push('</div>' + 저장스크립트_() + '</body></html>');
-
-  var 파일 = DriveApp.createFile(이름 + '.html', h.join('\n'), MimeType.HTML);
-  return 파일.getId();
+  return h.join('\n');
 }
 
 
@@ -945,7 +960,7 @@ function 시뮬레이터_(목록, 실습) {
 /** 파일 안에서 도는 스크립트 — 자동 저장과 시뮬레이터 */
 function 저장스크립트_() {
   var j = [];
-  j.push('<script>');
+  j.push('<scr' + 'ipt>');
   j.push('(function(){');
   j.push('  var 나 = {}; try{ 나 = JSON.parse(document.getElementById("원본자료").textContent); }catch(e){}');
   j.push('  // 학교 공용 컴퓨터에서 다음 학생이 앞 학생의 글을 불러오지 않도록');
@@ -1109,7 +1124,7 @@ function 저장스크립트_() {
   j.push('    if(실행기록.length){');
   j.push('      o.push("<h2>실행 기록</h2>");');
   j.push('      실행기록.forEach(function(g){ o.push("<pre>"+안전(g)+"</pre>"); }); }');
-  j.push('    o.push("<script type=\\"application/json\\" id=\\"채점자료\\">"');
+  j.push('    o.push("<scr"+"ipt type=\\"application/json\\" id=\\"채점자료\\">"');
   j.push('      + JSON.stringify(자료).replace(/</g,"\\\\u003c") + "<"+"/script>");');
   j.push('    o.push("</body></html>");');
   j.push('');
