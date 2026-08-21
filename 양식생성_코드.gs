@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v10
+ * 자료구조 수행평가 양식 생성기  v11
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,7 +16,7 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 10;
+var VER = 11;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 답안 시작 ===';
@@ -767,7 +767,10 @@ function 웹문서_(spec, 이름, info, 모양, 조각) {
   }
 
   // ---- 실행 도구 ----
-  if (실측있음) h.push(시뮬레이터_(목록));
+  if (실측있음) {
+    h.push(코드보이기_());
+    h.push(시뮬레이터_(목록, 실습데이터뽑기_(조각)));
+  }
 
   // ---- 맨 아래 ----
   h.push('<div class="bar">');
@@ -789,25 +792,117 @@ function 벗기기_(t) {
 }
 
 
+
+/**
+ * 붙여넣은 글에서 제미나이가 준 실습 데이터를 뽑는다.
+ *
+ *   data = ["가", "나", ...]     여러 줄에 걸쳐 있어도 된다
+ *   target = "나"
+ *   # 없는 값 : "다"
+ *
+ * 못 찾으면 null 을 준다. 그때는 예시 자료를 쓴다.
+ */
+function 실습데이터뽑기_(조각) {
+  var 글 = [];
+  if (조각) {
+    if (조각.재료 && 조각.재료.length) 글 = 글.concat(조각.재료);
+    if (조각.틀 && 조각.틀.length) 글 = 글.concat(조각.틀);
+  }
+  if (!글.length) return null;
+  var 전체 = 글.join('\n');
+
+  var m = /data\s*=\s*\[([\s\S]*?)\]/.exec(전체);
+  if (!m) return null;
+
+  var 값 = m[1].split(',').map(function (x) {
+    return x.replace(/^[\s\x27\x22]+/, '').replace(/[\s\x27\x22]+$/, '');
+  }).filter(function (x) { return x && x.indexOf('...') < 0; });
+
+  if (값.length < 2) return null;
+
+  // \x27 = 홑따옴표, \x22 = 겹따옴표.
+  // 정규식 안에 따옴표를 그대로 두면 검사기가 «문자열이 열렸다» 로 잘못 읽는다.
+  var t = /target\s*=\s*[\x22\x27]?([^\x22\x27\n]+)[\x22\x27]?/.exec(전체);
+  var x = /없는\s*값\s*[:\uFF1A]\s*[\x22\x27]?([^\x22\x27\n]+)[\x22\x27]?/.exec(전체);
+
+  var 찾을값 = t ? t[1].trim() : 값[Math.floor(값.length / 2)];
+  var 없는값 = x ? x[1].trim() : '';
+
+  // 없는 값이 없거나 자료 안에 들어 있으면 새로 만든다
+  if (!없는값 || 값.indexOf(없는값) >= 0) {
+    없는값 = /^\d+$/.test(값[0]) ? '99999999' : '자료에 없는 값';
+  }
+
+  return { data: 값, target: 찾을값, 없는값: 없는값, 받음: true };
+}
+
+
+/** 보고서에 함께 싣는 «쓰인 코드» — 수업에서 배운 두 알고리즘 */
+function 코드보이기_() {
+  var h = [];
+  h.push('<section>');
+  h.push('<h2>쓰인 알고리즘</h2>');
+  h.push('<p class="note">위 실행 도구는 수업에서 배운 아래 두 알고리즘 그대로 동작합니다. ');
+  h.push('보고서에 코드를 실었다는 근거가 됩니다.</p>');
+
+  h.push('<p class="tag" style="color:var(--g);margin-top:14px">순차 탐색 — O(n) · 성공 평균 (n+1)/2번, 실패 n번</p>');
+  h.push('<div class="out">' + 벗기기_([
+    'def sequential_search(data, target):',
+    '    for i, item in enumerate(data):',
+    '        if item == target:',
+    '            return i        # 탐색 성공',
+    '    return -1               # 탐색 실패'
+  ].join('\n')) + '</div>');
+
+  h.push('<p class="tag" style="color:var(--g);margin-top:14px">이진 탐색 — O(log n) · 정렬이 반드시 필요</p>');
+  h.push('<div class="out">' + 벗기기_([
+    'def binary_search(data, target):',
+    '    low, high = 0, len(data) - 1',
+    '    while low <= high:                 # 아직 범위가 남아 있으면',
+    '        mid = (low + high) // 2        # 가운데를 본다',
+    '        if data[mid] == target:',
+    '            return mid                 # 탐색 성공',
+    '        elif data[mid] < target:',
+    '            low = mid + 1              # 오른쪽 절반만 남긴다',
+    '        else:',
+    '            high = mid - 1             # 왼쪽 절반만 남긴다',
+    '    return -1                          # 탐색 실패'
+  ].join('\n')) + '</div>');
+
+  h.push('</section>');
+  return h.join('\n');
+}
+
 /** 파일 안에 넣을 탐색 시뮬레이터 + 실측 실험 */
-function 시뮬레이터_(목록) {
+function 시뮬레이터_(목록, 실습) {
+  var 기본 = { data: ['사과', '바나나', '오렌지', '포도', '수박', '참외', '딸기', '자두',
+                      '복숭아', '배', '감', '귤', '망고', '레몬', '체리', '키위',
+                      '멜론', '살구', '무화과', '석류'],
+               target: '체리', 없는값: '두리안', 받음: false };
+  var D = 실습 || 기본;
   var h = [];
   h.push('<section class="sim">');
   h.push('<h2>실행 도구 — 여기서 직접 돌리세요</h2>');
-  h.push('<p class="note">제미나이에게 받은 <b>data</b> 와 <b>target</b> 을 넣고 실행하면, ');
-  h.push('단계별 과정과 비교 횟수가 나옵니다. 그 결과를 아래 버튼으로 항목에 바로 옮길 수 있습니다.</p>');
+  if (D.받음) {
+    h.push('<p class="note"><b>제미나이가 준 실습 데이터 ' + D.data.length + '개를 이미 넣어 두었습니다.</b> ');
+    h.push('그대로 <b>실행</b>을 누르면 됩니다. 바꾸고 싶으면 고쳐도 됩니다.</p>');
+  } else {
+    h.push('<p class="note">제미나이 답변에서 실습 데이터를 찾지 못해 <b>예시 자료</b>를 넣어 두었습니다. ');
+    h.push('내 주제에 맞는 자료로 바꾸고 실행하세요.</p>');
+  }
 
   h.push('<div class="sim-ctrl">');
   h.push('<div class="row"><div>');
   h.push('<label><b>data</b> — 쉼표로 구분</label>');
-  h.push('<input id="d-data" value="난쟁이가 쏘아올린 작은 공, 데미안, 토지, 어린 왕자, 모비딕, 1984, 동물농장, 위대한 개츠비, 삼국지, 파우스트, 죄와 벌, 광장, 페스트, 자기 앞의 생, 싯다르타, 이방인, 호밀밭의 파수꾼, 백년의 고독, 노인과 바다, 수레바퀴 아래서">');
+  h.push('<input id="d-data" value="' + 벗기기_(D.data.join(', ')) + '">');
   h.push('</div></div>');
   h.push('<div class="row">');
-  h.push('<div><label><b>target</b> — 찾을 값</label><input id="d-t" value="싯다르타"></div>');
-  h.push('<div><label><b>없는 값</b> — 두 번째 실행용</label><input id="d-x" value="해리 포터와 마법사의 돌"></div>');
+  h.push('<div><label><b>target</b> — 찾을 값</label><input id="d-t" value="' + 벗기기_(D.target) + '"></div>');
+  h.push('<div><label><b>없는 값</b> — 두 번째 실행용</label><input id="d-x" value="' + 벗기기_(D.없는값) + '"></div>');
   h.push('</div>');
   h.push('<button id="run">두 방법으로 실행</button>');
   h.push('<button class="ghost" id="runx">없는 값으로 실행</button>');
+  h.push('<button class="ghost" id="runw">과정이 가장 긴 값으로 실행</button>');
   h.push('</div>');
 
   h.push('<div id="simout"></div>');
@@ -884,12 +979,28 @@ function 저장스크립트_() {
   j.push('      var rr=l.match(/범위 \\[(\\d+~\\d+)\\] \\((\\d+개)\\)/);');
   j.push('      표 += "<tr><td>"+(i+1)+"</td><td>"+(mm?mm[2]:"")+"</td><td>"+(rr?rr[1]+" ("+rr[2]+")":"")+"</td><td>"+(mm?mm[3]:"")+"</td></tr>"; });');
   j.push('    표 += "</table>";');
+  j.push('    var 힌트 = (b.찾음 && b.수 <= 2)');
+  j.push('      ? "<p class=\'note\' style=\'color:#b45309\'><b>이 값은 " + b.수 + "번 만에 찾아져 과정이 너무 짧습니다.</b> "');
+  j.push('        + "가운데에 딱 걸린 경우라 표가 " + b.수 + "줄뿐입니다. "');
+  j.push('        + "«과정이 가장 긴 값으로 실행» 도 눌러 두 경우를 함께 실으면 훨씬 좋은 근거가 됩니다.</p>"');
+  j.push('      : "";');
   j.push('    document.getElementById("simout").innerHTML =');
   j.push('      "<div class=\'out\'>"+글.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</div>"');
-  j.push('      + "<p class=\'note\'>이진 탐색 과정을 표로 정리하면</p>" + 표; }');
+  j.push('      + "<p class=\'note\'>이진 탐색 과정을 표로 정리하면</p>" + 표 + 힌트; }');
   j.push('');
   j.push('  document.getElementById("run").addEventListener("click", function(){ 돌리기(document.getElementById("d-t").value.trim()); });');
   j.push('  document.getElementById("runx").addEventListener("click", function(){ 돌리기(document.getElementById("d-x").value.trim()); });');
+  j.push('');
+  j.push('  // 이진 탐색이 가장 여러 단계 걸리는 값을 찾아 준다.');
+  j.push('  // 가운데에 딱 걸리는 값을 고르면 한 번에 끝나 표가 한 줄뿐이라 근거가 약하다.');
+  j.push('  document.getElementById("runw").addEventListener("click", function(){');
+  j.push('    var a=값들(); if(a.length<2){ alert("data 를 두 개 이상 넣어 주세요."); return; }');
+  j.push('    var b=a.slice().sort(), 고른값=b[0], 최대=0;');
+  j.push('    b.forEach(function(v){ var lo=0,hi=b.length-1,n=0;');
+  j.push('      while(lo<=hi){ var m=Math.floor((lo+hi)/2); n++;');
+  j.push('        if(b[m]===v) break; else if(b[m]<v) lo=m+1; else hi=m-1; }');
+  j.push('      if(n>최대){ 최대=n; 고른값=v; } });');
+  j.push('    document.getElementById("d-t").value=고른값; 돌리기(고른값); });');
   j.push('');
   j.push('  document.getElementById("bench").addEventListener("click", function(){');
   j.push('    var b=this; b.disabled=true; b.textContent="재는 중...";');
