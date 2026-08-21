@@ -1,5 +1,5 @@
 /**
- * 자료구조 수행평가 양식 생성기  v8
+ * 자료구조 수행평가 양식 생성기  v9
  * 조선대학교부속고등학교 · 2026학년도 2학기 · 3학년 「자료구조」
  *
  * 학생이 밟는 순서
@@ -16,13 +16,15 @@
 
 var 폴더이름 = '자료구조 수행평가';
 var 교사이메일 = '';          // 적어 두면 만든 문서가 자동으로 공유됩니다
-var VER = 8;
+var VER = 9;
 
 var 빈칸 = '【                                                            】';
 var 시작표 = '=== 답안 시작 ===';
 var 끝표 = '=== 답안 끝 ===';
 
 // 문서에서 학생이 직접 고쳐 쓸 자리의 제목
+var 장표빈칸 = '【  여기에 내 문장으로 다시 쓰기  】';
+
 var 초안표 = 'AI 초안 — 읽고 고쳐 쓸 것';
 var 점검표 = '이 초안에서 확인 · 수정할 곳';
 var 내글표 = '내가 고쳐 쓴 글   ← 채점 대상';
@@ -648,29 +650,70 @@ function 슬라이드_(spec, 이름, info, 모양, 조각) {
   var pres = SlidesApp.create(이름);
   var c = 테마[모양.theme] || 테마.teal;
   var ff = 글꼴이름[모양.font] || 글꼴이름['본고딕'];
+  var 본문크기 = (모양.size === '크게') ? 16 : 14;
 
+  // ---- 표지 ----
   var 표지 = pres.getSlides()[0];
   if (모양.cover !== false) {
     글넣기_(표지, SlidesApp.PlaceholderType.CENTERED_TITLE, spec.제목, ff, c.큰제목);
-    글넣기_(표지, SlidesApp.PlaceholderType.SUBTITLE, spec.부제 + '\n' + 머리글_(info), ff, c.안내);
+    글넣기_(표지, SlidesApp.PlaceholderType.SUBTITLE,
+            spec.부제 + '\n' + 머리글_(info), ff, c.안내);
   } else {
     표지.remove();
   }
 
-  var 장 = (조각 && 조각.틀) ? 장나누기_(조각.틀) : 기본장_(spec, 모양);
-  장.forEach(function (s) {
-    var slide = pres.appendSlide(SlidesApp.PredefinedLayout.TITLE_AND_BODY);
-    글넣기_(slide, SlidesApp.PlaceholderType.TITLE, s.제목, ff, c.큰제목);
-    글넣기_(slide, SlidesApp.PlaceholderType.BODY, s.내용.join('\n'), ff, null);
-  });
+  /** 장표 한 장 만들기 */
+  function 장(제목, 줄들, 제목색) {
+    var sl = pres.appendSlide(SlidesApp.PredefinedLayout.TITLE_AND_BODY);
+    글넣기_(sl, SlidesApp.PlaceholderType.TITLE, 제목, ff, 제목색 || c.큰제목);
+    글넣기_(sl, SlidesApp.PlaceholderType.BODY, 줄들.join('\n'), ff, null, 본문크기);
+    return sl;
+  }
 
-  // 참고 재료는 뒤에 «제출 전 삭제» 장표로 붙인다
+  var 항목들 = (조각 && 조각.틀) ? 항목쪼개기_(조각.틀) : null;
+
+  // ---- 쓰는 법 ----
+  if (항목들 && 항목들.length) {
+    장('이 장표를 쓰는 법', [
+      '① 「AI 초안」 장을 읽는다',
+      '② 「확인 · 수정할 곳」 을 보며 무엇이 부족한지 찾는다',
+      '③ 「내가 고쳐 쓴 글」 장에 내 문장으로 다시 쓴다',
+      '',
+      '채점은 ③ 만 봅니다.',
+      '초안을 그대로 두고 내면 평가 규정에 따라 해당 평가요소 최하점입니다.',
+      '다 고친 뒤 「AI 초안」 장은 지워도 됩니다.'
+    ], c.안내);
+  }
+
+  // ---- 항목마다 두 장 ----
+  if (항목들 && 항목들.length) {
+    항목들.forEach(function (it) {
+      var 초안 = it.초안.length ? it.초안 : ['(초안이 없습니다)'];
+      묶기_(초안, 9).forEach(function (덩어리, n) {
+        장(it.제목 + '  —  AI 초안' + (n ? ' (이어서)' : ''), 덩어리, c.안내);
+      });
+
+      var 뒤 = [];
+      if (it.점검.length) {
+        뒤.push('[ 확인 · 수정할 곳 ]');
+        it.점검.forEach(function (l) { 뒤.push(l); });
+        뒤.push('');
+      }
+      뒤.push('[ 내가 고쳐 쓴 글 — 채점 대상 ]');
+      뒤.push(장표빈칸);
+      뒤.push('');
+      뒤.push('');
+      장(it.제목 + '  —  내가 고쳐 쓸 곳', 뒤, c.큰제목);
+    });
+  } else {
+    기본장_(spec, 모양).forEach(function (x) { 장(x.제목, x.내용); });
+  }
+
+  // ---- 참고 재료 ----
   if (모양.material !== false && 조각 && 조각.재료 && 조각.재료.length) {
-    묶기_(조각.재료, 13).forEach(function (덩어리, n) {
-      var slide = pres.appendSlide(SlidesApp.PredefinedLayout.TITLE_AND_BODY);
-      글넣기_(slide, SlidesApp.PlaceholderType.TITLE,
-              '참고 재료 ' + (n + 1) + ' · 제출 전 삭제', ff, c.안내);
-      글넣기_(slide, SlidesApp.PlaceholderType.BODY, 덩어리.join('\n'), ff, null);
+    var 재료 = 조각.재료.map(다듬은줄_).filter(function (l) { return l !== ''; });
+    묶기_(재료, 11).forEach(function (덩어리, n) {
+      장('참고 재료 ' + (n + 1) + '  ·  제출 전 삭제', 덩어리, c.안내);
     });
   }
 
@@ -678,24 +721,64 @@ function 슬라이드_(spec, 이름, info, 모양, 조각) {
   return pres.getId();
 }
 
-/** 붙여넣은 틀을 ## 기준으로 장표마다 쪼갠다 */
-function 장나누기_(줄들) {
-  var 장 = [], 지금 = null;
+
+/**
+ * 붙여넣은 답안을 항목별로 쪼갠다.
+ *   { 제목: '1. …', 초안: [줄], 점검: [줄] }
+ * ### 초안 / ### 확인·수정할 곳 을 나눠 담고, 없으면 전부 초안으로 본다.
+ */
+function 항목쪼개기_(줄들) {
+  var 항목 = [], 지금 = null, 칸 = '초안', 코드중 = false;
+
   줄들.forEach(function (raw) {
     var t = raw.trim();
+
+    if (/^```/.test(t)) { 코드중 = !코드중; return; }
+    if (코드중) { if (지금 && t) 지금[칸].push(t); return; }
+
     if (t.indexOf('## ') === 0) {
-      지금 = { 제목: t.substring(3).trim(), 내용: [] };
-      장.push(지금);
-    } else if (지금) {
-      if (t.indexOf('# ') === 0) return;
-      if (t.indexOf('> ') === 0) 지금.내용.push(t.substring(2).trim());
-      else if (t) 지금.내용.push(t);
+      지금 = { 제목: t.substring(3).trim(), 초안: [], 점검: [] };
+      항목.push(지금);
+      칸 = '초안';
+      return;
     }
+    if (t.indexOf('# ') === 0) return;      // 보고서 제목은 표지에 있다
+    if (!지금) return;
+
+    if (t.indexOf('### ') === 0) {
+      칸 = /확인|수정/.test(t) ? '점검' : '초안';
+      return;
+    }
+    if (!t) return;
+
+    var 줄 = 다듬은줄_(t);
+    if (줄) 지금[칸].push(줄);
   });
-  return 장.length ? 장 : [{ 제목: '내용', 내용: 줄들 }];
+
+  return 항목;
 }
 
-/** 줄 배열을 n 줄씩 나눈다 */
+
+/** 장표에 넣기 좋게 기호를 다듬는다. 버릴 줄이면 빈 문자열을 준다. */
+function 다듬은줄_(raw) {
+  var t = String(raw).trim();
+  if (!t) return '';
+
+  var 칸 = 표줄_(t);
+  if (칸) {
+    if (구분줄_(칸)) return '';
+    var 값 = 칸.filter(function (x) { return x; });
+    return 값.length ? '· ' + 값.join('   |   ') : '';
+  }
+
+  if (/^-{3,}$/.test(t)) return '';
+  if (/^#{1,6}\s/.test(t)) return t.replace(/^#{1,6}\s+/, '');
+  if (t.indexOf('- ') === 0 || t.indexOf('· ') === 0) return '· ' + t.substring(2).trim();
+  if (t.indexOf('> ') === 0) return t.substring(2).trim();
+  return t;
+}
+
+
 function 묶기_(줄들, n) {
   var 결과 = [], 지금 = [];
   줄들.forEach(function (l) {
@@ -716,7 +799,7 @@ function 기본장_(spec, 모양) {
   });
 }
 
-function 글넣기_(slide, type, text, ff, color) {
+function 글넣기_(slide, type, text, ff, color, size) {
   var ph = slide.getPlaceholder(type);
   if (!ph) return;
   var tr = ph.asShape().getText();
@@ -725,7 +808,8 @@ function 글넣기_(slide, type, text, ff, color) {
     var st = tr.getTextStyle();
     st.setFontFamily(ff);
     if (color) st.setForegroundColor(color);
-  } catch (e) { /* 글꼴을 못 바꿔도 넘어간다 */ }
+    if (size) st.setFontSize(size);
+  } catch (e) { /* 글꼴·크기를 못 바꿔도 넘어간다 */ }
 }
 
 
